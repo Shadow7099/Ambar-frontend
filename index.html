@@ -20,6 +20,63 @@
 html{scroll-behavior:smooth;}
 body{background:var(--admin);font-family:var(--font-b);color:var(--paper);min-height:100vh;display:flex;overflow-x:hidden;}
 
+
+/* ── LOGIN SCREEN ── */
+.login-screen{
+  position:fixed;inset:0;z-index:9999;
+  background:#0E0C0A;
+  display:flex;align-items:center;justify-content:center;
+  padding:1.5rem;
+}
+.login-screen.hidden{display:none;}
+.login-box{
+  width:100%;max-width:400px;
+  border:1px solid rgba(196,154,60,0.25);
+  background:#120F0C;
+  padding:2.5rem 2rem;
+  animation:fadeIn 0.4s ease both;
+}
+.login-logo{text-align:center;margin-bottom:2rem;}
+.login-logo-name{font-family:'Cormorant Garamond',serif;font-size:2rem;font-weight:400;letter-spacing:0.25em;color:var(--gold-l);}
+.login-logo-sub{font-size:0.42rem;letter-spacing:0.5em;text-transform:uppercase;color:rgba(196,154,60,0.35);margin-top:2px;}
+.login-tag{font-size:0.48rem;letter-spacing:0.3em;text-transform:uppercase;color:rgba(250,247,242,0.2);text-align:center;margin-bottom:1.75rem;}
+.login-fg{margin-bottom:1rem;}
+.login-fg label{display:block;font-size:0.5rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(250,247,242,0.3);margin-bottom:0.45rem;}
+.login-fg input{
+  width:100%;padding:0.75rem 0.9rem;
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(196,154,60,0.18);
+  color:var(--paper);font-family:var(--font-b);font-size:0.82rem;
+  outline:none;transition:border-color 0.2s;
+}
+.login-fg input:focus{border-color:rgba(196,154,60,0.55);}
+.login-fg input::placeholder{color:rgba(250,247,242,0.18);}
+.login-btn{
+  width:100%;padding:0.85rem;
+  background:var(--gold);color:var(--ink);
+  border:none;font-family:var(--font-b);
+  font-size:0.65rem;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;
+  cursor:pointer;transition:opacity 0.2s;margin-top:0.5rem;
+}
+.login-btn:hover{opacity:0.88;}
+.login-btn:disabled{opacity:0.4;cursor:not-allowed;}
+.login-err{
+  font-size:0.68rem;color:var(--rose);text-align:center;
+  margin-top:0.75rem;min-height:1.2em;
+}
+.login-user-bar{
+  display:flex;align-items:center;gap:0.6rem;
+  font-size:0.58rem;color:rgba(250,247,242,0.3);
+}
+.logout-btn{
+  padding:0.3rem 0.7rem;background:none;
+  border:1px solid rgba(196,154,60,0.15);
+  color:rgba(250,247,242,0.3);font-family:var(--font-b);
+  font-size:0.52rem;letter-spacing:0.1em;text-transform:uppercase;
+  cursor:pointer;transition:all 0.2s;
+}
+.logout-btn:hover{border-color:var(--rose);color:var(--rose);}
+
 /* ── SIDEBAR ── */
 .sidebar{
   width:var(--sidebar);flex-shrink:0;
@@ -305,6 +362,28 @@ body{background:var(--admin);font-family:var(--font-b);color:var(--paper);min-he
 </head>
 <body>
 
+<!-- LOGIN SCREEN -->
+<div class="login-screen" id="loginScreen">
+  <div class="login-box">
+    <div class="login-logo">
+      <div class="login-logo-name">AMBAR</div>
+      <div class="login-logo-sub">Couture</div>
+    </div>
+    <div class="login-tag">Panel Administrativo · Acceso restringido</div>
+    <div class="login-fg">
+      <label>Correo electrónico</label>
+      <input type="email" id="login-email" placeholder="admin@ambarcouture.com" autocomplete="email">
+    </div>
+    <div class="login-fg">
+      <label>Contraseña</label>
+      <input type="password" id="login-pass" placeholder="••••••••" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
+    </div>
+    <button class="login-btn" id="loginBtn" onclick="doLogin()">Ingresar al panel</button>
+    <div class="login-err" id="loginErr"></div>
+  </div>
+</div>
+
+
 <!-- SIDEBAR -->
 <nav class="sidebar" id="sidebar">
   <div class="sb-logo">
@@ -353,6 +432,7 @@ body{background:var(--admin);font-family:var(--font-b);color:var(--paper);min-he
       <div class="topbar-sub" id="topSub">Vista mensual · Todas las sedes</div>
     </div>
     <div class="topbar-right">
+      <div class="login-user-bar"><span id="userEmail"></span><button class="logout-btn" onclick="doLogout()">Cerrar sesión</button></div>
       <button class="tb-btn" onclick="setView('nueva')">✚ Nueva sesión</button>
       <button class="ham-btn" onclick="toggleSidebar()">☰</button>
     </div>
@@ -647,14 +727,68 @@ function genId(){ return 'ses_'+Date.now()+'_'+Math.random().toString(36).slice(
 async function initSupabase(){
   try {
     sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-    showToast('⏳ Conectando con Supabase...');
-    await loadSessions();
+    // Check if already logged in
+    const { data: { session } } = await sb.auth.getSession();
+    if(session){
+      showApp(session.user);
+      await loadSessions();
+    } else {
+      document.getElementById('loginScreen').classList.remove('hidden');
+    }
+    // Listen for auth changes
+    sb.auth.onAuthStateChange((event, session) => {
+      if(event === 'SIGNED_IN' && session){
+        showApp(session.user);
+      } else if(event === 'SIGNED_OUT'){
+        hideApp();
+      }
+    });
   } catch(e){
     showToast('❌ Error de conexión. Revisa tus credenciales en el código.');
   }
 }
 
+function showApp(user){
+  document.getElementById('loginScreen').classList.add('hidden');
+  document.getElementById('userEmail').textContent = user.email;
+  drawCal(); updateStats(); updateCounts();
+}
+
+function hideApp(){
+  document.getElementById('loginScreen').classList.remove('hidden');
+  document.getElementById('userEmail').textContent = '';
+}
+
+async function doLogin(){
+  const email = document.getElementById('login-email').value.trim();
+  const pass  = document.getElementById('login-pass').value;
+  const btn   = document.getElementById('loginBtn');
+  const err   = document.getElementById('loginErr');
+  err.textContent = '';
+  if(!email||!pass){ err.textContent = 'Completa correo y contraseña'; return; }
+  btn.disabled = true; btn.textContent = 'Ingresando...';
+  try {
+    const { data, error } = await sb.auth.signInWithPassword({ email, password: pass });
+    if(error) throw error;
+    await loadSessions();
+  } catch(e){
+    const msgs = {
+      'Invalid login credentials': 'Correo o contraseña incorrectos',
+      'Email not confirmed': 'Debes confirmar tu correo primero',
+    };
+    err.textContent = msgs[e.message] || e.message;
+  }
+  btn.disabled = false; btn.textContent = 'Ingresar al panel';
+}
+
+async function doLogout(){
+  await sb.auth.signOut();
+  showToast('👋 Sesión cerrada');
+}
+
 async function loadSessions(){
+  const { data: { session } } = await sb.auth.getSession();
+  if(!session) return;
   try {
     const { data, error } = await sb.from('sesiones').select('*').order('fecha').order('hora');
     if(error) throw error;
