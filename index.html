@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AMBAR Couture — Vista Previa</title>
+<title>AMBAR Couture - Vista Previa</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -206,9 +206,9 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 3rem 2.5rem;}
   color:rgba(250,247,242,0.25);
 }
 
-/* ══════════════════════════════════════
-   RESPONSIVE — TABLET (≤ 1024px)
-══════════════════════════════════════ */
+/* ======================================
+   RESPONSIVE - TABLET (≤ 1024px)
+====================================== */
 @media(max-width:1024px){
   .nav{padding:0.75rem 1.5rem;}
   .nav-link{display:none;}
@@ -225,9 +225,9 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 3rem 2.5rem;}
   .modal{grid-template-columns:1fr 1fr;}
 }
 
-/* ══════════════════════════════════════
-   RESPONSIVE — MÓVIL (≤ 640px)
-══════════════════════════════════════ */
+/* ======================================
+   RESPONSIVE - MÓVIL (≤ 640px)
+====================================== */
 @media(max-width:640px){
   /* Nav móvil */
   .nav{padding:0.65rem 1.1rem;}
@@ -310,9 +310,9 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 3rem 2.5rem;}
 
 
 
-/* ══════════════════════════════════════
+/* ======================================
    PORTAFOLIO · Galería por artista
-══════════════════════════════════════ */
+====================================== */
 .portfolio{
   background:#0A0806;
   padding:0;
@@ -390,7 +390,7 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 3rem 2.5rem;}
 .pf-tag-item{padding:0.25rem 0.7rem;border:1px solid rgba(196,154,60,0.18);
   font-size:0.52rem;letter-spacing:0.1em;color:rgba(250,247,242,0.4);}
 
-/* Photo grid — masonry-like */
+/* Photo grid - masonry-like */
 .pf-grid{
   display:grid;
   grid-template-columns:repeat(4,1fr);
@@ -424,7 +424,7 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 3rem 2.5rem;}
 .pf-photo.tall .ph-inner{padding-top:0;height:100%;}
 .pf-photo.wide .ph-inner{padding-top:56%;}
 
-/* Placeholder gradients — queued by position */
+/* Placeholder gradients - queued by position */
 .pg-ph{position:absolute;inset:0;}
 .pg-c1{background:linear-gradient(160deg,#1A1208,#C49A3C 80%,#F0D890);}
 .pg-c2{background:linear-gradient(200deg,#120E18,#4A2A5A 60%,#C090D0);}
@@ -619,7 +619,7 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 3rem 2.5rem;}
     <button class="pf-tab" onclick="pfSetSede('villavicencio',this)">🌿 Villavicencio</button>
   </div>
 
-  <!-- ══ BOGOTÁ ══ -->
+  <!-- == BOGOTÁ == -->
   <div class="pf-sede active" id="pf-bogota">
 
     <!-- Nicolay -->
@@ -729,7 +729,7 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 3rem 2.5rem;}
 
   </div><!-- /pf-bogota -->
 
-  <!-- ══ BARRANQUILLA ══ -->
+  <!-- == BARRANQUILLA == -->
   <div class="pf-sede" id="pf-barranquilla">
 
     <!-- Carlos -->
@@ -803,7 +803,7 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 3rem 2.5rem;}
 
   </div><!-- /pf-barranquilla -->
 
-  <!-- ══ VILLAVICENCIO ══ -->
+  <!-- == VILLAVICENCIO == -->
   <div class="pf-sede" id="pf-villavicencio">
 
     <!-- Anyelo -->
@@ -993,44 +993,44 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 3rem 2.5rem;}
 </footer>
 
 <script>
-// ═══════ DATA ═══════
+// ======= DATA =======
 const SEDES = {
-  bogota:       {name:'Bogotá D.C.',  icon:'🏙️'},
-  barranquilla: {name:'Barranquilla', icon:'🌴'},
-  villavicencio:{name:'Villavicencio',icon:'🌿'},
+  bogota:       {name:'Bogotá D.C.',  icon:''},
+  barranquilla: {name:'Barranquilla', icon:''},
+  villavicencio:{name:'Villavicencio',icon:''},
 };
 
 const ARTISTS = {
-  // BOGOTÁ — Fotógrafos (solo Nicolay, Anyelo es solo Villavicencio)
-  nicolay_bog:{id:'nicolay_bog',t:'photographer', sede:'bogota',        name:'Nicolay',         role:'Fotógrafo · Editorial · Exterior',     price:900000,  r:4.8, s:95,  ok:true,  tags:['Pre-XV','Exterior','Editorial','Moda'],           bio:'Fotógrafo editorial con dominio de luz natural y exteriors en Bogotá.',g:'linear-gradient(160deg,#1A2030,#6080A0)', extra:null},
-  // BARRANQUILLA — Fotógrafo
-  carlos:     {id:'carlos',     t:'photographer', sede:'barranquilla',  name:'Carlos Ibáñez',   role:'Fotógrafo · Cinemático · Playa',       price:3500000, r:4.9, s:110, ok:true,  tags:['Pre-XV','Playa','Cinemático','Golden Hour'],      bio:'Maestro del Caribe. Sesiones con la magia del atardecer costeño.',g:'linear-gradient(160deg,#1C2818,#90B080)', extra:null},
-  // VILLAVICENCIO — Fotógrafos
-  anyelo_vll: {id:'anyelo_vll', t:'photographer', sede:'villavicencio', name:'Anyelo',          role:'Fotógrafo · Llanos · Golden Hour',     price:2800000, r:4.9, s:80,  ok:true,  tags:['Pre-XV','Llanos','Exterior','Golden Hour'],       bio:'Especialista en sesiones en los Llanos con luz natural.',         g:'linear-gradient(160deg,#1A2010,#90A860)', extra:null},
-  nicolay_vll:{id:'nicolay_vll',t:'photographer', sede:'villavicencio', name:'Nicolay',         role:'Fotógrafo · Hacienda · Naturaleza',    price:2900000, r:4.8, s:60,  ok:true,  tags:['Pre-XV','Hacienda','Naturaleza','Caballos'],       bio:'Haciendas y fincas llaneras. Elegancia del campo con luz dorada.', g:'linear-gradient(160deg,#201810,#B08050)', extra:null},
-  // BOGOTÁ — Maquilladoras
-  catalina:   {id:'catalina',   t:'makeup',       sede:'bogota',        name:'Catalina',        role:'Maquilladora · Glam · Nupcial',        price:500000,  r:5.0, s:210, ok:true,  tags:['Glam','Nupcial','Airbrush'],                      bio:'Técnica airbrush, looks de larga duración. La favorita de Bogotá.',g:'linear-gradient(160deg,#2C1818,#E89090)', extra:null},
-  samy:       {id:'samy',       t:'makeup',       sede:'bogota',        name:'Samy',            role:'Maquilladora · Natural · Editorial',   price:500000,  r:4.9, s:178, ok:true,  tags:['Natural','Editorial','Soft Glam'],                bio:'Looks naturales que realzan la belleza sin perder frescura.',     g:'linear-gradient(160deg,#281C28,#D090C0)', extra:null},
-  // BARRANQUILLA — Maquilladora
-  paola:      {id:'paola',      t:'makeup',       sede:'barranquilla',  name:'Paola Herrera',   role:'Maquilladora · Tropical · Glam',       price:1150000, r:4.8, s:134, ok:true,  tags:['Glam','Tropical','Colorido'],                    bio:'Maquillaje vibrante inspirado en la alegría caribeña.',          g:'linear-gradient(160deg,#202830,#A0C0D0)', extra:null},
-  // VILLAVICENCIO — Maquilladoras
-  laura:      {id:'laura',      t:'makeup',       sede:'villavicencio', name:'Laura',           role:'Maquilladora · Clásico · Elegante',    price:1100000, r:4.9, s:130, ok:true,  tags:['Clásico','Elegante','Natural'],                   bio:'Looks atemporales con acabados impecables bajo el sol llanero.',  g:'linear-gradient(160deg,#28201C,#C0A890)', extra:null},
-  luisa:      {id:'luisa',      t:'makeup',       sede:'villavicencio', name:'Luisa',           role:'Maquilladora · Natural · Campo',       price:950000,  r:4.8, s:98,  ok:true,  tags:['Natural','Campo','Soft Glam'],                    bio:'Especialista en looks frescos para sesiones al aire libre.',      g:'linear-gradient(160deg,#202818,#A0B080)', extra:null},
-  // CABALLOS — Bogotá: precio a coordinar con criadero
-  sultan:     {id:'sultan',     t:'horse',        sede:'bogota',        name:'Sultán',          role:'Caballo · Paso Fino Colombiano',       price:null, priceLabel:'Precio a coordinar', r:5.0, s:67, ok:true, tags:['Paso Fino','Blanco','Manso'],          bio:'Paso Fino blanco, temperamento manso, entrenado para fotos.',    g:'linear-gradient(160deg,#C8C0B0,#F8F4EE)', extra:{raza:'Paso Fino',color:'Blanco',edad:'8 años'}},
-  luna:       {id:'luna',       t:'horse',        sede:'bogota',        name:'Luna',            role:'Caballo · Andaluz · Plateado',         price:null, priceLabel:'Precio a coordinar', r:4.9, s:45, ok:true, tags:['Andaluz','Gris plateado','Elegante'],  bio:'Yegua andaluza. Pelaje gris plateado espectacular en golden hour.',g:'linear-gradient(160deg,#808090,#D0D0E0)', extra:{raza:'Andaluz',color:'Gris plateado',edad:'6 años'}},
-  canela2bog: {id:'canela2bog', t:'horse',        sede:'bogota',        name:'Canela',          role:'Caballo · Paso Fino · Castaño',        price:null, priceLabel:'Precio a coordinar', r:4.8, s:38, ok:true, tags:['Paso Fino','Castaño','Exterior'],      bio:'Castaño dorado, ideal para sesiones exteriores en Bogotá.',      g:'linear-gradient(160deg,#5A3010,#C08840)', extra:{raza:'Paso Fino',color:'Castaño dorado',edad:'7 años'}},
-  brioso:     {id:'brioso',     t:'horse',        sede:'bogota',        name:'Brioso',          role:'Caballo · Criollo Colombiano · Bayo',  price:null, priceLabel:'Precio a coordinar', r:4.8, s:29, ok:true, tags:['Criollo','Bayo','Llanos'],             bio:'Criollo bayo de gran porte. Estampa única para sesiones campestres.',g:'linear-gradient(160deg,#7A6030,#C0A050)', extra:{raza:'Criollo Colombiano',color:'Bayo',edad:'7 años'}},
-  // CABALLOS — Villavicencio: precio fijo
-  rey:        {id:'rey',        t:'horse',        sede:'villavicencio', name:'Rey',             role:'Caballo · Criollo Llanero · Negro',    price:300000,  r:5.0, s:89,  ok:true,  tags:['Criollo Llanero','Negro','Llanos'],                bio:'89 sesiones en los Llanos. Criollo negro azabache insuperable.',  g:'linear-gradient(160deg,#080808,#303030)', extra:{raza:'Criollo Llanero',color:'Negro azabache',edad:'9 años'}},
-  paloma:     {id:'paloma',     t:'horse',        sede:'villavicencio', name:'Paloma',          role:'Caballo · Árabe · Blanco',             price:420000,  r:4.9, s:41,  ok:true,  tags:['Árabe','Blanco','Editorial'],                     bio:'Yegua árabe editorial. Imágenes de ensueño en la sabana llanera.',g:'linear-gradient(160deg,#E0D8C8,#FDFAF5)', extra:{raza:'Árabe',color:'Blanco puro',edad:'5 años'}},
+  // BOGOTÁ - Fotógrafos (solo Nicolay, Anyelo es solo Villavicencio)
+  nicolay_bog:{id:'nicolay_bog',t:'photographer', sede:'bogota',        name:'Nicolay',         role:'Fotógrafo . Editorial . Exterior',     price:900000,  r:4.8, s:95,  ok:true,  tags:['Pre-XV','Exterior','Editorial','Moda'],           bio:'Fotógrafo editorial con dominio de luz natural y exteriors en Bogotá.',g:'linear-gradient(160deg,#1A2030,#6080A0)', extra:null},
+  // BARRANQUILLA - Fotógrafo
+  carlos:     {id:'carlos',     t:'photographer', sede:'barranquilla',  name:'Carlos Ibáñez',   role:'Fotógrafo . Cinemático . Playa',       price:3500000, r:4.9, s:110, ok:true,  tags:['Pre-XV','Playa','Cinemático','Golden Hour'],      bio:'Maestro del Caribe. Sesiones con la magia del atardecer costeño.',g:'linear-gradient(160deg,#1C2818,#90B080)', extra:null},
+  // VILLAVICENCIO - Fotógrafos
+  anyelo_vll: {id:'anyelo_vll', t:'photographer', sede:'villavicencio', name:'Anyelo',          role:'Fotógrafo . Llanos . Golden Hour',     price:2800000, r:4.9, s:80,  ok:true,  tags:['Pre-XV','Llanos','Exterior','Golden Hour'],       bio:'Especialista en sesiones en los Llanos con luz natural.',         g:'linear-gradient(160deg,#1A2010,#90A860)', extra:null},
+  nicolay_vll:{id:'nicolay_vll',t:'photographer', sede:'villavicencio', name:'Nicolay',         role:'Fotógrafo . Hacienda . Naturaleza',    price:2900000, r:4.8, s:60,  ok:true,  tags:['Pre-XV','Hacienda','Naturaleza','Caballos'],       bio:'Haciendas y fincas llaneras. Elegancia del campo con luz dorada.', g:'linear-gradient(160deg,#201810,#B08050)', extra:null},
+  // BOGOTÁ - Maquilladoras
+  catalina:   {id:'catalina',   t:'makeup',       sede:'bogota',        name:'Catalina',        role:'Maquilladora . Glam . Nupcial',        price:500000,  r:5.0, s:210, ok:true,  tags:['Glam','Nupcial','Airbrush'],                      bio:'Técnica airbrush, looks de larga duración. La favorita de Bogotá.',g:'linear-gradient(160deg,#2C1818,#E89090)', extra:null},
+  samy:       {id:'samy',       t:'makeup',       sede:'bogota',        name:'Samy',            role:'Maquilladora . Natural . Editorial',   price:500000,  r:4.9, s:178, ok:true,  tags:['Natural','Editorial','Soft Glam'],                bio:'Looks naturales que realzan la belleza sin perder frescura.',     g:'linear-gradient(160deg,#281C28,#D090C0)', extra:null},
+  // BARRANQUILLA - Maquilladora
+  paola:      {id:'paola',      t:'makeup',       sede:'barranquilla',  name:'Paola Herrera',   role:'Maquilladora . Tropical . Glam',       price:1150000, r:4.8, s:134, ok:true,  tags:['Glam','Tropical','Colorido'],                    bio:'Maquillaje vibrante inspirado en la alegría caribeña.',          g:'linear-gradient(160deg,#202830,#A0C0D0)', extra:null},
+  // VILLAVICENCIO - Maquilladoras
+  laura:      {id:'laura',      t:'makeup',       sede:'villavicencio', name:'Laura',           role:'Maquilladora . Clásico . Elegante',    price:1100000, r:4.9, s:130, ok:true,  tags:['Clásico','Elegante','Natural'],                   bio:'Looks atemporales con acabados impecables bajo el sol llanero.',  g:'linear-gradient(160deg,#28201C,#C0A890)', extra:null},
+  luisa:      {id:'luisa',      t:'makeup',       sede:'villavicencio', name:'Luisa',           role:'Maquilladora . Natural . Campo',       price:950000,  r:4.8, s:98,  ok:true,  tags:['Natural','Campo','Soft Glam'],                    bio:'Especialista en looks frescos para sesiones al aire libre.',      g:'linear-gradient(160deg,#202818,#A0B080)', extra:null},
+  // CABALLOS - Bogotá: precio a coordinar con criadero
+  sultan:     {id:'sultan',     t:'horse',        sede:'bogota',        name:'Sultán',          role:'Caballo . Paso Fino Colombiano',       price:null, priceLabel:'Precio a coordinar', r:5.0, s:67, ok:true, tags:['Paso Fino','Blanco','Manso'],          bio:'Paso Fino blanco, temperamento manso, entrenado para fotos.',    g:'linear-gradient(160deg,#C8C0B0,#F8F4EE)', extra:{raza:'Paso Fino',color:'Blanco',edad:'8 años'}},
+  luna:       {id:'luna',       t:'horse',        sede:'bogota',        name:'Luna',            role:'Caballo . Andaluz . Plateado',         price:null, priceLabel:'Precio a coordinar', r:4.9, s:45, ok:true, tags:['Andaluz','Gris plateado','Elegante'],  bio:'Yegua andaluza. Pelaje gris plateado espectacular en golden hour.',g:'linear-gradient(160deg,#808090,#D0D0E0)', extra:{raza:'Andaluz',color:'Gris plateado',edad:'6 años'}},
+  canela2bog: {id:'canela2bog', t:'horse',        sede:'bogota',        name:'Canela',          role:'Caballo . Paso Fino . Castaño',        price:null, priceLabel:'Precio a coordinar', r:4.8, s:38, ok:true, tags:['Paso Fino','Castaño','Exterior'],      bio:'Castaño dorado, ideal para sesiones exteriores en Bogotá.',      g:'linear-gradient(160deg,#5A3010,#C08840)', extra:{raza:'Paso Fino',color:'Castaño dorado',edad:'7 años'}},
+  brioso:     {id:'brioso',     t:'horse',        sede:'bogota',        name:'Brioso',          role:'Caballo . Criollo Colombiano . Bayo',  price:null, priceLabel:'Precio a coordinar', r:4.8, s:29, ok:true, tags:['Criollo','Bayo','Llanos'],             bio:'Criollo bayo de gran porte. Estampa única para sesiones campestres.',g:'linear-gradient(160deg,#7A6030,#C0A050)', extra:{raza:'Criollo Colombiano',color:'Bayo',edad:'7 años'}},
+  // CABALLOS - Villavicencio: precio fijo
+  rey:        {id:'rey',        t:'horse',        sede:'villavicencio', name:'Rey',             role:'Caballo . Criollo Llanero . Negro',    price:300000,  r:5.0, s:89,  ok:true,  tags:['Criollo Llanero','Negro','Llanos'],                bio:'89 sesiones en los Llanos. Criollo negro azabache insuperable.',  g:'linear-gradient(160deg,#080808,#303030)', extra:{raza:'Criollo Llanero',color:'Negro azabache',edad:'9 años'}},
+  paloma:     {id:'paloma',     t:'horse',        sede:'villavicencio', name:'Paloma',          role:'Caballo . Árabe . Blanco',             price:420000,  r:4.9, s:41,  ok:true,  tags:['Árabe','Blanco','Editorial'],                     bio:'Yegua árabe editorial. Imágenes de ensueño en la sabana llanera.',g:'linear-gradient(160deg,#E0D8C8,#FDFAF5)', extra:{raza:'Árabe',color:'Blanco puro',edad:'5 años'}},
 };
 
-// ═══════ STATE ═══════
+// ======= STATE =======
 let sede='bogota', filter='all';
 
 
-// ═══════ COUNTS ═══════
+// ======= COUNTS =======
 function updateCounts(){
   ['bogota','barranquilla','villavicencio'].forEach(s=>{
     const n=Object.values(ARTISTS).filter(a=>a.sede===s).length;
@@ -1039,7 +1039,7 @@ function updateCounts(){
 }
 
 
-// ══ PORTFOLIO ══
+// == PORTFOLIO ==
 const PF_ARTISTS = {
   'nicolay-bog': {name:'Nicolay', sede:'Bogotá', gradient:'linear-gradient(160deg,#1A2030,#6080A0)', photos:12},
   'catalina':    {name:'Catalina', sede:'Bogotá', gradient:'linear-gradient(160deg,#2C1818,#E89090)', photos:10},
@@ -1141,7 +1141,7 @@ function renderLb(){
   const ang = 140+(lbIndex*20)%80;
   const bg = artist.gradient.replace('160deg',ang+'deg');
   document.getElementById('lbContent').style.cssText=`width:min(80vw,700px);height:min(80vh,500px);background:${bg} center/cover no-repeat;background-image:url('img/${lbArtist}/muestra-${lbIndex+1}.jpg')`;
-  document.getElementById('lbInfo').textContent=`${artist.name} · ${artist.sede} · Foto ${lbIndex+1} de ${artist.photos}`;
+  document.getElementById('lbInfo').textContent=`${artist.name} . ${artist.sede} . Foto ${lbIndex+1} de ${artist.photos}`;
 }
 document.addEventListener('keydown',e=>{
   if(e.key==='Escape') closeLb();

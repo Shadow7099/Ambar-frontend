@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AMBAR Couture — Reservar Sesión</title>
+<title>AMBAR Couture - Reservar Sesión</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -226,9 +226,9 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 .sd.done{background:rgba(196,154,60,0.45);}
 .sd.active{background:var(--gold);}
 
-/* ══════════════════════════════════════
-   RESPONSIVE — TABLET (≤ 1024px)
-══════════════════════════════════════ */
+/* ======================================
+   RESPONSIVE - TABLET (≤ 1024px)
+====================================== */
 @media(max-width:1024px){
   .layout{grid-template-columns:1fr;}
   .sum-col{
@@ -254,16 +254,16 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
   .f-row{grid-template-columns:1fr 1fr;}
 }
 
-/* ══════════════════════════════════════
-   RESPONSIVE — MÓVIL (≤ 640px)
-══════════════════════════════════════ */
+/* ======================================
+   RESPONSIVE - MÓVIL (≤ 640px)
+====================================== */
 @media(max-width:640px){
   /* Nav */
   .nav{padding:0.65rem 1rem;}
   .nav-logo-name{font-size:1.2rem;}
   .nav-back span{display:none;} /* solo ícono */
 
-  /* Layout — columna única, resumen abajo como barra fija */
+  /* Layout - columna única, resumen abajo como barra fija */
   .layout{grid-template-columns:1fr;padding-bottom:80px;}
   .sum-col{
     position:fixed;bottom:0;left:0;right:0;z-index:100;
@@ -300,7 +300,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
   /* Section head */
   .sh-title{font-size:1.6rem;}
 
-  /* Sede cards — columna única */
+  /* Sede cards - columna única */
   .sede-cards{grid-template-columns:1fr;gap:0.6rem;}
   .sede-card{display:flex;align-items:center;gap:1rem;text-align:left;padding:1rem 1.1rem;}
   .sede-card-icon{font-size:1.6rem;flex-shrink:0;}
@@ -312,7 +312,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
   .cal-grid{padding:0.5rem 0.5rem 0.75rem;gap:2px;}
   .cday{font-size:0.72rem;}
 
-  /* Time grid — 3 columnas */
+  /* Time grid - 3 columnas */
   .time-grid{grid-template-columns:repeat(3,1fr);}
 
   /* Location toggles */
@@ -322,10 +322,10 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
   .tog-name{font-size:0.65rem;}
   .tog-sub{font-size:0.48rem;}
 
-  /* Artist / Horse grids — 1 columna */
+  /* Artist / Horse grids - 1 columna */
   .artist-grid,.horse-list{grid-template-columns:1fr;}
 
-  /* Form rows — 1 columna */
+  /* Form rows - 1 columna */
   .f-row{grid-template-columns:1fr;}
 
   /* Buttons */
@@ -356,7 +356,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 
 <div class="layout">
 
-  <!-- ═══ FORM ═══ -->
+  <!-- === FORM === -->
   <div class="form-col">
 
     <!-- Progress -->
@@ -370,12 +370,12 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       <div class="prog-step" onclick="goStep(5)"><div class="prog-dot">6</div><div class="prog-lbl">Confirmar<br>&amp; pagar</div></div>
     </div>
 
-    <!-- ══ PASO 0 — Sede ══ -->
+    <!-- == PASO 0 - Sede == -->
     <div class="step on" id="s0">
       <div class="sh">
         <div class="sh-tag">Paso 01 de 06</div>
         <h2 class="sh-title">¿En qué <em>sede</em><br>será tu sesión?</h2>
-        <p class="sh-desc">Selecciona la ciudad — el equipo disponible se mostrará según tu sede.</p>
+        <p class="sh-desc">Selecciona la ciudad - el equipo disponible se mostrará según tu sede.</p>
       </div>
       <div class="sede-cards">
         <div class="sede-card" onclick="selSede('bogota',this)">
@@ -402,7 +402,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       </div>
     </div>
 
-    <!-- ══ PASO 1 — Fecha & Hora ══ -->
+    <!-- == PASO 1 - Fecha & Hora == -->
     <div class="step" id="s1">
       <div class="sh">
         <div class="sh-tag">Paso 02 de 06</div>
@@ -449,8 +449,8 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
           <div class="mkup-auto" id="mkupAuto" style="display:none;margin-top:0.75rem">
             <div class="mkup-icon">💄</div>
             <div>
-              <div class="mkup-lbl">Hora de maquillaje — calculada automáticamente</div>
-              <div class="mkup-time" id="mkupTime">—</div>
+              <div class="mkup-lbl">Hora de maquillaje - calculada automáticamente</div>
+              <div class="mkup-time" id="mkupTime">-</div>
               <div class="mkup-note">2 h 30 min antes de las fotos · cálculo automático</div>
             </div>
           </div>
@@ -462,7 +462,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       </div>
     </div>
 
-    <!-- ══ PASO 2 — Lugar & Equipo ══ -->
+    <!-- == PASO 2 - Lugar & Equipo == -->
     <div class="step" id="s2">
       <div class="sh">
         <div class="sh-tag">Paso 03 de 06</div>
@@ -526,7 +526,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       </div>
     </div>
 
-    <!-- ══ PASO 3 — Extras / Caballo ══ -->
+    <!-- == PASO 3 - Extras / Caballo == -->
     <div class="step" id="s3">
       <div class="sh">
         <div class="sh-tag">Paso 04 de 06</div>
@@ -565,7 +565,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
                 <div style="font-size:0.52rem;letter-spacing:0.25em;text-transform:uppercase;color:var(--gold);margin-bottom:0.5rem;">ℹ Criadero asociado · Bogotá</div>
                 <div style="font-size:0.8rem;color:var(--ink);line-height:1.7;font-weight:300;">
                   El precio del caballo depende de la ubicación de tu sesión y lo define directamente el criadero.<br>
-                  <strong style="font-weight:400;">El costo del caballo no se incluye en este pedido</strong> — se coordina por separado.
+                  <strong style="font-weight:400;">El costo del caballo no se incluye en este pedido</strong> - se coordina por separado.
                 </div>
               </div>
               <div class="time-lbl" style="margin-bottom:0.6rem">Caballos disponibles · Selecciona el que te interesa</div>
@@ -605,7 +605,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       </div>
     </div>
 
-    <!-- ══ PASO 4 — Datos personales ══ -->
+    <!-- == PASO 4 - Datos personales == -->
     <div class="step" id="s4">
       <div class="sh">
         <div class="sh-tag">Paso 05 de 06</div>
@@ -649,7 +649,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
       </div>
     </div>
 
-    <!-- ══ PASO 5 — Confirmar ══ -->
+    <!-- == PASO 5 - Confirmar == -->
     <div class="step" id="s5">
       <div class="sh">
         <div class="sh-tag">Paso 06 de 06</div>
@@ -676,7 +676,7 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 
   </div>
 
-  <!-- ═══ SUMMARY ═══ -->
+  <!-- === SUMMARY === -->
   <div class="sum-col">
     <div class="sum-brand">
       <div><div class="sum-logo-name">AMBAR</div><div class="sum-logo-sub">Couture</div></div>
@@ -723,45 +723,45 @@ body::before{content:'';position:fixed;inset:0;background-image:url("data:image/
 </div>
 
 <script>
-// ═══ DATA ═══
+// === DATA ===
 const SEDES = {
-  bogota:       {name:'Bogotá D.C.',  icon:'🏙️', addr:'Car 15 #106-76 · Usaquén'},
-  barranquilla: {name:'Barranquilla', icon:'🌴', addr:'Cr 54 #84-95 · Riomar'},
-  villavicencio:{name:'Villavicencio',icon:'🌿', addr:'Calle 15 #42-21 · El Buque'},
+  bogota:       {name:'Bogotá D.C.',  icon:'', addr:'Car 15 #106-76 . Usaquén'},
+  barranquilla: {name:'Barranquilla', icon:'', addr:'Cr 54 #84-95 . Riomar'},
+  villavicencio:{name:'Villavicencio',icon:'', addr:'Calle 15 #42-21 . El Buque'},
 };
 
-// Precios Bogotá: fotos 900k · maquillaje 500k · paquete 1.300k
+// Precios Bogotá: fotos 900k . maquillaje 500k . paquete 1.300k
 const PRECIOS_BOG = { foto:900000, mkup:500000, paquete:1300000 };
 
 const PGS = {
   bogota:[
-    {id:'anyelo',    name:'Anyelo',        role:'Fotógrafo · Golden Hour', price:900000,  ini:'AN', col:'linear-gradient(135deg,#7B6A52,#C8902A)', ok:true},
-    {id:'nicolay_b', name:'Nicolay',       role:'Fotógrafo · Editorial',   price:900000,  ini:'NI', col:'linear-gradient(135deg,#304050,#607080)', ok:true},
+    {id:'anyelo',    name:'Anyelo',        role:'Fotógrafo . Golden Hour', price:900000,  ini:'AN', col:'linear-gradient(135deg,#7B6A52,#C8902A)', ok:true},
+    {id:'nicolay_b', name:'Nicolay',       role:'Fotógrafo . Editorial',   price:900000,  ini:'NI', col:'linear-gradient(135deg,#304050,#607080)', ok:true},
   ],
   barranquilla:[
-    {id:'carlos',    name:'Carlos Ibáñez', role:'Fotógrafo · Playa',       price:3500000, ini:'CI', col:'linear-gradient(135deg,#2A4028,#508050)', ok:true},
+    {id:'carlos',    name:'Carlos Ibáñez', role:'Fotógrafo . Playa',       price:3500000, ini:'CI', col:'linear-gradient(135deg,#2A4028,#508050)', ok:true},
   ],
   villavicencio:[
-    {id:'anyelo_v',  name:'Anyelo',        role:'Fotógrafo · Llanos',      price:2800000, ini:'AN', col:'linear-gradient(135deg,#2A3A18,#709050)', ok:true},
-    {id:'nicolay_v', name:'Nicolay',       role:'Fotógrafo · Hacienda',    price:2900000, ini:'NI', col:'linear-gradient(135deg,#504030,#A08060)', ok:true},
+    {id:'anyelo_v',  name:'Anyelo',        role:'Fotógrafo . Llanos',      price:2800000, ini:'AN', col:'linear-gradient(135deg,#2A3A18,#709050)', ok:true},
+    {id:'nicolay_v', name:'Nicolay',       role:'Fotógrafo . Hacienda',    price:2900000, ini:'NI', col:'linear-gradient(135deg,#504030,#A08060)', ok:true},
   ],
 };
 
 const MKS = {
   bogota:[
-    {id:'catalina',  name:'Catalina',      role:'Maquilladora · Glam',     price:500000,  ini:'CA', col:'linear-gradient(135deg,#602828,#B05050)', ok:true},
-    {id:'samy',      name:'Samy',          role:'Maquilladora · Natural',  price:500000,  ini:'SA', col:'linear-gradient(135deg,#503050,#905080)', ok:true},
+    {id:'catalina',  name:'Catalina',      role:'Maquilladora . Glam',     price:500000,  ini:'CA', col:'linear-gradient(135deg,#602828,#B05050)', ok:true},
+    {id:'samy',      name:'Samy',          role:'Maquilladora . Natural',  price:500000,  ini:'SA', col:'linear-gradient(135deg,#503050,#905080)', ok:true},
   ],
   barranquilla:[
-    {id:'paola',     name:'Paola Herrera', role:'Maquilladora · Tropical', price:1150000, ini:'PH', col:'linear-gradient(135deg,#205060,#5090A0)', ok:true},
+    {id:'paola',     name:'Paola Herrera', role:'Maquilladora . Tropical', price:1150000, ini:'PH', col:'linear-gradient(135deg,#205060,#5090A0)', ok:true},
   ],
   villavicencio:[
-    {id:'laura',     name:'Laura',         role:'Maquilladora · Clásico',  price:1100000, ini:'LA', col:'linear-gradient(135deg,#504038,#907060)', ok:true},
-    {id:'luisa',     name:'Luisa',         role:'Maquilladora · Natural',  price:950000,  ini:'LU', col:'linear-gradient(135deg,#304828,#608050)', ok:true},
+    {id:'laura',     name:'Laura',         role:'Maquilladora . Clásico',  price:1100000, ini:'LA', col:'linear-gradient(135deg,#504038,#907060)', ok:true},
+    {id:'luisa',     name:'Luisa',         role:'Maquilladora . Natural',  price:950000,  ini:'LU', col:'linear-gradient(135deg,#304828,#608050)', ok:true},
   ],
 };
 
-// Bogotá: precio por consultar con criadero · no se suma al total
+// Bogotá: precio por consultar con criadero . no se suma al total
 const HORSES = {
   bogota:[
     {id:'sultan',  name:'Sultán',  breed:'Paso Fino Colombiano', color:'Blanco',         priceLabel:'Precio por consultar', contactOnly:true, col:'linear-gradient(135deg,#C0B8A8,#F0ECE4)'},
@@ -776,16 +776,16 @@ const HORSES = {
   ],
 };
 
-// ═══ STATE ═══
+// === STATE ===
 const S = {step:0, sede:null, date:null, time:null, mkupTime:null, mkupIncl:null,
            photoLoc:'ext', mkupLoc:'home', pg:null, mk:null,
            horse:false, selectedHorse:null};
 
-// ═══ HELPERS ═══
+// === HELPERS ===
 function cop(n){return '$'+Number(n).toLocaleString('es-CO')+' COP';}
 function stars(r){return'★'.repeat(Math.round(r))+'☆'.repeat(5-Math.round(r));}
 
-// ═══ SEDE ═══
+// === SEDE ===
 function selSede(id, el){
   S.sede=id; S.pg=null; S.mk=null; S.selectedHorse=null;
   document.querySelectorAll('.sede-card').forEach(c=>c.classList.remove('sel'));
@@ -795,7 +795,7 @@ function selSede(id, el){
   updateSum();
 }
 
-// ═══ CALENDAR ═══
+// === CALENDAR ===
 const MESES=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
 let cy=new Date().getFullYear(), cm=new Date().getMonth();
 
@@ -833,7 +833,7 @@ function selDate(y,m,d,el){
   drawSlots(); updateSum();
 }
 
-// ═══ TIME SLOTS ═══
+// === TIME SLOTS ===
 const SLOTS=[
   {h:'08:00',l:'Mañana'},{h:'09:00',l:'Mañana'},{h:'10:00',l:'Mañana'},{h:'11:00',l:'Mañana'},
   {h:'12:00',l:'Mediodía'},{h:'13:00',l:'Tarde'},{h:'14:00',l:'Tarde'},{h:'15:00',l:'Tarde'},
@@ -870,7 +870,7 @@ function selMkupIncl(incl, el){
     const[hh,mm]=S.time.split(':').map(Number);
     let mh=hh-2, mn=mm-30; if(mn<0){mn+=60;mh--;} if(mh<0)mh=0;
     S.mkupTime=`${String(mh).padStart(2,'0')}:${String(mn).padStart(2,'0')}`;
-    document.getElementById('mkupTime').textContent=`${S.mkupTime} — La maquilladora llega`;
+    document.getElementById('mkupTime').textContent=`${S.mkupTime} - La maquilladora llega`;
     document.getElementById('mkupAuto').style.display='flex';
   } else {
     S.mkupTime=null;
@@ -879,7 +879,7 @@ function selMkupIncl(incl, el){
   updateSum();
 }
 
-// ═══ LOCATION ═══
+// === LOCATION ===
 function selLoc(type,val,el){
   el.closest('.tog-row').querySelectorAll('.tog').forEach(o=>o.classList.remove('sel'));
   el.classList.add('sel');
@@ -888,7 +888,7 @@ function selLoc(type,val,el){
   updateSum();
 }
 
-// ═══ ARTIST GRIDS ═══
+// === ARTIST GRIDS ===
 function renderArtists(){
   const sede=S.sede||'bogota';
   // Mostrar/ocultar banner paquete Bogotá
@@ -938,7 +938,7 @@ function renderHorses(sede){
   }
   if(sede==='bogota'){
     bogDiv.style.display='block';
-    sub.textContent='Precio por consultar con criadero · No incluido en el pedido';
+    sub.textContent='Precio por consultar con criadero . No incluido en el pedido';
     // Render bogotá horses (contactOnly)
     document.getElementById('horseGridBog').innerHTML=(HORSES.bogota||[]).map(h=>`
       <div class="h-card" onclick="selHorse('${h.id}',this,${JSON.stringify(h).replace(/'/g,'&#39;')})">
@@ -952,9 +952,9 @@ function renderHorses(sede){
       </div>`).join('');
     return;
   }
-  // Villavicencio — normal con precio
+  // Villavicencio - normal con precio
   normal.style.display='block';
-  sub.textContent='Opcional · Costo adicional según el caballo elegido';
+  sub.textContent='Opcional . Costo adicional según el caballo elegido';
   document.getElementById('horseGrid').innerHTML=(HORSES[sede]||[]).map(h=>`
     <div class="h-card" onclick="selHorse('${h.id}',this,${JSON.stringify(h).replace(/'/g,'&#39;')})">
       <div class="h-av" style="background:${h.col};width:36px;height:36px;border-radius:50%;flex-shrink:0"></div>
@@ -972,7 +972,7 @@ function selHorse(id,el,data){
   el.classList.add('sel'); S.selectedHorse=data; updateSum();
 }
 
-// ═══ HORSE TOGGLE ═══
+// === HORSE TOGGLE ===
 function toggleHorse(){
   S.horse=!S.horse;
   document.getElementById('horseSw').classList.toggle('on',S.horse);
@@ -982,7 +982,7 @@ function toggleHorse(){
   updateSum();
 }
 
-// ═══ NAVIGATION ═══
+// === NAVIGATION ===
 function go(n){
   if(n>0&&!S.sede){alert('Por favor selecciona una sede primero.');return;}
   if(n>1&&!S.date){alert('Por favor selecciona una fecha.');return;}
@@ -1005,7 +1005,7 @@ function updProg(){
   steps.forEach((s,i)=>{
     s.classList.remove('active','done');
     const dot=s.querySelector('.prog-dot');
-    if(i<S.step){s.classList.add('done');dot.textContent='✓';}
+    if(i<S.step){s.classList.add('done');dot.textContent='OK';}
     else if(i===S.step){s.classList.add('active');dot.textContent=i+1;}
     else dot.textContent=i+1;
   });
@@ -1016,7 +1016,7 @@ function updProg(){
   });
 }
 
-// ═══ PRICING ═══
+// === PRICING ===
 function calcTotal(){
   let total=0; const bd=[];
   const esBog = S.sede==='bogota';
@@ -1024,33 +1024,33 @@ function calcTotal(){
   const tieneMkup = !!(S.mk && S.mkupIncl);
 
   if(esBog && tieneFoto && tieneMkup){
-    // Paquete Bogotá — ahorro automático
+    // Paquete Bogotá - ahorro automático
     total += PRECIOS_BOG.paquete;
-    bd.push({l:'✦ Paquete Bogotá · Fotos + Maquillaje', v:PRECIOS_BOG.paquete, pkg:true});
+    bd.push({l:'✦ Paquete Bogotá . Fotos + Maquillaje', v:PRECIOS_BOG.paquete, pkg:true});
     const pkgEl=document.getElementById('pkgActive');
     if(pkgEl) pkgEl.style.display='block';
   } else {
     const pkgEl=document.getElementById('pkgActive');
     if(pkgEl) pkgEl.style.display='none';
-    if(S.pg){ total+=S.pg.price; bd.push({l:'Fotógrafo · '+S.pg.name, v:S.pg.price}); }
-    if(S.mk&&S.mkupIncl){ total+=S.mk.price; bd.push({l:'Maquilladora · '+S.mk.name, v:S.mk.price}); }
+    if(S.pg){ total+=S.pg.price; bd.push({l:'Fotógrafo . '+S.pg.name, v:S.pg.price}); }
+    if(S.mk&&S.mkupIncl){ total+=S.mk.price; bd.push({l:'Maquilladora . '+S.mk.name, v:S.mk.price}); }
   }
   if(S.mkupLoc==='home'&&S.mkupIncl){
-    total+=100000; bd.push({l:'Desplazamiento maquilladora · domicilio', v:100000});
+    total+=100000; bd.push({l:'Desplazamiento maquilladora . domicilio', v:100000});
   }
   if(S.horse&&S.selectedHorse){
     if(S.selectedHorse.contactOnly){
       // No suma al total, solo se muestra como nota
-      bd.push({l:'Caballo · '+S.selectedHorse.name+' (precio a coordinar con criadero)', v:null});
+      bd.push({l:'Caballo . '+S.selectedHorse.name+' (precio a coordinar con criadero)', v:null});
     } else {
       total+=S.selectedHorse.price;
-      bd.push({l:'Caballo · '+S.selectedHorse.name, v:S.selectedHorse.price});
+      bd.push({l:'Caballo . '+S.selectedHorse.name, v:S.selectedHorse.price});
     }
   }
   return{total,bd};
 }
 
-// ═══ SUMMARY ═══
+// === SUMMARY ===
 function updateSum(){
   // Sede
   const sv=document.getElementById('scSedeVal'),sc=document.getElementById('scSede');
@@ -1064,9 +1064,9 @@ function updateSum(){
   if(S.date&&S.time){
     const[y,m,d]=S.date.split('-').map(Number);
     const ds=new Date(y,m-1,d).toLocaleDateString('es-CO',{weekday:'short',day:'numeric',month:'short'});
-    let dtxt=`${ds} · Fotos ${S.time}`;
-    if(S.mkupIncl&&S.mkupTime) dtxt+=` · Maquillaje ${S.mkupTime}`;
-    else if(S.mkupIncl===false) dtxt+=` · Solo fotos`;
+    let dtxt=`${ds} . Fotos ${S.time}`;
+    if(S.mkupIncl&&S.mkupTime) dtxt+=` . Maquillaje ${S.mkupTime}`;
+    else if(S.mkupIncl===false) dtxt+=` . Solo fotos`;
     dv.textContent=dtxt;
     dv.classList.remove('empty');dc.classList.add('filled');
   } else {dv.textContent='Aún no elegida';dv.classList.add('empty');dc.classList.remove('filled');}
@@ -1074,7 +1074,7 @@ function updateSum(){
   // Team
   const tv=document.getElementById('scTeamVal'),tc=document.getElementById('scTeam');
   const tp=[]; if(S.pg)tp.push(S.pg.name); if(S.mk)tp.push(S.mk.name);
-  if(tp.length){tv.textContent=tp.join(' · ');tv.classList.remove('empty');tc.classList.add('filled');}
+  if(tp.length){tv.textContent=tp.join(' . ');tv.classList.remove('empty');tc.classList.add('filled');}
   else{tv.textContent='Aún no elegido';tv.classList.add('empty');tc.classList.remove('filled');}
 
   // Loc
@@ -1082,15 +1082,15 @@ function updateSum(){
   const lp=[];
   if(S.photoLoc)lp.push(S.photoLoc==='ext'?'Fotos exterior':'Fotos en estudio');
   if(S.mkupLoc&&S.mkupIncl) lp.push(S.mkupLoc==='home'?'Maquillaje domicilio (+$100.000)':'Maquillaje en estudio');
-  if(lp.length){lv.textContent=lp.join(' · ');lv.classList.remove('empty');lc.classList.add('filled');}
+  if(lp.length){lv.textContent=lp.join(' . ');lv.classList.remove('empty');lc.classList.add('filled');}
   else{lv.textContent='Aún no definido';lv.classList.add('empty');lc.classList.remove('filled');}
 
   // Horse
   const hv=document.getElementById('scHorseVal'),hc=document.getElementById('scHorse');
   if(S.horse&&S.selectedHorse){
     const lbl=S.selectedHorse.contactOnly
-      ? `${S.selectedHorse.name} · ${S.selectedHorse.breed} (precio a coordinar)`
-      : `${S.selectedHorse.name} · ${S.selectedHorse.breed}`;
+      ? `${S.selectedHorse.name} . ${S.selectedHorse.breed} (precio a coordinar)`
+      : `${S.selectedHorse.name} . ${S.selectedHorse.breed}`;
     hv.textContent=lbl; hv.classList.remove('empty'); hc.classList.add('filled');
   } else{hv.textContent='No incluido';hv.classList.add('empty');hc.classList.remove('filled');}
 
@@ -1116,24 +1116,24 @@ function updateSum(){
   document.getElementById('stBd').innerHTML=bdh;
 }
 
-// ═══ CONFIRM ═══
+// === CONFIRM ===
 function buildConfirm(){
   const{total,bd}=calcTotal();
   const ant=Math.round(total*0.5);
   const[y,m,d]=(S.date||'2026-01-01').split('-').map(Number);
   const ds=new Date(y,m-1,d).toLocaleDateString('es-CO',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
   const rows=[
-    ['Sede',S.sede?SEDES[S.sede].icon+' '+SEDES[S.sede].name:'—'],
+    ['Sede',S.sede?SEDES[S.sede].icon+' '+SEDES[S.sede].name:'-'],
     ['Fecha',ds.charAt(0).toUpperCase()+ds.slice(1)],
-    ['Hora fotos',S.time||'—'],
-    ['Hora maquillaje',S.mkupTime||'—'],
-    ['Fotógrafo/a',S.pg?.name||'—'],
-    ['Maquilladora',S.mk?.name||'—'],
-    ['Lugar fotos',S.photoLoc==='ext'?'Exterior':(S.photoLoc==='studio'?'Estudio AMBAR':'—')],
-    ['Lugar maquillaje',S.mkupLoc==='home'?'Domicilio':(S.mkupLoc==='studio'?'Estudio AMBAR':'—')],
-    ['Caballo',S.horse&&S.selectedHorse?S.selectedHorse.name+' · '+S.selectedHorse.breed:'No incluido'],
-    ['Responsable',((document.getElementById('rNombre')?.value||'')+' '+(document.getElementById('rApellido')?.value||'')).trim()||'—'],
-    ['Quinceañera',((document.getElementById('qNombre')?.value||'')+' '+(document.getElementById('qApellido')?.value||'')).trim()||'—'],
+    ['Hora fotos',S.time||'-'],
+    ['Hora maquillaje',S.mkupTime||'-'],
+    ['Fotógrafo/a',S.pg?.name||'-'],
+    ['Maquilladora',S.mk?.name||'-'],
+    ['Lugar fotos',S.photoLoc==='ext'?'Exterior':(S.photoLoc==='studio'?'Estudio AMBAR':'-')],
+    ['Lugar maquillaje',S.mkupLoc==='home'?'Domicilio':(S.mkupLoc==='studio'?'Estudio AMBAR':'-')],
+    ['Caballo',S.horse&&S.selectedHorse?S.selectedHorse.name+' . '+S.selectedHorse.breed:'No incluido'],
+    ['Responsable',((document.getElementById('rNombre')?.value||'')+' '+(document.getElementById('rApellido')?.value||'')).trim()||'-'],
+    ['Quinceañera',((document.getElementById('qNombre')?.value||'')+' '+(document.getElementById('qApellido')?.value||'')).trim()||'-'],
   ];
   document.getElementById('ctable').innerHTML=rows.map(([l,v])=>
     `<div class="ct-row"><span class="ct-lbl">${l}</span><span class="ct-val">${v}</span></div>`
@@ -1144,8 +1144,9 @@ function buildConfirm(){
   document.getElementById('pbox').innerHTML=pbh;
 }
 
-// ══ API URL — actualiza con tu URL de Vercel ══
+// == API URL - actualiza con tu URL de Vercel ==
 const API_URL = 'https://ambar-backend.vercel.app';
+
 async function doPay(){
   if(!document.getElementById('termsChk').checked){
     alert('Acepta los términos para continuar.'); return;
@@ -1190,7 +1191,7 @@ async function doPay(){
   // Mostrar loading
   const btn = document.querySelector('.btn-next.pay');
   btn.disabled = true;
-  btn.textContent = '⏳ Procesando...';
+  btn.textContent = '[...] Procesando...';
 
   try {
     // 1. Verificar disponibilidad
@@ -1198,7 +1199,7 @@ async function doPay(){
     const availData = await avail.json();
 
     if(!availData.disponible){
-      btn.disabled = false; btn.textContent = '💳 Proceder al pago →';
+      btn.disabled = false; btn.textContent = '💳 Proceder al pago ->';
       alert('⚠️ El fotógrafo seleccionado ya tiene una sesión ese día. Por favor elige otra fecha o fotógrafo.');
       return;
     }
@@ -1221,17 +1222,17 @@ async function doPay(){
       window.location.href = data.payment_url;
     } else {
       // Si Bold no respondió pero la reserva se guardó
-      alert('✅ Reserva guardada. Contacta a AMBAR por WhatsApp para completar el pago.');
+      alert('[OK] Reserva guardada. Contacta a AMBAR por WhatsApp para completar el pago.');
     }
 
   } catch(e) {
     btn.disabled = false;
-    btn.textContent = '💳 Proceder al pago →';
-    alert('❌ ' + (e.message || 'Error de conexión. Intenta de nuevo.'));
+    btn.textContent = '💳 Proceder al pago ->';
+    alert('[X] ' + (e.message || 'Error de conexión. Intenta de nuevo.'));
   }
 }
 
-// ═══ INIT ═══
+// === INIT ===
 drawCal();
 updateSum();
 </script>
