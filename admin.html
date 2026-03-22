@@ -736,13 +736,6 @@ body{background:var(--admin);font-family:var(--font-b);color:var(--paper);min-he
     <div class="sb-item" onclick="setView('finanzas')">
       <div class="sb-item-ico">💰</div> Finanzas
     </div>
-    <div class="sb-item" onclick="setView('servicios')">
-      <div class="sb-item-ico">📋</div> Servicios
-    </div>
-    <div class="sb-item" onclick="setView('proveedores')">
-      <div class="sb-item-ico">👥</div> Proveedores
-      <div class="sb-count" id="cnt-prov">0</div>
-    </div>
     <div class="sb-item" onclick="setView('configuracion')">
       <div class="sb-item-ico">⚙️</div> Configuracion
     </div>
@@ -1055,44 +1048,6 @@ body{background:var(--admin);font-family:var(--font-b);color:var(--paper);min-he
         <tbody id="finTable"></tbody>
       </table>
     </div>
-  </div>
-
-
-  <!-- == VIEW: SERVICIOS == -->
-  <div class="view" id="view-servicios">
-    <div style="margin-bottom:1.5rem">
-      <div style="font-size:0.5rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:0.4rem">Tarifas del equipo</div>
-      <div style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:400;color:var(--paper)">Control de <em style="color:var(--gold-l)">servicios</em></div>
-    </div>
-    <div class="serv-table-wrap">
-      <table class="serv-table">
-        <thead><tr>
-          <th>Servicio</th><th>Colaborador</th><th>Telefono</th><th>Sede</th>
-          <th>Paquete</th><th>Precio AMBAR</th><th>Precio cliente</th><th>Margen</th>
-        </tr></thead>
-        <tbody id="servTable"></tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- == VIEW: PROVEEDORES == -->
-  <div class="view" id="view-proveedores">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:0.75rem;">
-      <div>
-        <div style="font-size:0.5rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:0.3rem">Equipo AMBAR</div>
-        <div style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:400;color:var(--paper)">Gestion de <em style="color:var(--gold-l)">proveedores</em></div>
-      </div>
-      <button class="tb-btn" onclick="openProvModal(null)">+ Nuevo proveedor</button>
-    </div>
-    <div class="prov-tipo-tabs">
-      <button class="prov-tipo-tab active" onclick="filterProvTipo('todos',this)">Todos</button>
-      <button class="prov-tipo-tab" onclick="filterProvTipo('fotografo',this)">Fotografos</button>
-      <button class="prov-tipo-tab" onclick="filterProvTipo('maquilladora',this)">Maquilladoras</button>
-      <button class="prov-tipo-tab" onclick="filterProvTipo('caballo',this)">Caballos</button>
-      <button class="prov-tipo-tab" onclick="filterProvTipo('dj',this)">DJs</button>
-      <button class="prov-tipo-tab" onclick="filterProvTipo('lugar',this)">Lugares</button>
-    </div>
-    <div class="prov-grid" id="provGrid"></div>
   </div>
 
 
@@ -2002,16 +1957,43 @@ async function saveCfgGroup(grupo){
 }
 
 // Proveedor config table
+// Equipo AMBAR precargado
+const EQUIPO_AMBAR_DEFAULT = [
+  {tipo:'fotografo',   nombre:'Hector Nicolay Davila',   telefono:'3206747611', email:'nicolay@ambarcouture.com',  sede:'bogota',        precio_base:900000,  precio_colab:450000, estado:'activo'},
+  {tipo:'fotografo',   nombre:'Hector Nicolay Davila',   telefono:'3206747611', email:'nicolay@ambarcouture.com',  sede:'villavicencio', precio_base:330000,  precio_colab:200000, estado:'activo'},
+  {tipo:'fotografo',   nombre:'Joel Enrique Sanchez',    telefono:'3022836725', email:'joel@ambarcouture.com',     sede:'barranquilla',  precio_base:700000,  precio_colab:450000, estado:'activo'},
+  {tipo:'fotografo',   nombre:'Anyelo Cardona Valencia', telefono:'3204728629', email:'anyelo@ambarcouture.com',   sede:'villavicencio', precio_base:630000,  precio_colab:250000, estado:'activo'},
+  {tipo:'maquilladora',nombre:'Catalina Jimenez',        telefono:'3222598072', email:'catalina@ambarcouture.com', sede:'bogota',        precio_base:500000,  precio_colab:280000, estado:'activo'},
+  {tipo:'maquilladora',nombre:'Laura Samanta Arroyo',    telefono:'3015131878', email:'samy@ambarcouture.com',     sede:'bogota',        precio_base:500000,  precio_colab:250000, estado:'activo'},
+  {tipo:'maquilladora',nombre:'Camila Gutierrez',        telefono:'3042058335', email:'camila@ambarcouture.com',   sede:'barranquilla',  precio_base:260000,  precio_colab:250000, estado:'activo'},
+  {tipo:'maquilladora',nombre:'Laura Merad Ortega',      telefono:'3232284496', email:'laura.m@ambarcouture.com',  sede:'villavicencio', precio_base:220000,  precio_colab:120000, estado:'activo'},
+  {tipo:'maquilladora',nombre:'Laura Camila Loaiza',     telefono:'3146054649', email:'luisa@ambarcouture.com',    sede:'villavicencio', precio_base:220000,  precio_colab:120000, estado:'activo'},
+  {tipo:'maquilladora',nombre:'Maria Fernanda Cuervo',   telefono:'3224256557', email:'mafe@ambarcouture.com',     sede:'villavicencio', precio_base:220000,  precio_colab:120000, estado:'activo'},
+  {tipo:'caballo',     nombre:'Sultan',                  telefono:null,         email:null,                        sede:'bogota',        precio_base:null,    precio_colab:null,   estado:'activo'},
+  {tipo:'caballo',     nombre:'Luna',                    telefono:null,         email:null,                        sede:'bogota',        precio_base:null,    precio_colab:null,   estado:'activo'},
+  {tipo:'caballo',     nombre:'Canela',                  telefono:null,         email:null,                        sede:'bogota',        precio_base:null,    precio_colab:null,   estado:'activo'},
+  {tipo:'caballo',     nombre:'Brioso',                  telefono:null,         email:null,                        sede:'bogota',        precio_base:null,    precio_colab:null,   estado:'activo'},
+  {tipo:'caballo',     nombre:'Rey',                     telefono:null,         email:null,                        sede:'villavicencio', precio_base:300000,  precio_colab:0,      estado:'activo'},
+  {tipo:'caballo',     nombre:'Paloma',                  telefono:null,         email:null,                        sede:'villavicencio', precio_base:420000,  precio_colab:0,      estado:'activo'},
+];
+
 async function loadProvCfg(){
   try {
     const { data, error } = await sb.from('proveedores')
       .select('id,tipo,nombre,telefono,email,sede,precio_base,precio_colab,estado')
       .order('tipo').order('nombre');
     if(error) throw error;
-    provCfgRows = (data||[]).map(p => ({...p}));
+    if(data && data.length > 0){
+      provCfgRows = data.map(p => ({...p}));
+    } else {
+      // Pre-load default AMBAR team
+      provCfgRows = EQUIPO_AMBAR_DEFAULT.map(p => ({...p, id:null}));
+    }
     renderProvCfgTable();
   } catch(e){
     console.warn('loadProvCfg:', e.message);
+    provCfgRows = EQUIPO_AMBAR_DEFAULT.map(p => ({...p, id:null}));
+    renderProvCfgTable();
   }
 }
 
@@ -2223,8 +2205,6 @@ function setView(v){ currentView=v;
   if(v==='sessions')  renderList();
   if(v==='tareas')    renderTareas();
   if(v==='finanzas')  renderFinanzas();
-  if(v==='servicios')  renderServicios();
-  if(v==='proveedores')   loadProveedores();
   if(v==='configuracion')  loadConfiguracion();
   if(v==='nueva' && !editingId) resetForm();
   closeSidebar();
