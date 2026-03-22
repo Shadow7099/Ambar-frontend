@@ -1011,127 +1011,43 @@ body{background:var(--admin);font-family:var(--font-b);color:var(--paper);min-he
     </div>
   </div>
 
+
   <!-- == VIEW: SERVICIOS == -->
   <div class="view" id="view-servicios">
-    <div class="prov-header">
-      <div>
-        <div style="font-size:0.5rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:0.4rem">Equipo AMBAR Couture</div>
-        <div class="prov-title">Gestión de <em>proveedores</em></div>
-      </div>
-      <button class="prov-btn-add" onclick="openProvModal()">✚ Nuevo proveedor</button>
+    <div style="margin-bottom:1.5rem">
+      <div style="font-size:0.5rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:0.4rem">Tarifas del equipo</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:400;color:var(--paper)">Control de <em style="color:var(--gold-l)">servicios</em></div>
     </div>
-    <div class="prov-filters">
-      <button class="fil active" onclick="filterProvs('todos',this)">Todos</button>
-      <button class="fil" onclick="filterProvs('bogota',this)">🏙️ Bogotá</button>
-      <button class="fil" onclick="filterProvs('barranquilla',this)">🌴 Barranquilla</button>
-      <button class="fil" onclick="filterProvs('villavicencio',this)">🌿 Villavicencio</button>
-      <button class="fil" onclick="filterProvs('FOTOGRAFÍA',this)">📸 Fotógrafos</button>
-      <button class="fil" onclick="filterProvs('MAQUILLAJE',this)">💄 Maquilladoras</button>
+    <div class="serv-table-wrap">
+      <table class="serv-table">
+        <thead><tr>
+          <th>Servicio</th><th>Colaborador</th><th>Telefono</th><th>Sede</th>
+          <th>Paquete</th><th>Precio AMBAR</th><th>Precio cliente</th><th>Margen</th>
+        </tr></thead>
+        <tbody id="servTable"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- == VIEW: PROVEEDORES == -->
+  <div class="view" id="view-proveedores">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:0.75rem;">
+      <div>
+        <div style="font-size:0.5rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:0.3rem">Equipo AMBAR</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:400;color:var(--paper)">Gestion de <em style="color:var(--gold-l)">proveedores</em></div>
+      </div>
+      <button class="tb-btn" onclick="openProvModal(null)">+ Nuevo proveedor</button>
+    </div>
+    <div class="prov-tipo-tabs">
+      <button class="prov-tipo-tab active" onclick="filterProvTipo('todos',this)">Todos</button>
+      <button class="prov-tipo-tab" onclick="filterProvTipo('fotografo',this)">Fotografos</button>
+      <button class="prov-tipo-tab" onclick="filterProvTipo('maquilladora',this)">Maquilladoras</button>
+      <button class="prov-tipo-tab" onclick="filterProvTipo('caballo',this)">Caballos</button>
+      <button class="prov-tipo-tab" onclick="filterProvTipo('dj',this)">DJs</button>
+      <button class="prov-tipo-tab" onclick="filterProvTipo('lugar',this)">Lugares</button>
     </div>
     <div class="prov-grid" id="provGrid"></div>
   </div>
-
-  <!-- MODAL PROVEEDOR -->
-<!-- PROVEEDOR MODAL -->
-<div class="prov-modal-overlay" id="provModalOverlay" onclick="if(event.target===this)closeProvModal()">
-  <div class="prov-modal">
-    <div class="pm-head">
-      <div class="pm-title" id="pmTitle">Nuevo proveedor</div>
-      <button class="pm-close" onclick="closeProvModal()">x</button>
-    </div>
-    <div class="pm-body">
-      <div class="pm-grid">
-        <div class="pm-fg">
-          <label>Tipo de proveedor</label>
-          <select id="pm-tipo">
-            <option value="fotografo">📸 Fotógrafo</option>
-            <option value="maquilladora">💄 Maquilladora</option>
-            <option value="caballo">🐴 Caballo</option>
-            <option value="dj">🎧 DJ</option>
-            <option value="lugar">🏛️ Lugar del evento</option>
-          </select>
-        </div>
-        <div class="pm-fg">
-          <label>Sede</label>
-          <select id="pm-sede">
-            <option value="bogota">🏙️ Bogotá D.C.</option>
-            <option value="barranquilla">🌴 Barranquilla</option>
-            <option value="villavicencio">🌿 Villavicencio</option>
-          </select>
-        </div>
-        <div class="pm-fg full">
-          <label>Nombre completo</label>
-          <input type="text" id="pm-nombre" placeholder="ej: Hector Nicolay Davila">
-        </div>
-        <div class="pm-fg full">
-          <label>Descripcion</label>
-          <textarea id="pm-desc" placeholder="Especialidad, estilo, experiencia..."></textarea>
-        </div>
-        <div class="pm-fg">
-          <label>Telefono / WhatsApp</label>
-          <input type="tel" id="pm-tel" placeholder="300 000 0000">
-        </div>
-        <div class="pm-fg">
-          <label>Email</label>
-          <input type="email" id="pm-email" placeholder="nombre@correo.com">
-        </div>
-        <div class="pm-fg">
-          <label>Instagram</label>
-          <input type="text" id="pm-ig" placeholder="@usuario">
-        </div>
-        <div class="pm-fg">
-          <label>Estado</label>
-          <select id="pm-estado">
-            <option value="activo">Activo</option>
-            <option value="inactivo">Inactivo</option>
-          </select>
-        </div>
-
-        <div class="pm-divider"><div class="pm-div-line"></div><div class="pm-div-txt">Precio</div><div class="pm-div-line"></div></div>
-
-        <div class="pm-fg">
-          <label>Precio base cliente · COP</label>
-          <input type="number" id="pm-precio-cliente" placeholder="ej: 900000">
-        </div>
-        <div class="pm-fg">
-          <label>Precio pago colaborador · COP</label>
-          <input type="number" id="pm-precio-ambar" placeholder="ej: 450000">
-        </div>
-        <div class="pm-fg full">
-          <label>Notas de precio / paquetes</label>
-          <textarea id="pm-precio-notas" placeholder="Descripcion de paquetes, condiciones especiales..."></textarea>
-        </div>
-
-        <div class="pm-divider"><div class="pm-div-line"></div><div class="pm-div-txt">Tags / estilos</div><div class="pm-div-line"></div></div>
-
-        <div class="pm-fg full">
-          <label>Tags (separados por coma)</label>
-          <input type="text" id="pm-tags" placeholder="Pre-XV, Exterior, Golden Hour, Glam...">
-        </div>
-
-        <div class="pm-divider"><div class="pm-div-line"></div><div class="pm-div-txt">Fotos del portafolio</div><div class="pm-div-line"></div></div>
-
-        <div class="pm-fotos-area">
-          <div class="pm-fotos-grid" id="pmFotosGrid">
-            <button class="pm-foto-add" onclick="document.getElementById('pmFileInput').click()">
-              <span>📷</span><small>Subir foto</small>
-            </button>
-          </div>
-          <input type="file" id="pmFileInput" accept="image/*" multiple style="display:none" onchange="handleFotoUpload(event)">
-        </div>
-
-        <div class="pm-divider"><div class="pm-div-line"></div><div class="pm-div-txt">O pegar link externo</div><div class="pm-div-line"></div></div>
-
-        <div class="pm-link-input">
-          <input type="text" id="pmLinkInput" placeholder="https://drive.google.com/... o https://instagram.com/p/...">
-          <button onclick="addFotoLink()">Agregar link</button>
-        </div>
-
-        <button class="pm-save-btn" onclick="saveProveedor()">Guardar proveedor</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 <!-- DETAIL MODAL -->
 <div class="detail-overlay" id="detailOverlay" onclick="if(event.target===this)closeDetail()">
@@ -1543,6 +1459,7 @@ async function updatePrecio(sessionId, field, val, el){
 let proveedores = [...SERVICIOS_DATA.map((sv,i) => ({...sv, _id: 'init_'+i}))];
 let provFilter = 'todos';
 let editingProvId = null;
+let provTipoFilter = "todos";
 
 async function loadProveedores(){
   try {
@@ -1567,57 +1484,62 @@ function filterProvTipo(tipo,btn){
   renderProveedores();
 }
 
-function filterProvs(f, btn){
-  provFilter = f;
-  document.querySelectorAll('#view-servicios .fil').forEach(x=>x.classList.remove('active'));
+function filterProvTipo(tipo, btn){
+  provTipoFilter = tipo;
+  document.querySelectorAll('.prov-tipo-tab').forEach(t=>t.classList.remove('active'));
   btn.classList.add('active');
-  renderServicios();
+  renderProveedores();
 }
 
-function renderServicios(){
-  const tbody = document.getElementById('servTable');
-  if(!tbody) return;
-  tbody.innerHTML = SERVICIOS_DATA.map(sv => {
-    const margen = sv.precio_cliente - sv.precio_ambar;
-    return `<tr>
-      <td><span style="font-size:0.75rem">${sv.servicio==='FOTOGRAFIA'?'📸':'💄'}</span> ${sv.servicio}</td>
-      <td class="fin-bold">${sv.colaborador}</td>
-      <td style="font-family:monospace;font-size:0.65rem">${sv.tel}</td>
-      <td>${sv.sede}</td>
-      <td style="max-width:200px;font-size:0.62rem;line-height:1.5">${sv.paquete}</td>
-      <td class="fin-neg">${cop(sv.precio_ambar)}</td>
-      <td class="fin-pos">${cop(sv.precio_cliente)}</td>
-      <td class="${margen>=0?'fin-pos':'fin-neg'}">${cop(margen)}</td>
-    </tr>`;
-  }).join('');
+function filterProvs(f, btn){
+  // legacy - redirect to filterProvTipo
+  filterProvTipo(f, btn);
+}
+
+async function loadProveedores(){
+  if(!sb) return;
+  try {
+    const {data, error} = await sb
+      .from('proveedores')
+      .select('*, portafolio(*)')
+      .order('tipo').order('nombre');
+    if(error) throw error;
+    proveedores = data || [];
+    renderProveedores();
+    const el = document.getElementById('cnt-prov');
+    if(el) el.textContent = proveedores.filter(p=>p.estado==='activo').length;
+  } catch(e){
+    showToast('Error cargando proveedores: ' + e.message);
+  }
 }
 
 function renderProveedores(){
   const grid = document.getElementById('provGrid');
   if(!grid) return;
-  const list = provTipoFilter === 'todos'
+  const list = (!provTipoFilter || provTipoFilter==='todos')
     ? proveedores
-    : proveedores.filter(p => p.tipo === provTipoFilter);
-
+    : proveedores.filter(p=>p.tipo===provTipoFilter);
   if(!list.length){
-    grid.innerHTML = '<div class="empty-list" style="grid-column:1/-1;padding:3rem;text-align:center;border:1px dashed rgba(196,154,60,0.15);color:rgba(250,247,242,0.2)">Sin proveedores - Agrega el primero con el boton de arriba</div>';
+    grid.innerHTML='<div style="grid-column:1/-1;padding:3rem;text-align:center;border:1px dashed rgba(196,154,60,0.15);color:rgba(250,247,242,0.2)">Sin proveedores · Agrega el primero</div>';
     return;
   }
-  grid.innerHTML = list.map(p => {
-    const fotos = (p.portafolio || []).slice(0,3);
-    const fotosHTML = fotos.map(f =>
+  grid.innerHTML = list.map(p=>{
+    const fotos = (p.portafolio||[]).slice(0,3);
+    const fotosHTML = fotos.map(f=>
       `<div class="prov-foto" style="background-image:url('${f.url}')" onclick="openLightbox('${f.url}')"></div>`
     ).join('') + `<div class="prov-foto add-btn" onclick="openProvModal('${p.id}')">+</div>`;
     const tags = (p.tags||[]).slice(0,4).map(t=>`<span class="prov-tag">${t}</span>`).join('');
     const precio = p.precio_base ? '$'+Number(p.precio_base).toLocaleString('es-CO')+' COP' : 'A coordinar';
+    const ico = {fotografo:'📸',maquilladora:'💄',caballo:'🐴',dj:'🎧',lugar:'🏛️'}[p.tipo]||'👤';
+    const tipoLbl = {fotografo:'Fotografo',maquilladora:'Maquilladora',caballo:'Caballo',dj:'DJ',lugar:'Lugar'}[p.tipo]||p.tipo;
     return `<div class="prov-card ${p.estado==='inactivo'?'inactivo':''}">
       <div class="prov-card-top">
-        <div class="prov-avatar">${p.avatar_url?`<img src="${p.avatar_url}" alt="${p.nombre}">`:(TIPO_ICO[p.tipo]||'👤')}</div>
+        <div class="prov-avatar">${p.avatar_url?`<img src="${p.avatar_url}" alt="${p.nombre}">`:ico}</div>
         <div class="prov-info">
-          <div class="prov-tipo-badge">${TIPO_ICO[p.tipo]||''} ${TIPO_LABEL[p.tipo]||p.tipo} · ${SEDES_LABEL[p.sede]||p.sede}</div>
+          <div class="prov-tipo-badge">${ico} ${tipoLbl} · ${SEDES_LABEL[p.sede]||p.sede}</div>
           <div class="prov-nombre">${p.nombre}</div>
           <div class="prov-precio">${precio}</div>
-          ${p.telefono?`<div class="prov-sede" style="margin-top:3px">📞 ${p.telefono}</div>`:''}
+          ${p.telefono?`<div style="font-size:0.58rem;color:rgba(250,247,242,0.3);margin-top:3px">📞 ${p.telefono}</div>`:''}
         </div>
       </div>
       ${tags?`<div class="prov-tags">${tags}</div>`:''}
@@ -1630,25 +1552,25 @@ function renderProveedores(){
   }).join('');
 }
 
-function openProvModal(id=null){
-  editingProvId = id;
+function openProvModal(id){
+  editingProvId = id || null;
   provFotos = [];
   document.getElementById('pmTitle').textContent = id ? 'Editar proveedor' : 'Nuevo proveedor';
   if(id){
     const p = proveedores.find(x=>x.id===id);
     if(p){
-      document.getElementById('pm-tipo').value           = p.tipo||'fotografo';
-      document.getElementById('pm-sede').value           = p.sede||'bogota';
-      document.getElementById('pm-nombre').value         = p.nombre||'';
-      document.getElementById('pm-desc').value           = p.descripcion||'';
-      document.getElementById('pm-tel').value            = p.telefono||'';
-      document.getElementById('pm-email').value          = p.email||'';
-      document.getElementById('pm-ig').value             = p.instagram||'';
-      document.getElementById('pm-estado').value         = p.estado||'activo';
-      document.getElementById('pm-precio-cliente').value = p.precio_base||'';
-      document.getElementById('pm-precio-ambar').value   = p.precio_colab||'';
-      document.getElementById('pm-precio-notas').value   = p.precio_notas||'';
-      document.getElementById('pm-tags').value           = (p.tags||[]).join(', ');
+      document.getElementById('pm-tipo').value            = p.tipo||'fotografo';
+      document.getElementById('pm-sede').value            = p.sede||'bogota';
+      document.getElementById('pm-nombre').value          = p.nombre||'';
+      document.getElementById('pm-desc').value            = p.descripcion||'';
+      document.getElementById('pm-tel').value             = p.telefono||'';
+      document.getElementById('pm-email').value           = p.email||'';
+      document.getElementById('pm-ig').value              = p.instagram||'';
+      document.getElementById('pm-estado').value          = p.estado||'activo';
+      document.getElementById('pm-precio-cliente').value  = p.precio_base||'';
+      document.getElementById('pm-precio-ambar').value    = p.precio_colab||'';
+      document.getElementById('pm-precio-notas').value    = p.precio_notas||'';
+      document.getElementById('pm-tags').value            = (p.tags||[]).join(', ');
       provFotos = (p.portafolio||[]).map(f=>({url:f.url,tipo_url:f.tipo_url||'external',id:f.id}));
     }
   } else {
@@ -1666,12 +1588,54 @@ function openProvModal(id=null){
 
 function closeProvModal(){
   document.getElementById('provModalOverlay').classList.remove('open');
-  editingProvId = null; provFotos = [];
+  editingProvId = null;
+  provFotos = [];
+}
+
+function renderProvFotos(){
+  const grid = document.getElementById('pmFotosGrid');
+  if(!grid) return;
+  grid.innerHTML = provFotos.map((f,i)=>
+    `<div class="pm-foto-item">
+      <img src="${f.url}" onerror="this.style.opacity='0.3'" alt="foto">
+      <button class="pm-foto-del" onclick="removeFoto(${i})">x</button>
+    </div>`
+  ).join('') + `<button class="pm-foto-add" onclick="document.getElementById('pmFileInput').click()"><span>📷</span><small>Subir</small></button>`;
+}
+
+function removeFoto(idx){ provFotos.splice(idx,1); renderProvFotos(); }
+
+function addFotoLink(){
+  const inp = document.getElementById('pmLinkInput');
+  const url = inp.value.trim();
+  if(!url){ showToast('Pega un link primero'); return; }
+  provFotos.push({url, tipo_url:'external'});
+  renderProvFotos();
+  inp.value = '';
+}
+
+async function handleFotoUpload(e){
+  const files = Array.from(e.target.files);
+  if(!files.length) return;
+  showToast('Subiendo ' + files.length + ' foto(s)...');
+  for(const file of files){
+    try {
+      const ext = file.name.split('.').pop();
+      const path = `portafolio/${Date.now()}_${Math.random().toString(36).slice(2,6)}.${ext}`;
+      const {error} = await sb.storage.from('portafolio').upload(path, file, {contentType:file.type});
+      if(error) throw error;
+      const {data:urlData} = sb.storage.from('portafolio').getPublicUrl(path);
+      provFotos.push({url:urlData.publicUrl, tipo_url:'storage'});
+    } catch(err){ showToast('Error: '+err.message); }
+  }
+  renderProvFotos();
+  showToast('Fotos subidas');
+  e.target.value='';
 }
 
 async function saveProveedor(){
   const nombre = document.getElementById('pm-nombre').value.trim();
-  if(!nombre){ showToast('Escribe el nombre del proveedor'); return; }
+  if(!nombre){ showToast('Escribe el nombre'); return; }
   const tags = (document.getElementById('pm-tags').value||'').split(',').map(t=>t.trim()).filter(Boolean);
   const payload = {
     tipo:         document.getElementById('pm-tipo').value,
@@ -1865,7 +1829,7 @@ function setView(v){ currentView=v;
   if(v==='sessions')  renderList();
   if(v==='tareas')    renderTareas();
   if(v==='finanzas')  renderFinanzas();
-  if(v==='servicios') renderServicios();
+  if(v==='servicios')  renderServicios();
   if(v==='proveedores') loadProveedores();
   if(v==='nueva' && !editingId) resetForm();
   closeSidebar();
