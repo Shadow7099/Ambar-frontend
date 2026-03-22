@@ -542,6 +542,49 @@ body{background:var(--admin);font-family:var(--font-b);color:var(--paper);min-he
   .pm-fotos-grid{grid-template-columns:repeat(4,1fr);}
 }
 
+
+/* == CONFIGURACION == */
+.cfg-section{margin-bottom:2rem;}
+.cfg-sec-head{
+  display:flex;align-items:center;gap:0.75rem;
+  padding:0.75rem 0;margin-bottom:1rem;
+  border-bottom:1px solid rgba(196,154,60,0.12);
+}
+.cfg-sec-ico{font-size:1.1rem;}
+.cfg-sec-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:400;color:var(--paper);}
+.cfg-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem;}
+.cfg-field{padding:1rem;border:1px solid rgba(196,154,60,0.12);background:rgba(255,255,255,0.02);}
+.cfg-field.full{grid-column:1/-1;}
+.cfg-lbl{font-size:0.46rem;letter-spacing:0.22em;text-transform:uppercase;color:rgba(250,247,242,0.3);margin-bottom:0.45rem;}
+.cfg-lbl span{color:rgba(196,154,60,0.5);font-size:0.42rem;margin-left:4px;}
+.cfg-input{width:100%;padding:0.6rem 0.75rem;background:rgba(255,255,255,0.04);border:1px solid rgba(196,154,60,0.18);color:var(--paper);font-family:'Outfit',sans-serif;font-size:0.78rem;outline:none;transition:border-color 0.2s;}
+.cfg-input:focus{border-color:rgba(196,154,60,0.5);}
+.cfg-textarea{width:100%;padding:0.6rem 0.75rem;background:rgba(255,255,255,0.04);border:1px solid rgba(196,154,60,0.18);color:var(--paper);font-family:'Outfit',sans-serif;font-size:0.75rem;outline:none;resize:vertical;min-height:80px;line-height:1.6;transition:border-color 0.2s;}
+.cfg-textarea:focus{border-color:rgba(196,154,60,0.5);}
+.cfg-save-row{grid-column:1/-1;display:flex;justify-content:flex-end;gap:0.75rem;padding-top:0.5rem;}
+.cfg-save-btn{padding:0.65rem 1.75rem;background:var(--gold);color:var(--ink);border:none;font-family:'Outfit',sans-serif;font-size:0.62rem;font-weight:500;letter-spacing:0.15em;text-transform:uppercase;cursor:pointer;transition:opacity 0.2s;}
+.cfg-save-btn:hover{opacity:0.88;}
+.cfg-saved{font-size:0.62rem;color:var(--sage);align-self:center;display:none;}
+.cfg-saved.show{display:block;}
+/* Proveedor config table */
+.prov-cfg-table{width:100%;border-collapse:collapse;}
+.prov-cfg-table th{padding:0.6rem 0.85rem;font-size:0.46rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(250,247,242,0.3);text-align:left;border-bottom:1px solid rgba(196,154,60,0.1);background:rgba(196,154,60,0.04);}
+.prov-cfg-table td{padding:0.5rem 0.85rem;border-bottom:1px solid rgba(196,154,60,0.06);vertical-align:middle;}
+.prov-cfg-table tr:last-child td{border-bottom:none;}
+.prov-cfg-input{width:100%;padding:0.4rem 0.6rem;background:rgba(255,255,255,0.04);border:1px solid rgba(196,154,60,0.15);color:var(--paper);font-family:'Outfit',sans-serif;font-size:0.7rem;outline:none;}
+.prov-cfg-input:focus{border-color:rgba(196,154,60,0.45);}
+.prov-tipo-sel{padding:0.4rem 0.6rem;background:rgba(255,255,255,0.04);border:1px solid rgba(196,154,60,0.15);color:var(--paper);font-family:'Outfit',sans-serif;font-size:0.68rem;outline:none;appearance:none;}
+.prov-tipo-sel option{background:#1A1612;}
+.cfg-add-btn{padding:0.5rem 1rem;background:rgba(196,154,60,0.1);border:1px solid rgba(196,154,60,0.2);color:var(--gold-l);font-family:'Outfit',sans-serif;font-size:0.58rem;letter-spacing:0.12em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;}
+.cfg-add-btn:hover{background:rgba(196,154,60,0.2);}
+.cfg-del-btn{padding:0.35rem 0.6rem;background:rgba(184,120,112,0.1);border:1px solid rgba(184,120,112,0.2);color:var(--rose);font-size:0.65rem;cursor:pointer;transition:all 0.2s;}
+.cfg-del-btn:hover{background:rgba(184,120,112,0.2);}
+@media(max-width:768px){
+  .cfg-grid{grid-template-columns:1fr;}
+  .cfg-field.full{grid-column:1;}
+  .cfg-save-row{grid-column:1;}
+}
+
 @media(max-width:900px){
   .fin-grid{grid-template-columns:1fr 1fr;}
 }
@@ -700,7 +743,10 @@ body{background:var(--admin);font-family:var(--font-b);color:var(--paper);min-he
       <div class="sb-item-ico">👥</div> Proveedores
       <div class="sb-count" id="cnt-prov">0</div>
     </div>
-    <div class="sb-section">Gestión</div>
+    <div class="sb-item" onclick="setView('configuracion')">
+      <div class="sb-item-ico">⚙️</div> Configuracion
+    </div>
+    <div class="sb-section">Gestion</div>
     <div class="sb-item" onclick="setView('nueva')">
       <div class="sb-item-ico">✚</div> Nueva sesión
     </div>
@@ -1047,6 +1093,222 @@ body{background:var(--admin);font-family:var(--font-b);color:var(--paper);min-he
       <button class="prov-tipo-tab" onclick="filterProvTipo('lugar',this)">Lugares</button>
     </div>
     <div class="prov-grid" id="provGrid"></div>
+  </div>
+
+
+<!-- PROVEEDOR MODAL -->
+<div class="prov-modal-overlay" id="provModalOverlay" onclick="if(event.target===this)closeProvModal()">
+  <div class="prov-modal">
+    <div class="pm-head">
+      <div class="pm-title" id="pmTitle">Nuevo proveedor</div>
+      <button class="pm-close" onclick="closeProvModal()">x</button>
+    </div>
+    <div class="pm-body">
+      <div class="pm-grid">
+        <div class="pm-fg">
+          <label>Tipo de proveedor</label>
+          <select id="pm-tipo">
+            <option value="fotografo">📸 Fotógrafo</option>
+            <option value="maquilladora">💄 Maquilladora</option>
+            <option value="caballo">🐴 Caballo</option>
+            <option value="dj">🎧 DJ</option>
+            <option value="lugar">🏛️ Lugar del evento</option>
+          </select>
+        </div>
+        <div class="pm-fg">
+          <label>Sede</label>
+          <select id="pm-sede">
+            <option value="bogota">🏙️ Bogotá D.C.</option>
+            <option value="barranquilla">🌴 Barranquilla</option>
+            <option value="villavicencio">🌿 Villavicencio</option>
+          </select>
+        </div>
+        <div class="pm-fg full">
+          <label>Nombre completo</label>
+          <input type="text" id="pm-nombre" placeholder="ej: Hector Nicolay Davila">
+        </div>
+        <div class="pm-fg full">
+          <label>Descripción</label>
+          <textarea id="pm-desc" placeholder="Especialidad, estilo, experiencia..."></textarea>
+        </div>
+        <div class="pm-fg">
+          <label>Teléfono / WhatsApp</label>
+          <input type="tel" id="pm-tel" placeholder="300 000 0000">
+        </div>
+        <div class="pm-fg">
+          <label>Email</label>
+          <input type="email" id="pm-email" placeholder="nombre@correo.com">
+        </div>
+        <div class="pm-fg">
+          <label>Instagram</label>
+          <input type="text" id="pm-ig" placeholder="@usuario">
+        </div>
+        <div class="pm-fg">
+          <label>Estado</label>
+          <select id="pm-estado">
+            <option value="activo">Activo</option>
+            <option value="inactivo">Inactivo</option>
+          </select>
+        </div>
+        <div class="pm-fg">
+          <label>Precio cliente · COP</label>
+          <input type="number" id="pm-precio-cliente" placeholder="ej: 900000">
+        </div>
+        <div class="pm-fg">
+          <label>Pago colaborador · COP</label>
+          <input type="number" id="pm-precio-ambar" placeholder="ej: 450000">
+        </div>
+        <div class="pm-fg full">
+          <label>Notas de precio / paquetes</label>
+          <textarea id="pm-precio-notas" placeholder="Descripción de paquetes..."></textarea>
+        </div>
+        <div class="pm-fg full">
+          <label>Tags (separados por coma)</label>
+          <input type="text" id="pm-tags" placeholder="Pre-XV, Exterior, Golden Hour...">
+        </div>
+        <div class="pm-fg full">
+          <label>Fotos del portafolio</label>
+          <div class="pm-fotos-grid" id="pmFotosGrid">
+            <button class="pm-foto-add" onclick="document.getElementById('pmFileInput').click()">
+              <span>📷</span><small>Subir foto</small>
+            </button>
+          </div>
+          <input type="file" id="pmFileInput" accept="image/*" multiple style="display:none" onchange="handleFotoUpload(event)">
+        </div>
+        <div class="pm-fg full" style="display:flex;gap:0.5rem">
+          <input type="text" id="pmLinkInput" placeholder="Link Google Drive / Instagram / externo..." style="flex:1;padding:0.5rem 0.7rem;background:rgba(255,255,255,0.04);border:1px solid rgba(196,154,60,0.18);color:var(--paper);font-family:'Outfit',sans-serif;font-size:0.72rem;outline:none;">
+          <button onclick="addFotoLink()" style="padding:0.5rem 0.85rem;background:rgba(196,154,60,0.12);border:1px solid rgba(196,154,60,0.25);color:var(--gold-l);font-family:'Outfit',sans-serif;font-size:0.58rem;cursor:pointer;">Agregar link</button>
+        </div>
+        <div class="pm-fg full">
+          <button class="pm-save-btn" onclick="saveProveedor()">Guardar proveedor</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  <!-- == VIEW: CONFIGURACION == -->
+  <div class="view" id="view-configuracion">
+
+    <!-- Proveedores / Equipo -->
+    <div class="cfg-section">
+      <div class="cfg-sec-head">
+        <span class="cfg-sec-ico">👥</span>
+        <span class="cfg-sec-title">Equipo de trabajo</span>
+      </div>
+      <div style="display:flex;justify-content:flex-end;margin-bottom:0.75rem">
+        <button class="cfg-add-btn" onclick="addProvRow()">+ Agregar colaborador</button>
+      </div>
+      <div style="overflow-x:auto;border:1px solid rgba(196,154,60,0.12)">
+        <table class="prov-cfg-table">
+          <thead><tr>
+            <th>Tipo</th><th>Nombre</th><th>Telefono</th><th>Correo</th>
+            <th>Sede</th><th>Precio cliente</th><th>Precio colab.</th><th>Estado</th><th></th>
+          </tr></thead>
+          <tbody id="provCfgTable"></tbody>
+        </table>
+      </div>
+      <div style="margin-top:0.75rem;text-align:right">
+        <span class="cfg-saved" id="provCfgSaved">Guardado</span>
+        <button class="cfg-save-btn" onclick="saveProvCfg()">Guardar equipo</button>
+      </div>
+    </div>
+
+    <!-- General -->
+    <div class="cfg-section">
+      <div class="cfg-sec-head">
+        <span class="cfg-sec-ico">🏢</span>
+        <span class="cfg-sec-title">Configuracion general</span>
+      </div>
+      <div class="cfg-grid" id="cfgGeneral">
+        <div class="cfg-field">
+          <div class="cfg-lbl">Nombre del negocio</div>
+          <input class="cfg-input" id="cfg-nombre_negocio" type="text" placeholder="AMBAR Couture">
+        </div>
+        <div class="cfg-field">
+          <div class="cfg-lbl">WhatsApp admin <span>(notificaciones)</span></div>
+          <input class="cfg-input" id="cfg-whatsapp_admin" type="tel" placeholder="+573001234567">
+        </div>
+        <div class="cfg-field">
+          <div class="cfg-lbl">Dias entrega fotos finales</div>
+          <input class="cfg-input" id="cfg-dias_entrega_fotos" type="number" placeholder="8">
+        </div>
+        <div class="cfg-field">
+          <div class="cfg-lbl">Dias recoleccion de contenido</div>
+          <input class="cfg-input" id="cfg-dias_recoleccion" type="number" placeholder="4">
+        </div>
+        <div class="cfg-save-row">
+          <span class="cfg-saved" id="cfgGeneralSaved">Guardado</span>
+          <button class="cfg-save-btn" onclick="saveCfgGroup('general')">Guardar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notificaciones -->
+    <div class="cfg-section">
+      <div class="cfg-sec-head">
+        <span class="cfg-sec-ico">📧</span>
+        <span class="cfg-sec-title">Correos y notificaciones</span>
+      </div>
+      <div class="cfg-grid">
+        <div class="cfg-field">
+          <div class="cfg-lbl">Correo admin</div>
+          <input class="cfg-input" id="cfg-email_admin" type="email" placeholder="admin@ambarcouture.com">
+        </div>
+        <div class="cfg-field">
+          <div class="cfg-lbl">Correo remitente <span>(Resend)</span></div>
+          <input class="cfg-input" id="cfg-email_remitente" type="email" placeholder="reservas@ambarcouture.com">
+        </div>
+        <div class="cfg-field full">
+          <div class="cfg-lbl">Mensaje confirmacion WhatsApp al cliente <span>Variables: {nombre} {fecha} {hora} {sede} {equipo} {anticipo} {saldo}</span></div>
+          <textarea class="cfg-textarea" id="cfg-msg_confirmacion"></textarea>
+        </div>
+        <div class="cfg-field full">
+          <div class="cfg-lbl">Mensaje recordatorio 2 dias antes <span>Variables: {nombre} {hora} {lugar} {whatsapp_admin}</span></div>
+          <textarea class="cfg-textarea" id="cfg-msg_recordatorio"></textarea>
+        </div>
+        <div class="cfg-field full">
+          <div class="cfg-lbl">Mensaje notificacion al colaborador <span>Variables: {colaborador} {nombre} {fecha} {hora} {lugar}</span></div>
+          <textarea class="cfg-textarea" id="cfg-msg_colaborador"></textarea>
+        </div>
+        <div class="cfg-save-row">
+          <span class="cfg-saved" id="cfgNotifSaved">Guardado</span>
+          <button class="cfg-save-btn" onclick="saveCfgGroup('notificaciones')">Guardar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pagos -->
+    <div class="cfg-section">
+      <div class="cfg-sec-head">
+        <span class="cfg-sec-ico">💰</span>
+        <span class="cfg-sec-title">Pagos y facturacion</span>
+      </div>
+      <div class="cfg-grid">
+        <div class="cfg-field">
+          <div class="cfg-lbl">Porcentaje anticipo (%)</div>
+          <input class="cfg-input" id="cfg-anticipo_porcentaje" type="number" placeholder="30" min="1" max="100">
+        </div>
+        <div class="cfg-field">
+          <div class="cfg-lbl">Bold API Key</div>
+          <input class="cfg-input" id="cfg-bold_api_key" type="text" placeholder="bold_sk_...">
+        </div>
+        <div class="cfg-field">
+          <div class="cfg-lbl">Resend API Key</div>
+          <input class="cfg-input" id="cfg-resend_api_key" type="text" placeholder="re_...">
+        </div>
+        <div class="cfg-field">
+          <div class="cfg-lbl">Twilio SID</div>
+          <input class="cfg-input" id="cfg-twilio_sid" type="text" placeholder="ACxxxxxxxx">
+        </div>
+        <div class="cfg-save-row">
+          <span class="cfg-saved" id="cfgPagosSaved">Guardado</span>
+          <button class="cfg-save-btn" onclick="saveCfgGroup('pagos')">Guardar</button>
+        </div>
+      </div>
+    </div>
+
   </div>
 
 <!-- DETAIL MODAL -->
@@ -1484,34 +1746,12 @@ function filterProvTipo(tipo,btn){
   renderProveedores();
 }
 
-function filterProvTipo(tipo, btn){
-  provTipoFilter = tipo;
-  document.querySelectorAll('.prov-tipo-tab').forEach(t=>t.classList.remove('active'));
-  btn.classList.add('active');
-  renderProveedores();
-}
 
 function filterProvs(f, btn){
   // legacy - redirect to filterProvTipo
   filterProvTipo(f, btn);
 }
 
-async function loadProveedores(){
-  if(!sb) return;
-  try {
-    const {data, error} = await sb
-      .from('proveedores')
-      .select('*, portafolio(*)')
-      .order('tipo').order('nombre');
-    if(error) throw error;
-    proveedores = data || [];
-    renderProveedores();
-    const el = document.getElementById('cnt-prov');
-    if(el) el.textContent = proveedores.filter(p=>p.estado==='activo').length;
-  } catch(e){
-    showToast('Error cargando proveedores: ' + e.message);
-  }
-}
 
 function renderProveedores(){
   const grid = document.getElementById('provGrid');
@@ -1703,6 +1943,160 @@ function getTasksForDay(dayStr){
 //  SUPABASE - pega aquí tus credenciales
 //  (Paso 5 de la guía ambar-supabase-guia.html)
 // ==========================================
+
+// == CONFIGURACION ==
+let cfgData = {};
+let provCfgRows = [];
+
+async function loadConfiguracion(){
+  if(!sb) return;
+  try {
+    const { data, error } = await sb.from('configuracion').select('*');
+    if(error) throw error;
+    cfgData = {};
+    (data||[]).forEach(row => cfgData[row.id] = row.valor||'');
+    renderCfgFields();
+    await loadProvCfg();
+  } catch(e){
+    showToast('Error cargando configuracion: ' + e.message);
+  }
+}
+
+function renderCfgFields(){
+  const fields = [
+    'nombre_negocio','whatsapp_admin','dias_entrega_fotos','dias_recoleccion',
+    'email_admin','email_remitente','msg_confirmacion','msg_recordatorio','msg_colaborador',
+    'anticipo_porcentaje','bold_api_key','resend_api_key','twilio_sid'
+  ];
+  fields.forEach(id => {
+    const el = document.getElementById('cfg-'+id);
+    if(el && cfgData[id] !== undefined) el.value = cfgData[id];
+  });
+}
+
+async function saveCfgGroup(grupo){
+  const groupFields = {
+    general: ['nombre_negocio','whatsapp_admin','dias_entrega_fotos','dias_recoleccion'],
+    notificaciones: ['email_admin','email_remitente','msg_confirmacion','msg_recordatorio','msg_colaborador'],
+    pagos: ['anticipo_porcentaje','bold_api_key','resend_api_key','twilio_sid'],
+  };
+  const fields = groupFields[grupo] || [];
+  const savedId = grupo === 'general' ? 'cfgGeneralSaved'
+                : grupo === 'notificaciones' ? 'cfgNotifSaved' : 'cfgPagosSaved';
+  try {
+    for(const id of fields){
+      const el = document.getElementById('cfg-'+id);
+      if(!el) continue;
+      const valor = el.value.trim();
+      await sb.from('configuracion').upsert({
+        id, valor, updated_at: new Date().toISOString()
+      });
+      cfgData[id] = valor;
+    }
+    const savedEl = document.getElementById(savedId);
+    if(savedEl){ savedEl.classList.add('show'); setTimeout(()=>savedEl.classList.remove('show'),2500); }
+    showToast('Configuracion guardada');
+  } catch(e){
+    showToast('Error guardando: ' + e.message);
+  }
+}
+
+// Proveedor config table
+async function loadProvCfg(){
+  try {
+    const { data, error } = await sb.from('proveedores')
+      .select('id,tipo,nombre,telefono,email,sede,precio_base,precio_colab,estado')
+      .order('tipo').order('nombre');
+    if(error) throw error;
+    provCfgRows = (data||[]).map(p => ({...p}));
+    renderProvCfgTable();
+  } catch(e){
+    console.warn('loadProvCfg:', e.message);
+  }
+}
+
+function renderProvCfgTable(){
+  const tbody = document.getElementById('provCfgTable');
+  if(!tbody) return;
+  const TIPOS = ['fotografo','maquilladora','caballo','dj','lugar'];
+  const SEDES = ['bogota','barranquilla','villavicencio'];
+  tbody.innerHTML = provCfgRows.map((p,i) => `
+    <tr id="pcrow_${i}">
+      <td>
+        <select class="prov-tipo-sel" data-i="${i}" data-f="tipo" onchange="provCfgChange(this)">
+          ${TIPOS.map(t=>`<option value="${t}" ${p.tipo===t?'selected':''}>${t}</option>`).join('')}
+        </select>
+      </td>
+      <td><input class="prov-cfg-input" value="${p.nombre||''}" data-i="${i}" data-f="nombre" onchange="provCfgChange(this)" style="min-width:140px"></td>
+      <td><input class="prov-cfg-input" value="${p.telefono||''}" data-i="${i}" data-f="telefono" onchange="provCfgChange(this)" style="width:110px" placeholder="300..."></td>
+      <td><input class="prov-cfg-input" value="${p.email||''}" data-i="${i}" data-f="email" onchange="provCfgChange(this)" style="min-width:160px" placeholder="correo@..."></td>
+      <td>
+        <select class="prov-tipo-sel" data-i="${i}" data-f="sede" onchange="provCfgChange(this)">
+          ${SEDES.map(s=>`<option value="${s}" ${p.sede===s?'selected':''}>${s}</option>`).join('')}
+        </select>
+      </td>
+      <td><input class="prov-cfg-input" type="number" value="${p.precio_base||''}" data-i="${i}" data-f="precio_base" onchange="provCfgChange(this)" style="width:90px" placeholder="0"></td>
+      <td><input class="prov-cfg-input" type="number" value="${p.precio_colab||''}" data-i="${i}" data-f="precio_colab" onchange="provCfgChange(this)" style="width:90px" placeholder="0"></td>
+      <td>
+        <select class="prov-tipo-sel" data-i="${i}" data-f="estado" onchange="provCfgChange(this)">
+          <option value="activo" ${p.estado==='activo'?'selected':''}>activo</option>
+          <option value="inactivo" ${p.estado==='inactivo'?'selected':''}>inactivo</option>
+        </select>
+      </td>
+      <td><button class="cfg-del-btn" onclick="delProvCfgRow(${i})">x</button></td>
+    </tr>`).join('');
+}
+
+function provCfgChange(el){
+  const i = parseInt(el.dataset.i);
+  const f = el.dataset.f;
+  if(provCfgRows[i]) provCfgRows[i][f] = el.value;
+}
+
+function addProvRow(){
+  provCfgRows.push({tipo:'fotografo',nombre:'',telefono:'',email:'',sede:'bogota',precio_base:null,precio_colab:null,estado:'activo',id:null});
+  renderProvCfgTable();
+}
+
+async function delProvCfgRow(i){
+  const row = provCfgRows[i];
+  if(row.id){
+    if(!confirm('Eliminar este colaborador?')) return;
+    await sb.from('proveedores').delete().eq('id', row.id);
+  }
+  provCfgRows.splice(i,1);
+  renderProvCfgTable();
+  showToast('Colaborador eliminado');
+}
+
+async function saveProvCfg(){
+  try {
+    for(const p of provCfgRows){
+      if(!p.nombre.trim()) continue;
+      const payload = {
+        tipo: p.tipo, nombre: p.nombre.trim(),
+        telefono: p.telefono||null, email: p.email||null,
+        sede: p.sede, estado: p.estado,
+        precio_base: parseFloat(p.precio_base)||null,
+        precio_colab: parseFloat(p.precio_colab)||null,
+        updated_at: new Date().toISOString(),
+      };
+      if(p.id){
+        await sb.from('proveedores').update(payload).eq('id', p.id);
+      } else {
+        const { data } = await sb.from('proveedores').insert([payload]).select().single();
+        p.id = data?.id;
+      }
+    }
+    const el = document.getElementById('provCfgSaved');
+    if(el){ el.classList.add('show'); setTimeout(()=>el.classList.remove('show'),2500); }
+    showToast('Equipo guardado correctamente');
+    await loadProveedores(); // refresh proveedores view
+  } catch(e){
+    showToast('Error: ' + e.message);
+  }
+}
+
 const SUPABASE_URL = 'https://dtkwoxjuhmdmpnmynjtg.supabase.co';      // ej: https://abcdefgh.supabase.co
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR0a3dveGp1aG1kbXBubXluanRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0MDU3ODQsImV4cCI6MjA4ODk4MTc4NH0.1laG-S3hDIzM-eDU-u2ibwJuFR1ioPc-kvVrlH6zx7o'; // anon public key
 
@@ -1830,7 +2224,8 @@ function setView(v){ currentView=v;
   if(v==='tareas')    renderTareas();
   if(v==='finanzas')  renderFinanzas();
   if(v==='servicios')  renderServicios();
-  if(v==='proveedores') loadProveedores();
+  if(v==='proveedores')   loadProveedores();
+  if(v==='configuracion')  loadConfiguracion();
   if(v==='nueva' && !editingId) resetForm();
   closeSidebar();
 }
