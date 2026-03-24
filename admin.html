@@ -1731,6 +1731,13 @@ async function toggleTask(sessionId,field,taskId,el){
 }
 
 // == FINANZAS ==
+
+// Formatear moneda COP
+function cop(n){
+  if(!n && n!==0) return '$0';
+  return '$'+Math.round(parseFloat(n)).toLocaleString('es-CO');
+}
+
 async function renderFinanzas(){
   // Always reload fresh data from Supabase
   try {
