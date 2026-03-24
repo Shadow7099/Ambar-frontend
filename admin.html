@@ -1186,11 +1186,37 @@ body{background:var(--admin);font-family:var(--font-b);color:var(--paper);min-he
       <button class="fin-period-btn"        id="fp-mes"     onclick="setFinPeriodo('mes',this)">Este mes</button>
       <button class="fin-period-btn"        id="fp-anterior" onclick="setFinPeriodo('anterior',this)">Mes anterior</button>
     </div>
-    <div class="fin-grid" style="margin-bottom:1.5rem">
-      <div class="fin-card"><div class="fc-ico">💵</div><div class="fc-num" id="fin-recaudado">$0</div><div class="fc-lbl">Recaudado clientes</div></div>
-      <div class="fin-card"><div class="fc-ico">💸</div><div class="fc-num red" id="fin-pagos">$0</div><div class="fc-lbl">Pagado a colaboradores</div></div>
-      <div class="fin-card"><div class="fc-ico">📈</div><div class="fc-num green" id="fin-ganancia">$0</div><div class="fc-lbl">Ganancia neta</div></div>
-      <div class="fin-card"><div class="fc-ico">⏳</div><div class="fc-num" id="fin-pendiente">$0</div><div class="fc-lbl">Por cobrar</div></div>
+    <div class="fin-grid" style="margin-bottom:1.5rem;grid-template-columns:repeat(auto-fit,minmax(180px,1fr))">
+      <div class="fin-card">
+        <div class="fc-ico">🧾</div>
+        <div class="fc-num" id="fin-facturado">$0</div>
+        <div class="fc-lbl">Total facturado</div>
+        <div style="font-size:0.48rem;color:rgba(250,247,242,0.2);margin-top:3px">Suma total de sesiones</div>
+      </div>
+      <div class="fin-card">
+        <div class="fc-ico">💵</div>
+        <div class="fc-num green" id="fin-recaudado">$0</div>
+        <div class="fc-lbl">Total recaudado</div>
+        <div style="font-size:0.48rem;color:rgba(250,247,242,0.2);margin-top:3px">Pagos recibidos de clientes</div>
+      </div>
+      <div class="fin-card">
+        <div class="fc-ico">⏳</div>
+        <div class="fc-num" id="fin-por-cobrar">$0</div>
+        <div class="fc-lbl">Por cobrar</div>
+        <div style="font-size:0.48rem;color:rgba(250,247,242,0.2);margin-top:3px">Saldo pendiente clientes</div>
+      </div>
+      <div class="fin-card">
+        <div class="fc-ico">💸</div>
+        <div class="fc-num red" id="fin-pagos">$0</div>
+        <div class="fc-lbl">Pago proveedores</div>
+        <div style="font-size:0.48rem;color:rgba(250,247,242,0.2);margin-top:3px">Pagado a fotografos y mk</div>
+      </div>
+      <div class="fin-card">
+        <div class="fc-ico">📈</div>
+        <div class="fc-num green" id="fin-ganancia">$0</div>
+        <div class="fc-lbl">Ganancia AMBAR</div>
+        <div style="font-size:0.48rem;color:rgba(250,247,242,0.2);margin-top:3px">Recaudado menos pagos</div>
+      </div>
     </div>
     <div class="fin-tabs">
       <button class="fin-tab active" onclick="finSetTab('sesiones',this)">📋 Sesiones</button>
@@ -1752,7 +1778,9 @@ async function renderFinanzas(){
         precio_colab:        r.precio_colab        || null,
         factura_monto:       r.factura_monto        || null,
         factura_estado:      r.factura_estado       || 'pendiente',
-        pago_proveedor_done: r.pago_proveedor_done  || false,
+        pago_proveedor_done:       r.pago_proveedor_done       || false,
+        anticipo_proveedor_pagado: r.anticipo_proveedor_pagado || false,
+        anticipo_proveedor_monto:  r.anticipo_proveedor_monto  || null,
       }));
     }
   } catch(e){ console.warn('renderFinanzas load:', e.message); }
@@ -1770,6 +1798,7 @@ async function renderFinanzas(){
 
     recaudado += pagado;
     if(s.pago_proveedor_done) pagos += co;
+    else if(s.anticipo_proveedor_pagado) pagos += parseFloat(s.anticipo_proveedor_monto)||Math.round(co*0.10);
     if(cl > 0 && saldo > 0) porCobrar += saldo;
 
     const d = new Date(s.fecha+'T12:00:00');
@@ -1790,15 +1819,17 @@ async function renderFinanzas(){
     </tr>`;
   }).join('');
 
-  // Update stats
-  ['fin-recaudado','fin-pagos','fin-ganancia','fin-pendiente'].forEach(id=>{
-    const el = document.getElementById(id);
-    if(!el) return;
-    if(id==='fin-recaudado') el.textContent = cop(recaudado);
-    if(id==='fin-pagos')     el.textContent = cop(pagos);
-    if(id==='fin-ganancia')  el.textContent = cop(recaudado - pagos);
-    if(id==='fin-pendiente') el.textContent = cop(porCobrar);
-  });
+  // Totales
+  let facturado = 0;
+  filtered.forEach(s => { facturado += parseFloat(s.precio_cliente)||0; });
+  const saldoPorCobrar = facturado - recaudado;
+
+  const setEl = (id, val) => { const el=document.getElementById(id); if(el) el.textContent=cop(val); };
+  setEl('fin-facturado', facturado);
+  setEl('fin-recaudado', recaudado);
+  setEl('fin-pagos',     pagos);
+  setEl('fin-ganancia',  recaudado - pagos);
+  setEl('fin-por-cobrar', Math.max(0, saldoPorCobrar));
 
   const tbl = document.getElementById('finTable');
   if(tbl) tbl.innerHTML = rows ||
@@ -2735,12 +2766,19 @@ function renderRecaudo(){
 function renderProvPagos(){
   const el = document.getElementById('fin-prov-list');
   if(!el) return;
-  // Sessions confirmadas o realizadas pendientes de pago a proveedor
-  const pendientes = sessions.filter(s=>
-    (s.status==='confirmada'||s.status==='realizada') &&
+  // Pendientes de anticipo (10%) - confirmadas sin anticipo pagado
+  const pendientesAnticipo = sessions.filter(s=>
+    s.status==='confirmada' &&
+    !s.anticipo_proveedor_pagado &&
+    (s.precio_colab||0) > 0
+  );
+  // Pendientes de pago final - realizadas sin pago final
+  const pendientesFinal = sessions.filter(s=>
+    s.status==='realizada' &&
     !s.pago_proveedor_done &&
     (s.precio_colab||0) > 0
   );
+  const pendientes = [...pendientesAnticipo, ...pendientesFinal];
   const pagadas    = sessions.filter(s=>s.pago_proveedor_done);
 
   let html = '';
@@ -2750,30 +2788,29 @@ function renderProvPagos(){
       const pg = getProvNombre(s.pg_id);
       const mk = getProvNombre(s.mk_id);
       const monto = s.precio_colab||0;
-      const anticipo = Math.round(monto * 0.10);
+      const anticipo = s.anticipo_proveedor_monto || Math.round(monto * 0.10);
       const esRealizada = s.status==='realizada';
+      const montoMostrar = esRealizada ? monto : anticipo;
+      const etiqueta = esRealizada ? 'Pago final (100%)' : 'Anticipo reserva (10%)';
+      const accion = esRealizada ? 'Marcar pago final realizado' : 'Marcar anticipo pagado';
+      const fnClick = esRealizada ? `marcarPagoProveedor('${s.id}')` : `marcarAnticipoProveedor('${s.id}')`;
       return `<div class="pago-prov-panel">
         <div class="pp-head">
           <div>
             <div class="pp-name">📸 ${pg} ${mk&&mk!=='-'?'+ 💄 '+mk:''}</div>
             <div style="font-size:0.6rem;color:rgba(250,247,242,0.3);margin-top:2px">${s.q_nombre} ${s.q_apellido||''} · ${s.fecha} · ${SEDES_LABEL[s.sede]||s.sede}</div>
-            <div style="margin-top:5px;display:flex;gap:1rem;flex-wrap:wrap">
-              <span style="font-size:0.6rem;color:rgba(250,247,242,0.4)">
-                Anticipo (10%): <strong style="color:var(--gold-l)">$${anticipo.toLocaleString('es-CO')}</strong>
-              </span>
-              <span style="font-size:0.6rem;color:rgba(250,247,242,0.4)">
-                Total al realizar: <strong style="color:var(--rose)">$${monto.toLocaleString('es-CO')}</strong>
-              </span>
+            <div style="margin-top:6px;display:flex;gap:1rem;flex-wrap:wrap;align-items:center">
+              ${!esRealizada ? `<span style="font-size:0.6rem;padding:0.15rem 0.5rem;border:1px solid rgba(196,154,60,0.25);color:var(--gold-l)">Anticipo: $${anticipo.toLocaleString('es-CO')}</span>` : ''}
+              <span style="font-size:0.6rem;color:rgba(250,247,242,0.3)">Total colab: $${monto.toLocaleString('es-CO')}</span>
+              ${s.anticipo_proveedor_pagado&&!esRealizada?'<span style="font-size:0.55rem;color:#B0D0B2">✓ Anticipo ya pagado</span>':''}
             </div>
           </div>
-          <div>
-            <div class="pp-monto">$${(esRealizada?monto:anticipo).toLocaleString('es-CO')}</div>
-            <div style="font-size:0.55rem;color:rgba(250,247,242,0.3);text-align:right">${esRealizada?'Pago final':'Anticipo reserva'}</div>
+          <div style="text-align:right">
+            <div class="pp-monto">$${montoMostrar.toLocaleString('es-CO')}</div>
+            <div style="font-size:0.5rem;color:rgba(250,247,242,0.3)">${etiqueta}</div>
           </div>
         </div>
-        <div style="display:flex;gap:0.5rem;flex-wrap:wrap">
-          <button class="pagar-btn" onclick="marcarPagoProveedor('${s.id}')">💸 ${esRealizada?'Marcar pago final':'Marcar anticipo pagado'}</button>
-        </div>
+        <button class="pagar-btn" onclick="${fnClick}">💸 ${accion}</button>
       </div>`;
     }).join('');
   }
@@ -2920,6 +2957,34 @@ async function confirmRegistrarPago(sesionId){
   } catch(e){ showToast('Error: '+e.message); }
 }
 
+
+async function marcarAnticipoProveedor(sesionId){
+  const s = sessions.find(x=>x.id===sesionId);
+  const monto = s?.anticipo_proveedor_monto || Math.round((s?.precio_colab||0)*0.10);
+  if(!confirm('Marcar anticipo de $'+monto.toLocaleString('es-CO')+' COP como pagado a '+getProvNombre(s?.pg_id)+'?')) return;
+  try {
+    await sb.from('sesiones').update({
+      anticipo_proveedor_pagado: true,
+      anticipo_proveedor_fecha:  new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+    }).eq('id', sesionId);
+
+    await sb.from('historial_pagos').insert([{
+      sesion_id:   sesionId,
+      tipo:        'pago_proveedor',
+      monto:       monto,
+      descripcion: 'Anticipo 10% a '+getProvNombre(s?.pg_id),
+      estado:      'confirmado',
+    }]);
+
+    showToast('✅ Anticipo registrado · $'+monto.toLocaleString('es-CO')+' COP');
+    await loadSessions();
+    await loadHistorial();
+    renderProvPagos();
+    await renderFinanzas();
+  } catch(e){ showToast('Error: '+e.message); }
+}
+
 async function marcarPagoProveedor(sesionId){
   const s = sessions.find(x=>x.id===sesionId);
   if(!confirm('Marcar pago a proveedor de '+(s?.q_nombre||'esta sesión')+' como realizado?')) return;
@@ -3041,8 +3106,11 @@ async function loadSessions(){
       factura_comprobante: r.factura_comprobante  || null,
       factura_notas:       r.factura_notas        || null,
       factura_estado:      r.factura_estado       || 'pendiente',
-      pago_proveedor_done: r.pago_proveedor_done   || false,
-      pago_proveedor_fecha:r.pago_proveedor_fecha  || null,
+      pago_proveedor_done:        r.pago_proveedor_done        || false,
+      pago_proveedor_fecha:       r.pago_proveedor_fecha       || null,
+      anticipo_proveedor_pagado:  r.anticipo_proveedor_pagado  || false,
+      anticipo_proveedor_fecha:   r.anticipo_proveedor_fecha   || null,
+      anticipo_proveedor_monto:   r.anticipo_proveedor_monto   || null,
     }));
     showToast('[OK] ' + sessions.length + ' sesiones cargadas');
   } catch(e){
