@@ -544,6 +544,8 @@ body{background:var(--admin);font-family:var(--font-b);color:var(--paper);min-he
 
 
 /* == CONFIGURACION == */
+#view-configuracion{max-width:100%;}
+
 .cfg-section{margin-bottom:2rem;}
 .cfg-sec-head{
   display:flex;align-items:center;gap:0.75rem;
@@ -1691,7 +1693,7 @@ async function loadProveedores(){
     console.warn('Using local proveedores data:', e.message);
     proveedores = SERVICIOS_DATA.map((sv,i) => ({...sv, id: 'local_'+i}));
   }
-  renderServicios();
+  renderProveedores();
 }
 
 function filterProvTipo(tipo,btn){
@@ -1878,12 +1880,11 @@ async function deleteProveedor(id){
       await loadProveedores();
     } else {
       proveedores = proveedores.filter(x=>(x.id||x._id)!==id);
-      renderServicios();
+      renderProveedores();
     }
     showToast('🗑 Proveedor eliminado');
   } catch(e){
     proveedores = proveedores.filter(x=>(x.id||x._id)!==id);
-    renderServicios();
     showToast('🗑 Eliminado localmente');
   }
 }
@@ -1980,7 +1981,7 @@ const EQUIPO_AMBAR_DEFAULT = [
 async function loadProvCfg(){
   try {
     const { data, error } = await sb.from('proveedores')
-      .select('id,tipo,nombre,telefono,email,sede,precio_base,precio_colab,estado')
+      .select('id,tipo,nombre,telefono,email,sede,precio_base,precio_colab,estado,portafolio(*)')
       .order('tipo').order('nombre');
     if(error) throw error;
     if(data && data.length > 0){
@@ -2004,58 +2005,122 @@ function renderProvCfgTable(){
     {v:'fotografo',l:'📸 Fotografo'},{v:'maquilladora',l:'💄 Maquilladora'},
     {v:'caballo',l:'🐴 Caballo'},{v:'dj',l:'🎧 DJ'},{v:'lugar',l:'🏛️ Lugar'}
   ];
-  const SEDES = [{v:'bogota',l:'🏙️ Bogota'},{v:'barranquilla',l:'🌴 Barranquilla'},{v:'villavicencio',l:'🌿 Villavicencio'}];
-  const TIPO_ICO = {fotografo:'📸',maquilladora:'💄',caballo:'🐴',dj:'🎧',lugar:'🏛️'};
+  const SEDES = [
+    {v:'bogota',l:'🏙️ Bogota'},{v:'barranquilla',l:'🌴 Barranquilla'},{v:'villavicencio',l:'🌿 Villavicencio'}
+  ];
+  const ICO = {fotografo:'📸',maquilladora:'💄',caballo:'🐴',dj:'🎧',lugar:'🏛️'};
 
-  el.innerHTML = provCfgRows.map((p,i) => `
-    <div style="border:1px solid rgba(196,154,60,${p.id?'0.12':'0.3'});padding:0.85rem 1rem;background:rgba(255,255,255,0.02)">
-      <div style="display:grid;grid-template-columns:auto 1fr 1fr 1fr auto;gap:0.6rem;align-items:center;margin-bottom:0.6rem;flex-wrap:wrap">
-        <div style="font-size:1.1rem">${TIPO_ICO[p.tipo]||'👤'}</div>
+  el.innerHTML = provCfgRows.map((p,i) => {
+    const fotos = (p.portafolio||[]);
+    const fotosHTML = fotos.map((f,fi) =>
+      `<div style="position:relative;aspect-ratio:1;background:url('${f.url}') center/cover no-repeat rgba(196,154,60,0.06);border:1px solid rgba(196,154,60,0.15)">
+        <button onclick="delFotoProv(${i},${fi})" style="position:absolute;top:3px;right:3px;background:rgba(184,120,112,0.9);color:white;border:none;width:18px;height:18px;border-radius:50%;cursor:pointer;font-size:0.6rem;display:flex;align-items:center;justify-content:center">x</button>
+      </div>`
+    ).join('');
+
+    return `<div style="border:1px solid rgba(196,154,60,${p.id?'0.15':'0.4'});background:rgba(255,255,255,0.02);margin-bottom:0.5rem">
+      <!-- Row 1: main info -->
+      <div style="display:grid;grid-template-columns:36px 1fr 1fr 1fr 36px;gap:0.5rem;align-items:center;padding:0.75rem 1rem;border-bottom:1px solid rgba(196,154,60,0.06)">
+        <div style="font-size:1.2rem;text-align:center">${ICO[p.tipo]||'👤'}</div>
         <div>
-          <div style="font-size:0.44rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(250,247,242,0.3);margin-bottom:3px">Nombre</div>
+          <div style="font-size:0.42rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(250,247,242,0.25);margin-bottom:3px">Nombre</div>
           <input class="prov-cfg-input" value="${p.nombre||''}" data-i="${i}" data-f="nombre" oninput="provCfgChange(this)" placeholder="Nombre completo" style="width:100%">
         </div>
         <div>
-          <div style="font-size:0.44rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(250,247,242,0.3);margin-bottom:3px">Telefono</div>
+          <div style="font-size:0.42rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(250,247,242,0.25);margin-bottom:3px">Telefono</div>
           <input class="prov-cfg-input" value="${p.telefono||''}" data-i="${i}" data-f="telefono" oninput="provCfgChange(this)" placeholder="300 000 0000" style="width:100%">
         </div>
         <div>
-          <div style="font-size:0.44rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(250,247,242,0.3);margin-bottom:3px">Correo</div>
+          <div style="font-size:0.42rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(250,247,242,0.25);margin-bottom:3px">Correo</div>
           <input class="prov-cfg-input" value="${p.email||''}" data-i="${i}" data-f="email" oninput="provCfgChange(this)" placeholder="correo@..." style="width:100%">
         </div>
-        <button class="cfg-del-btn" onclick="delProvCfgRow(${i})" title="Eliminar">🗑</button>
+        <button onclick="delProvCfgRow(${i})" style="background:rgba(184,120,112,0.1);border:1px solid rgba(184,120,112,0.2);color:var(--rose);padding:0.4rem;cursor:pointer;font-size:0.8rem">🗑</button>
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr;gap:0.6rem;align-items:end">
+      <!-- Row 2: type/sede/prices + photos -->
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr 2fr;gap:0.5rem;align-items:start;padding:0.75rem 1rem">
         <div>
-          <div style="font-size:0.44rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(250,247,242,0.3);margin-bottom:3px">Tipo</div>
-          <select class="prov-tipo-sel" data-i="${i}" data-f="tipo" onchange="provCfgChange(this);this.closest('div[style]').previousElementSibling.querySelector('div').textContent=({fotografo:'📸',maquilladora:'💄',caballo:'🐴',dj:'🎧',lugar:'🏛️'})[this.value]||'👤'" style="width:100%">
+          <div style="font-size:0.42rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(250,247,242,0.25);margin-bottom:3px">Tipo</div>
+          <select class="prov-tipo-sel" data-i="${i}" data-f="tipo" onchange="provCfgChange(this)" style="width:100%">
             ${TIPOS.map(t=>`<option value="${t.v}" ${p.tipo===t.v?'selected':''}>${t.l}</option>`).join('')}
           </select>
         </div>
         <div>
-          <div style="font-size:0.44rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(250,247,242,0.3);margin-bottom:3px">Sede</div>
+          <div style="font-size:0.42rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(250,247,242,0.25);margin-bottom:3px">Sede</div>
           <select class="prov-tipo-sel" data-i="${i}" data-f="sede" onchange="provCfgChange(this)" style="width:100%">
             ${SEDES.map(s=>`<option value="${s.v}" ${p.sede===s.v?'selected':''}>${s.l}</option>`).join('')}
           </select>
         </div>
         <div>
-          <div style="font-size:0.44rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(250,247,242,0.3);margin-bottom:3px">Precio cliente</div>
+          <div style="font-size:0.42rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(250,247,242,0.25);margin-bottom:3px">Precio cliente</div>
           <input class="prov-cfg-input" type="number" value="${p.precio_base||''}" data-i="${i}" data-f="precio_base" oninput="provCfgChange(this)" placeholder="0" style="width:100%">
         </div>
         <div>
-          <div style="font-size:0.44rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(250,247,242,0.3);margin-bottom:3px">Pago colab.</div>
+          <div style="font-size:0.42rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(250,247,242,0.25);margin-bottom:3px">Pago colab.</div>
           <input class="prov-cfg-input" type="number" value="${p.precio_colab||''}" data-i="${i}" data-f="precio_colab" oninput="provCfgChange(this)" placeholder="0" style="width:100%">
         </div>
         <div>
-          <div style="font-size:0.44rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(250,247,242,0.3);margin-bottom:3px">Estado</div>
+          <div style="font-size:0.42rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(250,247,242,0.25);margin-bottom:3px">Estado</div>
           <select class="prov-tipo-sel" data-i="${i}" data-f="estado" onchange="provCfgChange(this)" style="width:100%">
             <option value="activo" ${p.estado==='activo'?'selected':''}>✅ Activo</option>
             <option value="inactivo" ${p.estado!=='activo'?'selected':''}>❌ Inactivo</option>
           </select>
         </div>
+        <!-- Photos -->
+        <div>
+          <div style="font-size:0.42rem;letter-spacing:0.18em;text-transform:uppercase;color:rgba(250,247,242,0.25);margin-bottom:5px">Fotos portafolio</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(48px,1fr));gap:4px">
+            ${fotosHTML}
+            <div onclick="triggerFotoUpload(${i})" style="aspect-ratio:1;border:1.5px dashed rgba(196,154,60,0.25);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:1rem;transition:all 0.2s;background:none" onmouseover="this.style.background='rgba(196,154,60,0.06)'" onmouseout="this.style.background='none'">+</div>
+            <div onclick="addFotoLinkProv(${i})" style="aspect-ratio:1;border:1.5px dashed rgba(160,192,208,0.25);display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:0.85rem;color:rgba(160,192,208,0.6)" title="Agregar link">🔗</div>
+          </div>
+          <input type="file" id="fotoInput_${i}" accept="image/*" multiple style="display:none" onchange="handleCfgFotoUpload(event,${i})">
+        </div>
       </div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
 }
+
+function triggerFotoUpload(i){
+  document.getElementById('fotoInput_'+i).click();
+}
+
+async function handleCfgFotoUpload(e, i){
+  const files = Array.from(e.target.files);
+  if(!files.length) return;
+  showToast('Subiendo '+files.length+' foto(s)...');
+  for(const file of files){
+    try {
+      const ext = file.name.split('.').pop();
+      const path = 'portafolio/'+Date.now()+'_'+Math.random().toString(36).slice(2,6)+'.'+ext;
+      const {data,error} = await sb.storage.from('portafolio').upload(path,file,{contentType:file.type});
+      if(error) throw error;
+      const {data:urlData} = sb.storage.from('portafolio').getPublicUrl(path);
+      if(!provCfgRows[i].portafolio) provCfgRows[i].portafolio = [];
+      provCfgRows[i].portafolio.push({url:urlData.publicUrl,tipo_url:'storage'});
+    } catch(err){
+      showToast('Error: '+err.message);
+    }
+  }
+  renderProvCfgTable();
+  showToast('Fotos subidas');
+  e.target.value='';
+}
+
+function addFotoLinkProv(i){
+  const url = prompt('Pega el link de la foto (Google Drive, Instagram, etc):');
+  if(!url||!url.trim()) return;
+  if(!provCfgRows[i].portafolio) provCfgRows[i].portafolio=[];
+  provCfgRows[i].portafolio.push({url:url.trim(),tipo_url:'external'});
+  renderProvCfgTable();
+}
+
+function delFotoProv(i,fi){
+  if(provCfgRows[i]&&provCfgRows[i].portafolio){
+    provCfgRows[i].portafolio.splice(fi,1);
+    renderProvCfgTable();
+  }
+}
+
 
 function provCfgChange(el){
   const i = parseInt(el.dataset.i);
@@ -2101,14 +2166,25 @@ async function saveProvCfg(){
         sede:        p.sede||'bogota',
         estado:      p.estado||'activo',
         precio_base: p.precio_base ? parseFloat(p.precio_base) : null,
-        precio_colab:p.precio_colab ? parseFloat(p.precio_colab) : null,
         updated_at:  new Date().toISOString(),
       };
+      let provId = p.id;
       if(p.id){
         await sb.from('proveedores').update(payload).eq('id', p.id);
       } else {
-        const { data } = await sb.from('proveedores').insert([payload]).select().single();
+        const { data, error: ie } = await sb.from('proveedores').insert([payload]).select().single();
+        if(ie) throw ie;
         p.id = data?.id;
+        provId = p.id;
+      }
+      // Save photos
+      if(p.portafolio !== undefined && provId){
+        await sb.from('portafolio').delete().eq('proveedor_id', provId);
+        if(p.portafolio.length){
+          await sb.from('portafolio').insert(
+            p.portafolio.map((f,fi)=>({proveedor_id:provId,url:f.url,tipo_url:f.tipo_url||'external',orden:fi}))
+          );
+        }
       }
     }
     const el = document.getElementById('provCfgSaved');
