@@ -1176,10 +1176,12 @@ body{background:var(--admin);font-family:var(--font-b);color:var(--paper);min-he
   <div class="view" id="view-tareas">
     <div class="filters-bar">
       <button class="fil active" onclick="filterTareas('todas',this)">Todas</button>
+      <button class="fil" onclick="filterTareas('pendiente',this)">⏳ Pendientes</button>
       <button class="fil" onclick="filterTareas('verif',this)">🔔 Verificación</button>
+      <button class="fil" onclick="filterTareas('whatsapp',this)">💬 WhatsApp</button>
+      <button class="fil" onclick="filterTareas('pagos',this)">💰 Pagos</button>
       <button class="fil" onclick="filterTareas('content',this)">📁 Contenido</button>
       <button class="fil" onclick="filterTareas('final',this)">🎁 Producto final</button>
-      <button class="fil" onclick="filterTareas('pendiente',this)">⏳ Pendientes</button>
     </div>
     <div id="tareasList"></div>
   </div>
@@ -1719,10 +1721,12 @@ function renderTareas(){
   const all=getAllTasks();
   const hoy=new Date().toISOString().slice(0,10);
   let list=all.filter(t=>{
-    if(tareaFilter==='verif') return t.tipo==='verif_pg'||t.tipo==='verif_mk';
-    if(tareaFilter==='content') return t.tipo==='content';
-    if(tareaFilter==='final') return t.tipo==='final';
-    if(tareaFilter==='pendiente') return !t.done;
+    if(tareaFilter==='verif')    return t.tipo==='verif_pg'||t.tipo==='verif_mk';
+    if(tareaFilter==='content')  return t.tipo==='content';
+    if(tareaFilter==='final')    return t.tipo==='final';
+    if(tareaFilter==='pendiente')return !t.done;
+    if(tareaFilter==='whatsapp') return t.tipo==='whatsapp';
+    if(tareaFilter==='pagos')    return t.tipo==='saldo'||t.tipo==='pago_prov';
     return true;
   });
   const el=document.getElementById('tareasList');
@@ -1735,7 +1739,9 @@ function renderTareas(){
     final:    {ico:'🎁',lbl:'Entregar producto final',badge:'tcb-final'},
   };
   const SECS=[
+    {k:'whatsapp',lbl:'WhatsApp cliente · Confirmación',ico:'💬',tipos:['whatsapp']},
     {k:'verif',lbl:'Verificación . 2 días antes de la sesión',ico:'🔔',tipos:['verif_pg','verif_mk']},
+    {k:'pagos',lbl:'Cobros y pagos pendientes',ico:'💰',tipos:['saldo','pago_prov']},
     {k:'content',lbl:'Recolección de contenido',ico:'📁',tipos:['content']},
     {k:'final',lbl:'Entrega de producto final',ico:'🎁',tipos:['final']},
   ];
