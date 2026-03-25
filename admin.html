@@ -1778,13 +1778,16 @@ function renderTareas(){
   if(!list.length){el.innerHTML='<div class="empty-list" style="padding:3rem;text-align:center;border:1px dashed rgba(196,154,60,0.15);color:rgba(250,247,242,0.2)">Sin tareas - Agenda sesiones para generarlas automáticamente</div>';return;}
 
   const TIPOS={
-    verif_pg: {ico:'🔔',lbl:'Confirmar fotógrafo',badge:'tcb-pg'},
-    verif_mk: {ico:'🔔',lbl:'Confirmar maquilladora',badge:'tcb-mk'},
-    content:  {ico:'📁',lbl:'Recolección de contenido',badge:'tcb-content'},
-    final:    {ico:'🎁',lbl:'Entregar producto final',badge:'tcb-final'},
+    verif_pg:  {ico:'🔔',lbl:'Confirmar fotógrafo',    badge:'tcb-pg'},
+    verif_mk:  {ico:'🔔',lbl:'Confirmar maquilladora', badge:'tcb-mk'},
+    content:   {ico:'📁',lbl:'Recolección de contenido',badge:'tcb-content'},
+    final:     {ico:'🎁',lbl:'Entregar producto final', badge:'tcb-final'},
+    whatsapp:  {ico:'💬',lbl:'WhatsApp cliente',        badge:'tcb-wa'},
+    saldo:     {ico:'💰',lbl:'Cobrar saldo',            badge:'tcb-saldo'},
+    pago_prov: {ico:'💸',lbl:'Pagar proveedor',         badge:'tcb-prov'},
   };
   const SECS=[
-    {k:'whatsapp',lbl:'WhatsApp cliente · Confirmación',ico:'💬',tipos:['whatsapp']},
+    {k:'whatsapp',lbl:'Contratos y WhatsApp cliente',ico:'📄',tipos:['whatsapp']},
     {k:'verif',lbl:'Verificación . 2 días antes de la sesión',ico:'🔔',tipos:['verif_pg','verif_mk']},
     {k:'pagos',lbl:'Cobros y pagos pendientes',ico:'💰',tipos:['saldo','pago_prov']},
     {k:'content',lbl:'Recolección de contenido',ico:'📁',tipos:['content']},
@@ -1797,7 +1800,7 @@ function renderTareas(){
     const pend=items.filter(t=>!t.done).length;
     html+=`<div class="tareas-section"><div class="tareas-sec-head"><span class="tsh-ico">${sec.ico}</span><span class="tsh-title">${sec.lbl}</span><span class="tsh-count">${pend} pendiente${pend!==1?'s':''}</span></div>`;
     items.forEach(t=>{
-      const tp=TIPOS[t.tipo];
+      const tp=TIPOS[t.tipo]||{ico:'📋',lbl:t.tipo,badge:'tcb-content'};
       const over=!t.done&&t.fecha_due<hoy;
       const tod=t.fecha_due===hoy;
       const dc=over?'vencida':tod?'vence-hoy':'';
@@ -1809,10 +1812,22 @@ function renderTareas(){
       const waMsg=encodeURIComponent('Hola '+info.quien+', te contacto de AMBAR Couture para confirmar la sesión de '+(info.quinc||'')+'.');
       const ctBtns=telC?`<a class="tc-call-btn" href="tel:+57${telC}">📞 Llamar</a><a class="tc-call-btn" href="https://wa.me/57${telC}?text=${waMsg}" target="_blank">💬 WhatsApp</a>`:'';
       let iGrid='';
-      if(info.quien) iGrid+=`<div class="tc-info-item"><div class="tcii-lbl">${info.rol||'Colaborador'}</div><div class="tcii-val">${info.quien}</div></div>`;
-      if(info.tel)   iGrid+=`<div class="tc-info-item"><div class="tcii-lbl">Teléfono</div><div class="tcii-val" style="font-family:monospace;letter-spacing:0.05em">${info.tel}</div></div>`;
-      if(info.quinc) iGrid+=`<div class="tc-info-item"><div class="tcii-lbl">Quinceañera</div><div class="tcii-val">${info.quinc}</div></div>`;
-      if(info.sede)  iGrid+=`<div class="tc-info-item"><div class="tcii-lbl">Sede</div><div class="tcii-val">${info.sede}</div></div>`;
+      if(t.tipo==='whatsapp'){
+        if(info.quinc) iGrid+=`<div class="tc-info-item"><div class="tcii-lbl">Quinceañera</div><div class="tcii-val">${info.quinc}</div></div>`;
+        if(info.sede)  iGrid+=`<div class="tc-info-item"><div class="tcii-lbl">Sede</div><div class="tcii-val">${info.sede}</div></div>`;
+        if(info.tel)   iGrid+=`<div class="tc-info-item"><div class="tcii-lbl">Teléfono</div><div class="tcii-val" style="font-family:monospace">${info.tel}</div></div>`;
+        if(info.nota)  iGrid+=`<div class="tc-info-item" style="grid-column:1/-1"><div class="tcii-lbl">Nota</div><div class="tcii-val" style="color:rgba(250,247,242,0.4)">${info.nota}</div></div>`;
+      } else if(t.tipo==='saldo'||t.tipo==='pago_prov'){
+        if(info.quinc) iGrid+=`<div class="tc-info-item"><div class="tcii-lbl">Quinceañera</div><div class="tcii-val">${info.quinc}</div></div>`;
+        if(info.monto) iGrid+=`<div class="tc-info-item"><div class="tcii-lbl">Monto</div><div class="tcii-val" style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--gold-l)">${info.monto}</div></div>`;
+        if(info.tel)   iGrid+=`<div class="tc-info-item"><div class="tcii-lbl">Teléfono cliente</div><div class="tcii-val" style="font-family:monospace">${info.tel}</div></div>`;
+        if(info.nota)  iGrid+=`<div class="tc-info-item" style="grid-column:1/-1"><div class="tcii-lbl">Nota</div><div class="tcii-val" style="color:rgba(250,247,242,0.4)">${info.nota}</div></div>`;
+      } else {
+        if(info.quien) iGrid+=`<div class="tc-info-item"><div class="tcii-lbl">${info.rol||'Colaborador'}</div><div class="tcii-val">${info.quien}</div></div>`;
+        if(info.tel)   iGrid+=`<div class="tc-info-item"><div class="tcii-lbl">Teléfono</div><div class="tcii-val" style="font-family:monospace;letter-spacing:0.05em">${info.tel}</div></div>`;
+        if(info.quinc) iGrid+=`<div class="tc-info-item"><div class="tcii-lbl">Quinceañera</div><div class="tcii-val">${info.quinc}</div></div>`;
+        if(info.sede)  iGrid+=`<div class="tc-info-item"><div class="tcii-lbl">Sede</div><div class="tcii-val">${info.sede}</div></div>`;
+      }
       if(info.hora)  iGrid+=`<div class="tc-info-item"><div class="tcii-lbl">Hora inicio fotos</div><div class="tcii-val" style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--gold-l)">${info.hora}</div></div>`;
       if(info.hora_mk) iGrid+=`<div class="tc-info-item"><div class="tcii-lbl">Hora llegada maquillaje</div><div class="tcii-val" style="font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--gold-l)">${info.hora_mk}</div></div>`;
       if(info.lugar) iGrid+=`<div class="tc-info-item" style="grid-column:1/-1"><div class="tcii-lbl">Ubicación / Domicilio</div><div class="tcii-val">${info.lugar}</div></div>`;
