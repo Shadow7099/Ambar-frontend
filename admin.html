@@ -697,6 +697,29 @@ body{background:var(--admin);font-family:var(--font-b);color:var(--paper);min-he
 .contrato-btn.wa{background:rgba(37,211,102,0.1);border-color:rgba(37,211,102,0.25);color:#25D366;}
 .contrato-btn.wa:hover{background:rgba(37,211,102,0.2);}
 
+
+/* == CONTRATOS == */
+.contratos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:0.75rem;margin-top:1rem;}
+.contrato-card{border:1px solid rgba(196,154,60,0.15);background:rgba(255,255,255,0.02);padding:1.1rem;transition:border-color 0.2s;}
+.contrato-card:hover{border-color:rgba(196,154,60,0.3);}
+.cc-head{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:0.75rem;}
+.cc-nombre{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--paper);}
+.cc-fecha{font-size:0.58rem;color:rgba(250,247,242,0.3);margin-top:2px;}
+.cc-estado{padding:0.15rem 0.5rem;font-size:0.46rem;letter-spacing:0.15em;text-transform:uppercase;border:1px solid;}
+.ce-pendiente{color:#DCBA6A;border-color:rgba(220,186,106,0.3);background:rgba(220,186,106,0.08);}
+.ce-firmado{color:#B0D0B2;border-color:rgba(176,208,178,0.3);background:rgba(176,208,178,0.08);}
+.ce-enviado{color:#A0C0D0;border-color:rgba(160,192,208,0.3);background:rgba(160,192,208,0.08);}
+.cc-info{display:grid;grid-template-columns:1fr 1fr;gap:0.4rem;margin-bottom:0.85rem;}
+.cc-field{font-size:0.62rem;color:rgba(250,247,242,0.4);}
+.cc-field strong{color:var(--paper);display:block;margin-top:1px;}
+.cc-actions{display:flex;gap:0.4rem;flex-wrap:wrap;border-top:1px solid rgba(196,154,60,0.08);padding-top:0.75rem;}
+.cc-btn{flex:1;padding:0.4rem 0.6rem;border:none;font-family:'Outfit',sans-serif;font-size:0.52rem;letter-spacing:0.1em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;min-width:80px;text-align:center;}
+.cc-btn.ver{background:rgba(196,154,60,0.1);color:var(--gold-l);border:1px solid rgba(196,154,60,0.2);}
+.cc-btn.ver:hover{background:rgba(196,154,60,0.2);}
+.cc-btn.firmar{background:rgba(125,158,127,0.1);color:#B0D0B2;border:1px solid rgba(125,158,127,0.2);}
+.cc-btn.firmar:hover{background:rgba(125,158,127,0.2);}
+.contratos-filters{display:flex;gap:0.4rem;margin-bottom:1rem;flex-wrap:wrap;}
+
 @media(max-width:900px){
   .fin-grid{grid-template-columns:1fr 1fr;}
 }
@@ -847,6 +870,10 @@ body{background:var(--admin);font-family:var(--font-b);color:var(--paper);min-he
     </div>
     <div class="sb-item" onclick="setView('finanzas')">
       <div class="sb-item-ico">💰</div> Finanzas
+    </div>
+    <div class="sb-item" onclick="setView('contratos')">
+      <div class="sb-item-ico">📄</div> Contratos
+      <div class="sb-count" id="cnt-contratos">0</div>
     </div>
     <div class="sb-item" onclick="setView('configuracion')">
       <div class="sb-item-ico">⚙️</div> Configuracion
@@ -1479,6 +1506,24 @@ body{background:var(--admin);font-family:var(--font-b);color:var(--paper);min-he
       </div>
     </div>
 
+  </div>
+
+
+  <!-- == VIEW: CONTRATOS == -->
+  <div class="view" id="view-contratos">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:0.75rem">
+      <div>
+        <div style="font-size:0.5rem;letter-spacing:0.3em;text-transform:uppercase;color:var(--gold);margin-bottom:0.3rem">Documentos</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:1.6rem;font-weight:400;color:var(--paper)">Contratos de <em style="color:var(--gold-l)">clientes</em></div>
+      </div>
+    </div>
+    <div class="contratos-filters">
+      <button class="fil active" onclick="filterContratos('todos',this)">Todos</button>
+      <button class="fil" onclick="filterContratos('pendiente',this)">⏳ Pendientes</button>
+      <button class="fil" onclick="filterContratos('firmado',this)">✅ Firmados</button>
+      <button class="fil" onclick="filterContratos('enviado',this)">📤 Enviados</button>
+    </div>
+    <div class="contratos-grid" id="contratosGrid"></div>
   </div>
 
 <!-- DETAIL MODAL -->
@@ -3207,6 +3252,116 @@ function abrirContratoSession(sessionId){
   generarContrato(s);
 }
 
+
+// == CONTRATOS ==
+let contratosData = [];
+let contratosFilter = 'todos';
+
+async function loadContratos(){
+  if(!sb) return;
+  try {
+    const {data,error} = await sb.from('contratos')
+      .select('*, sesiones(q_nombre,q_apellido,fecha,sede,pg_id,mk_id,hora,lugar,r_tel,q_tel,q_mail,precio_cliente,precio_colab,r_nombre)')
+      .order('created_at',{ascending:false});
+    if(error) throw error;
+    contratosData = data||[];
+    renderContratos();
+    const el = document.getElementById('cnt-contratos');
+    if(el) el.textContent = contratosData.filter(x=>x.estado==='pendiente').length||'';
+  } catch(e){ showToast('Error: '+e.message); }
+}
+
+function filterContratos(f,btn){
+  contratosFilter = f;
+  document.querySelectorAll('.contratos-filters .fil').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  renderContratos();
+}
+
+function renderContratos(){
+  const grid = document.getElementById('contratosGrid');
+  if(!grid) return;
+  const list = contratosFilter==='todos'
+    ? contratosData
+    : contratosData.filter(x=>x.estado===contratosFilter);
+
+  if(!list.length){
+    grid.innerHTML='<div style="padding:2rem;text-align:center;border:1px dashed rgba(196,154,60,0.15);color:rgba(250,247,242,0.2)">Sin contratos en esta categoría</div>';
+    return;
+  }
+
+  grid.innerHTML = list.map(ct=>{
+    const s = ct.sesiones||{};
+    const fecha = ct.fecha_sesion ? new Date(ct.fecha_sesion+'T12:00:00').toLocaleDateString('es-CO',{day:'numeric',month:'short',year:'numeric'}) : '-';
+    const precio = ct.precio ? '$'+Number(ct.precio).toLocaleString('es-CO') : '-';
+    const anticipo = ct.anticipo ? '$'+Number(ct.anticipo).toLocaleString('es-CO') : '-';
+    const estadoCls = ct.estado==='firmado'?'ce-firmado':ct.estado==='enviado'?'ce-enviado':'ce-pendiente';
+    const pg = getProvNombre(s.pg_id);
+    const mk = s.mk_id ? getProvNombre(s.mk_id) : '-';
+
+    return `<div class="contrato-card">
+      <div class="cc-head">
+        <div>
+          <div class="cc-nombre">${ct.q_nombre||''} ${ct.q_apellido||''}</div>
+          <div class="cc-fecha">📅 ${fecha} · ${SEDES_LABEL[ct.sede]||ct.sede||''}</div>
+        </div>
+        <span class="cc-estado ${estadoCls}">${ct.estado}</span>
+      </div>
+      <div class="cc-info">
+        <div class="cc-field">Fotógrafo<strong>${pg}</strong></div>
+        <div class="cc-field">Maquilladora<strong>${mk}</strong></div>
+        <div class="cc-field">Total<strong>${precio}</strong></div>
+        <div class="cc-field">Anticipo<strong>${anticipo}</strong></div>
+        ${s.r_tel||s.q_tel?'<div class="cc-field">Teléfono<strong>'+(s.r_tel||s.q_tel)+'</strong></div>':''}
+      </div>
+      <div class="cc-actions">
+        <button class="cc-btn ver" onclick="abrirContratoSesionId('${ct.sesion_id}')">📄 Ver contrato</button>
+        ${ct.estado==='pendiente'?`<button class="cc-btn firmar" onclick="marcarContratoFirmado('${ct.id}')">✅ Marcar firmado</button>`:''}
+        ${(s.r_tel||s.q_tel)?`<a class="cc-btn ver" href="https://wa.me/57${(s.r_tel||s.q_tel||'').replace(/\D/g,'')}" target="_blank" style="text-decoration:none">💬 WhatsApp</a>`:''}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+async function marcarContratoFirmado(contratoId){
+  try {
+    await sb.from('contratos').update({estado:'firmado'}).eq('id',contratoId);
+    showToast('✅ Contrato marcado como firmado');
+    await loadContratos();
+  } catch(e){ showToast('Error: '+e.message); }
+}
+
+function abrirContratoSesionId(sesionId){
+  const s = sessions.find(x=>x.id===sesionId);
+  if(s){ generarContrato(s); return; }
+  // If not in sessions array, load from contratos data
+  const ct = contratosData.find(x=>x.sesion_id===sesionId);
+  if(ct&&ct.sesiones) generarContrato({...ct.sesiones, id:sesionId, precio_cliente:ct.precio});
+  else showToast('Sesión no encontrada');
+}
+
+// Create contrato when session is saved
+async function crearContratoParaSesion(sesionId){
+  try {
+    const s = sessions.find(x=>x.id===sesionId);
+    if(!s) return;
+    const precio = parseFloat(s.precio_cliente)||0;
+    await sb.from('contratos').upsert([{
+      sesion_id:    sesionId,
+      q_nombre:     s.q_nombre,
+      q_apellido:   s.q_apellido||'',
+      fecha_sesion: s.fecha,
+      sede:         s.sede,
+      precio:       precio,
+      anticipo:     Math.round(precio*0.30),
+      saldo:        Math.round(precio*0.70),
+      fotografo:    getProvNombre(s.pg_id),
+      maquilladora: s.incluye_mkup ? getProvNombre(s.mk_id) : null,
+      estado:       'pendiente',
+    }],{onConflict:'sesion_id'});
+  } catch(e){ console.warn('crearContrato:', e.message); }
+}
+
 const SUPABASE_URL = 'https://dtkwoxjuhmdmpnmynjtg.supabase.co';      // ej: https://abcdefgh.supabase.co
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR0a3dveGp1aG1kbXBubXluanRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0MDU3ODQsImV4cCI6MjA4ODk4MTc4NH0.1laG-S3hDIzM-eDU-u2ibwJuFR1ioPc-kvVrlH6zx7o'; // anon public key
 
@@ -3355,6 +3510,7 @@ async function setView(v){ currentView=v;
     if(tbBtn) tbBtn.style.display='';
   }
   if(v==='configuracion')  loadConfiguracion();
+  if(v==='contratos')       loadContratos();
   if(v==='nueva' && !editingId) resetForm();
   closeSidebar();
 }
