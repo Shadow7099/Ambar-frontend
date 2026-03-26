@@ -2333,7 +2333,25 @@ async function saveProveedor(){
         provFotos.map((f,i)=>({proveedor_id:provId,url:f.url,tipo_url:f.tipo_url||'external',orden:i}))
       );
     }
-    showToast(editingProvId ? 'Proveedor actualizado' : 'Proveedor creado');
+
+    // Nicolay Bogotá y Villavicencio son el mismo artista — sincronizar fotos
+    const prov = proveedores.find(p=>p.id===provId) || {nombre: document.getElementById('pm-nombre')?.value};
+    if(prov?.nombre === 'Hector Nicolay Davila' && provFotos.length){
+      // Find the other Nicolay record
+      const otroNicolay = proveedores.find(p=>p.nombre==='Hector Nicolay Davila' && p.id!==provId);
+      if(otroNicolay){
+        await sb.from('portafolio').delete().eq('proveedor_id', otroNicolay.id);
+        await sb.from('portafolio').insert(
+          provFotos.map((f,i)=>({proveedor_id:otroNicolay.id, url:f.url, tipo_url:f.tipo_url||'external', orden:i}))
+        );
+        showToast('Proveedor actualizado · Fotos sincronizadas con Nicolay Villavicencio ✓');
+      } else {
+        showToast(editingProvId ? 'Proveedor actualizado' : 'Proveedor creado');
+      }
+    } else {
+      showToast(editingProvId ? 'Proveedor actualizado' : 'Proveedor creado');
+    }
+
     closeProvModal();
     await loadProveedores();
   } catch(e){ showToast('Error: '+e.message); }
@@ -2443,8 +2461,18 @@ const EQUIPO_AMBAR_DEFAULT = [
   {tipo:'caballo',     nombre:'Luna',                    telefono:null,         email:null,                        sede:'bogota',        precio_base:null,    precio_colab:null,   estado:'activo'},
   {tipo:'caballo',     nombre:'Canela',                  telefono:null,         email:null,                        sede:'bogota',        precio_base:null,    precio_colab:null,   estado:'activo'},
   {tipo:'caballo',     nombre:'Brioso',                  telefono:null,         email:null,                        sede:'bogota',        precio_base:null,    precio_colab:null,   estado:'activo'},
-  {tipo:'caballo',     nombre:'Rey',                     telefono:null,         email:null,                        sede:'villavicencio', precio_base:300000,  precio_colab:0,      estado:'activo'},
-  {tipo:'caballo',     nombre:'Paloma',                  telefono:null,         email:null,                        sede:'villavicencio', precio_base:420000,  precio_colab:0,      estado:'activo'},
+  {tipo:'caballo',     nombre:'Rey',                     telefono:null, email:null, sede:'villavicencio', precio_base:300000,  precio_colab:0,    estado:'activo'},
+  {tipo:'caballo',     nombre:'Paloma',                  telefono:null, email:null, sede:'villavicencio', precio_base:420000,  precio_colab:0,    estado:'activo'},
+  // La Potra — Villavicencio
+  {tipo:'caballo',     nombre:'Pele',                    telefono:null, email:null, sede:'villavicencio', precio_base:900000,  precio_colab:0,    estado:'activo', notas:'Disponible en Rancho Luna y Villavicencio. NO disponible en La Potra.'},
+  {tipo:'caballo',     nombre:'Sultan (La Potra)',        telefono:null, email:null, sede:'villavicencio', precio_base:1540000, precio_colab:0,    estado:'activo', notas:'Caballo blanco. La Potra.'},
+  {tipo:'caballo',     nombre:'Eclipse',                 telefono:null, email:null, sede:'villavicencio', precio_base:1540000, precio_colab:0,    estado:'activo', notas:'La Potra. Combo con Tempestad.'},
+  {tipo:'caballo',     nombre:'Tempestad',               telefono:null, email:null, sede:'villavicencio', precio_base:1540000, precio_colab:0,    estado:'activo', notas:'La Potra. Combo con Eclipse.'},
+  {tipo:'caballo',     nombre:'Maximo (Frison Negro)',   telefono:null, email:null, sede:'villavicencio', precio_base:1540000, precio_colab:0,    estado:'activo', notas:'Frisón negro. La Potra.'},
+  {tipo:'caballo',     nombre:'Domino',                  telefono:null, email:null, sede:'villavicencio', precio_base:700000,  precio_colab:0,    estado:'activo', notas:'La Potra.'},
+  {tipo:'caballo',     nombre:'Martina',                 telefono:null, email:null, sede:'villavicencio', precio_base:840000,  precio_colab:0,    estado:'activo', notas:'La Potra.'},
+  {tipo:'caballo',     nombre:'Julieta',                 telefono:null, email:null, sede:'villavicencio', precio_base:700000,  precio_colab:0,    estado:'activo', notas:'La Potra.'},
+  {tipo:'caballo',     nombre:'Perseo',                  telefono:null, email:null, sede:'villavicencio', precio_base:1260000, precio_colab:0,    estado:'activo', notas:'La Potra.'},
 ];
 
 async function loadProvCfg(){
