@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="es-CO">
 <head>
 <meta charset="UTF-8">
@@ -23,112 +24,107 @@ body::before{content:'';position:fixed;inset:0;
 
 /* ── NAV ── */
 .nav{
-  position:sticky;top:0;z-index:200;
-  display:flex;align-items:center;justify-content:space-between;
-  padding:0.75rem 3rem;
-  background:rgba(250,247,242,0.96);
-  backdrop-filter:blur(14px);
-  border-bottom:1px solid var(--border);
+position:sticky;top:0;z-index:200;
+display:flex;align-items:center;justify-content:space-between;
+padding:0.75rem 3rem;
+background:rgba(250,247,242,0.96);
+backdrop-filter:blur(14px);
+border-bottom:1px solid var(–border);
 }
 .nav-logo{display:flex;align-items:center;gap:0.9rem;text-decoration:none;}
 .nav-logo img{height:48px;width:auto;}
 .nav-logo-text{display:flex;flex-direction:column;line-height:1;}
-.nav-logo-name{font-family:var(--font-d);font-size:1.5rem;font-weight:400;letter-spacing:0.22em;color:var(--ink);}
-.nav-logo-sub{font-size:0.48rem;letter-spacing:0.45em;text-transform:uppercase;color:var(--gold);margin-top:1px;}
+.nav-logo-name{font-family:var(–font-d);font-size:1.5rem;font-weight:400;letter-spacing:0.22em;color:var(–ink);}
+.nav-logo-sub{font-size:0.48rem;letter-spacing:0.45em;text-transform:uppercase;color:var(–gold);margin-top:1px;}
 .nav-links{display:flex;align-items:center;gap:2.5rem;}
-.nav-link{font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color 0.2s;}
-.nav-link:hover{color:var(--ink);}
-.nav-cta{padding:0.6rem 1.6rem;background:var(--ink);color:var(--paper);font-size:0.6rem;letter-spacing:0.22em;text-transform:uppercase;text-decoration:none;transition:background 0.25s;}
-.nav-cta:hover{background:var(--gold);}
+.nav-link{font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(–muted);text-decoration:none;transition:color 0.2s;}
+.nav-link:hover{color:var(–ink);}
+.nav-cta{padding:0.6rem 1.6rem;background:var(–ink);color:var(–paper);font-size:0.6rem;letter-spacing:0.22em;text-transform:uppercase;text-decoration:none;transition:background 0.25s;}
+.nav-cta:hover{background:var(–gold);}
 /* Hamburger */
 .nav-ham{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px;}
-.nav-ham span{display:block;width:22px;height:1.5px;background:var(--ink);transition:all 0.3s;}
+.nav-ham span{display:block;width:22px;height:1.5px;background:var(–ink);transition:all 0.3s;}
 .nav-ham.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
 .nav-ham.open span:nth-child(2){opacity:0;}
 .nav-ham.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
 /* Mobile menu */
 .nav-mobile{display:none;flex-direction:column;position:fixed;top:57px;left:0;right:0;z-index:199;
-  background:rgba(250,247,242,0.98);backdrop-filter:blur(16px);
-  border-bottom:1px solid var(--border);padding:0.5rem 0 1rem;
-  animation:menuDrop 0.25s ease both;}
+background:rgba(250,247,242,0.98);backdrop-filter:blur(16px);
+border-bottom:1px solid var(–border);padding:0.5rem 0 1rem;
+animation:menuDrop 0.25s ease both;}
 @keyframes menuDrop{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
 .nav-mobile.open{display:flex;}
 .nav-mobile a{padding:0.85rem 1.5rem;font-size:0.72rem;letter-spacing:0.18em;text-transform:uppercase;
-  color:var(--muted);text-decoration:none;border-bottom:1px solid var(--border);transition:color 0.2s;}
-.nav-mobile a:hover{color:var(--ink);}
-.nav-mobile-cta{background:var(--ink);color:var(--paper)!important;margin:0.75rem 1.25rem 0;
-  text-align:center;padding:0.85rem!important;border-bottom:none!important;}
+color:var(–muted);text-decoration:none;border-bottom:1px solid var(–border);transition:color 0.2s;}
+.nav-mobile a:hover{color:var(–ink);}
+.nav-mobile-cta{background:var(–ink);color:var(–paper)!important;margin:0.75rem 1.25rem 0;
+text-align:center;padding:0.85rem!important;border-bottom:none!important;}
 @media(max-width:768px){.nav-ham{display:flex;}}
 
 /* ── HERO ── */
 .hero{
-  min-height:91vh;
-  display:grid;grid-template-columns:1fr 1fr;
-  overflow:hidden;
+min-height:91vh;
+display:grid;grid-template-columns:1fr 1fr;
+overflow:hidden;
 }
 .hero-text{
-  padding:5rem 4rem;
-  display:flex;flex-direction:column;justify-content:center;
+padding:5rem 4rem;
+display:flex;flex-direction:column;justify-content:center;
 }
 .hero-tag{
-  font-size:0.55rem;letter-spacing:0.42em;text-transform:uppercase;
-  color:var(--gold);display:flex;align-items:center;gap:0.7rem;margin-bottom:1.75rem;
+font-size:0.55rem;letter-spacing:0.42em;text-transform:uppercase;
+color:var(–gold);display:flex;align-items:center;gap:0.7rem;margin-bottom:1.75rem;
 }
-.hero-tag::before{content:'';width:22px;height:1px;background:var(--gold);}
+.hero-tag::before{content:’’;width:22px;height:1px;background:var(–gold);}
 .hero-title{
-  font-family:var(--font-d);font-size:clamp(3rem,5vw,5rem);
-  font-weight:300;line-height:1.05;letter-spacing:-0.02em;margin-bottom:1.5rem;
+font-family:var(–font-d);font-size:clamp(3rem,5vw,5rem);
+font-weight:300;line-height:1.05;letter-spacing:-0.02em;margin-bottom:1.5rem;
 }
-.hero-title em{font-style:italic;color:var(--gold);}
+.hero-title em{font-style:italic;color:var(–gold);}
 .hero-desc{
-  font-size:0.85rem;color:var(--muted);line-height:1.9;
-  font-weight:300;max-width:400px;margin-bottom:2.5rem;
+font-size:0.85rem;color:var(–muted);line-height:1.9;
+font-weight:300;max-width:400px;margin-bottom:2.5rem;
 }
 .hero-actions{display:flex;gap:1rem;align-items:center;}
 .btn-p{
-  padding:0.9rem 2.5rem;background:var(--ink);color:var(--paper);
-  font-family:var(--font-b);font-size:0.68rem;letter-spacing:0.22em;
-  text-transform:uppercase;text-decoration:none;transition:background 0.25s;
+padding:0.9rem 2.5rem;background:var(–ink);color:var(–paper);
+font-family:var(–font-b);font-size:0.68rem;letter-spacing:0.22em;
+text-transform:uppercase;text-decoration:none;transition:background 0.25s;
 }
-.btn-p:hover{background:var(--gold);}
+.btn-p:hover{background:var(–gold);}
 .btn-g{
-  padding:0.9rem 1.5rem;border:1px solid var(--border);color:var(--muted);
-  font-family:var(--font-b);font-size:0.68rem;letter-spacing:0.2em;
-  text-transform:uppercase;text-decoration:none;transition:all 0.25s;
+padding:0.9rem 1.5rem;border:1px solid var(–border);color:var(–muted);
+font-family:var(–font-b);font-size:0.68rem;letter-spacing:0.2em;
+text-transform:uppercase;text-decoration:none;transition:all 0.25s;
 }
-.btn-g:hover{border-color:var(--ink);color:var(--ink);}
+.btn-g:hover{border-color:var(–ink);color:var(–ink);}
 .hero-stats{
-  display:flex;gap:2.5rem;margin-top:3rem;
-  padding-top:2rem;border-top:1px solid var(--border);
+display:flex;gap:2.5rem;margin-top:3rem;
+padding-top:2rem;border-top:1px solid var(–border);
 }
-.hs-num{font-family:var(--font-d);font-size:2.2rem;font-weight:300;line-height:1;}
-.hs-lbl{font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted);margin-top:4px;}
+.hs-num{font-family:var(–font-d);font-size:2.2rem;font-weight:300;line-height:1;}
+.hs-lbl{font-size:0.58rem;letter-spacing:0.15em;text-transform:uppercase;color:var(–muted);margin-top:4px;}
 
 /* Hero mosaic */
 .hero-mosaic{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:4px;}
 .photo-a{
-  grid-row:1/3;
-  background:linear-gradient(160deg,#2A1E10 0%,#7B6A52 50%,#C8902A 100%) center/cover no-repeat;
-  position:relative;overflow:hidden;
+grid-row:1/3;
+background:linear-gradient(160deg,#2A1E10 0%,#7B6A52 50%,#C8902A 100%) center/cover no-repeat;
+position:relative;overflow:hidden;
 }
 .photo-b{background:linear-gradient(200deg,#1A1A20 0%,#404060 50%,#8090A8 100%) center/cover no-repeat;}
 .photo-c{background:linear-gradient(140deg,#201818 0%,#503030 50%,#906050 100%) center/cover no-repeat;}
 .photo-a::after{
-  content:'AMBAR COUTURE';
-  position:absolute;bottom:1.5rem;left:1.5rem;
-  font-size:0.5rem;letter-spacing:0.3em;text-transform:uppercase;
-  color:rgba(250,247,242,0.7);
+content:‘AMBAR COUTURE’;
+position:absolute;bottom:1.5rem;left:1.5rem;
+font-size:0.5rem;letter-spacing:0.3em;text-transform:uppercase;
+color:rgba(250,247,242,0.7);
 }
 
 /* ── SEDES STRIP ── */
 
-
-
-
-
-
 .sede-icon{font-size:1.3rem;}
-.sede-name{font-size:0.78rem;font-weight:400;color:var(--paper);}
+.sede-name{font-size:0.78rem;font-weight:400;color:var(–paper);}
 .sede-desc{font-size:0.52rem;letter-spacing:0.1em;text-transform:uppercase;color:rgba(250,247,242,0.38);margin-top:2px;}
 .sede-count{margin-left:auto;font-size:0.58rem;color:rgba(196,154,60,0.65);white-space:nowrap;}
 
@@ -137,10 +133,10 @@ body::before{content:'';position:fixed;inset:0;
 .cards-grid.feat{grid-template-columns:2fr 1fr 1fr;}
 
 .card{
-  cursor:pointer;overflow:hidden;border:1px solid transparent;
-  transition:all 0.3s;background:var(--warm);
+cursor:pointer;overflow:hidden;border:1px solid transparent;
+transition:all 0.3s;background:var(–warm);
 }
-.card:hover{border-color:var(--border-s);transform:translateY(-3px);box-shadow:0 16px 48px rgba(14,12,10,0.1);}
+.card:hover{border-color:var(–border-s);transform:translateY(-3px);box-shadow:0 16px 48px rgba(14,12,10,0.1);}
 .card.fc{grid-row:1/2;}
 
 .card-photo{position:relative;overflow:hidden;}
@@ -150,202 +146,193 @@ body::before{content:'';position:fixed;inset:0;
 .card:hover .card-photo-bg{transform:scale(1.05);}
 
 .badge-sede{
-  position:absolute;top:0.7rem;left:0.7rem;
-  padding:0.25rem 0.65rem;background:rgba(14,12,10,0.72);
-  backdrop-filter:blur(8px);font-size:0.5rem;letter-spacing:0.18em;
-  text-transform:uppercase;color:var(--paper);display:flex;align-items:center;gap:0.35rem;
+position:absolute;top:0.7rem;left:0.7rem;
+padding:0.25rem 0.65rem;background:rgba(14,12,10,0.72);
+backdrop-filter:blur(8px);font-size:0.5rem;letter-spacing:0.18em;
+text-transform:uppercase;color:var(–paper);display:flex;align-items:center;gap:0.35rem;
 }
 .badge-tipo{
-  position:absolute;top:0.7rem;right:0.7rem;
-  padding:0.25rem 0.65rem;font-size:0.5rem;letter-spacing:0.15em;text-transform:uppercase;
+position:absolute;top:0.7rem;right:0.7rem;
+padding:0.25rem 0.65rem;font-size:0.5rem;letter-spacing:0.15em;text-transform:uppercase;
 }
-.bt-pg{background:rgba(196,154,60,0.88);color:var(--ink);}
-.bt-mk{background:rgba(180,120,122,0.88);color:var(--paper);}
-.bt-hr{background:rgba(125,158,127,0.88);color:var(--paper);}
+.bt-pg{background:rgba(196,154,60,0.88);color:var(–ink);}
+.bt-mk{background:rgba(180,120,122,0.88);color:var(–paper);}
+.bt-hr{background:rgba(125,158,127,0.88);color:var(–paper);}
 .dot-avail{
-  position:absolute;bottom:0.7rem;right:0.7rem;
-  width:8px;height:8px;border-radius:50%;border:1.5px solid var(--paper);
+position:absolute;bottom:0.7rem;right:0.7rem;
+width:8px;height:8px;border-radius:50%;border:1.5px solid var(–paper);
 }
-.da-y{background:var(--sage);}.da-n{background:var(--rose);}
+.da-y{background:var(–sage);}.da-n{background:var(–rose);}
 
-.card-thumbs{display:flex;gap:2px;padding:0.35rem 0.35rem 0;background:var(--warm);}
+.card-thumbs{display:flex;gap:2px;padding:0.35rem 0.35rem 0;background:var(–warm);}
 .card-thumb{flex:1;height:50px;transition:flex 0.3s,opacity 0.2s;opacity:0.72;}
 .card-thumb:hover{flex:2;opacity:1;}
 
-.card-body{padding:1rem 1.1rem 1.2rem;background:var(--paper);}
-.card-name{font-family:var(--font-d);font-size:1.2rem;font-weight:400;margin-bottom:2px;}
-.card-role{font-size:0.56rem;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:0.6rem;}
+.card-body{padding:1rem 1.1rem 1.2rem;background:var(–paper);}
+.card-name{font-family:var(–font-d);font-size:1.2rem;font-weight:400;margin-bottom:2px;}
+.card-role{font-size:0.56rem;letter-spacing:0.18em;text-transform:uppercase;color:var(–gold);margin-bottom:0.6rem;}
 .card-tags{display:flex;flex-wrap:wrap;gap:0.28rem;margin-bottom:0.75rem;}
-.card-tag{padding:0.18rem 0.5rem;border:1px solid var(--border);font-size:0.52rem;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);}
+.card-tag{padding:0.18rem 0.5rem;border:1px solid var(–border);font-size:0.52rem;letter-spacing:0.1em;text-transform:uppercase;color:var(–muted);}
 .card-bottom{display:flex;align-items:flex-end;justify-content:space-between;}
-.card-price{font-family:var(--font-d);font-size:1.25rem;font-weight:400;}
-.card-price-lbl{font-size:0.48rem;letter-spacing:0.12em;text-transform:uppercase;color:var(--muted);margin-top:2px;}
-.card-rating{font-size:0.68rem;color:var(--gold);}
-.card-sessions{font-size:0.52rem;color:var(--muted);margin-top:2px;}
+.card-price{font-family:var(–font-d);font-size:1.25rem;font-weight:400;}
+.card-price-lbl{font-size:0.48rem;letter-spacing:0.12em;text-transform:uppercase;color:var(–muted);margin-top:2px;}
+.card-rating{font-size:0.68rem;color:var(–gold);}
+.card-sessions{font-size:0.52rem;color:var(–muted);margin-top:2px;}
 .hd{display:flex;gap:1rem;margin-bottom:0.7rem;}
-.hd-item{font-size:0.6rem;color:var(--muted);}
-.hd-item strong{color:var(--ink);font-weight:400;display:block;font-size:0.66rem;}
+.hd-item{font-size:0.6rem;color:var(–muted);}
+.hd-item strong{color:var(–ink);font-weight:400;display:block;font-size:0.66rem;}
 
-.empty-state{padding:4rem;text-align:center;border:1.5px dashed var(--border);grid-column:1/-1;font-size:0.8rem;color:var(--muted);}
+.empty-state{padding:4rem;text-align:center;border:1.5px dashed var(–border);grid-column:1/-1;font-size:0.8rem;color:var(–muted);}
 
 /* ── FOOTER ── */
-footer{background:var(--ink);color:var(--paper);padding:3rem 3rem 2.5rem;}
+footer{background:var(–ink);color:var(–paper);padding:3rem 3rem 2.5rem;}
 .footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:2.5rem;margin-bottom:2.5rem;}
 .footer-brand{display:flex;align-items:center;gap:1rem;margin-bottom:1rem;}
 .footer-brand img{height:52px;width:auto;filter:brightness(0.9);}
-.footer-brand-text{font-family:var(--font-d);font-size:1.3rem;letter-spacing:0.2em;color:var(--gold-l);}
+.footer-brand-text{font-family:var(–font-d);font-size:1.3rem;letter-spacing:0.2em;color:var(–gold-l);}
 .footer-brand-sub{font-size:0.44rem;letter-spacing:0.4em;text-transform:uppercase;color:rgba(196,154,60,0.5);margin-top:2px;}
 .footer-desc{font-size:0.72rem;color:rgba(250,247,242,0.4);line-height:1.85;font-weight:300;}
-.footer-title{font-size:0.54rem;letter-spacing:0.32em;text-transform:uppercase;color:var(--gold-l);margin-bottom:1rem;}
+.footer-title{font-size:0.54rem;letter-spacing:0.32em;text-transform:uppercase;color:var(–gold-l);margin-bottom:1rem;}
 .footer-link{display:block;font-size:0.7rem;color:rgba(250,247,242,0.45);text-decoration:none;margin-bottom:0.5rem;transition:color 0.2s;}
-.footer-link:hover{color:var(--paper);}
+.footer-link:hover{color:var(–paper);}
 .footer-bottom{
-  border-top:1px solid rgba(196,154,60,0.12);padding-top:1.5rem;
-  display:flex;justify-content:space-between;align-items:center;
-  font-size:0.56rem;letter-spacing:0.15em;text-transform:uppercase;
-  color:rgba(250,247,242,0.25);
+border-top:1px solid rgba(196,154,60,0.12);padding-top:1.5rem;
+display:flex;justify-content:space-between;align-items:center;
+font-size:0.56rem;letter-spacing:0.15em;text-transform:uppercase;
+color:rgba(250,247,242,0.25);
 }
 
 /* ======================================
-   RESPONSIVE - TABLET (≤ 1024px)
+RESPONSIVE - TABLET (≤ 1024px)
 ====================================== */
 @media(max-width:1024px){
-  .nav{padding:0.75rem 1.5rem;}
-  .nav-link{display:none;}
-  .hero{grid-template-columns:1fr;min-height:auto;}
-  .hero-text{padding:3.5rem 2rem 2.5rem;}
-  .hero-mosaic{height:55vw;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;}
-  
-  
-  .sede-count{display:none;}
-  .catalog{padding:2.5rem 1.5rem 4rem;}
-  .cards-grid.feat{grid-template-columns:1fr 1fr;}
-  .card.fc .card-photo{height:300px;}
-  .footer-top{grid-template-columns:1fr 1fr;gap:2rem;}
-  .modal{grid-template-columns:1fr 1fr;}
+.nav{padding:0.75rem 1.5rem;}
+.nav-link{display:none;}
+.hero{grid-template-columns:1fr;min-height:auto;}
+.hero-text{padding:3.5rem 2rem 2.5rem;}
+.hero-mosaic{height:55vw;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;}
+
+.sede-count{display:none;}
+.catalog{padding:2.5rem 1.5rem 4rem;}
+.cards-grid.feat{grid-template-columns:1fr 1fr;}
+.card.fc .card-photo{height:300px;}
+.footer-top{grid-template-columns:1fr 1fr;gap:2rem;}
+.modal{grid-template-columns:1fr 1fr;}
 }
 
 /* ======================================
-   RESPONSIVE - MÓVIL (≤ 640px)
+RESPONSIVE - MÓVIL (≤ 640px)
 ====================================== */
 @media(max-width:640px){
-  /* Nav móvil */
-  .nav{padding:0.65rem 1.1rem;}
-  .nav-logo img{height:36px;}
-  .nav-logo-name{font-size:1.15rem;}
-  .nav-links{gap:0;}
-  .nav-link{display:none;}
-  .nav-cta{padding:0.5rem 1rem;font-size:0.56rem;}
+/* Nav móvil */
+.nav{padding:0.65rem 1.1rem;}
+.nav-logo img{height:36px;}
+.nav-logo-name{font-size:1.15rem;}
+.nav-links{gap:0;}
+.nav-link{display:none;}
+.nav-cta{padding:0.5rem 1rem;font-size:0.56rem;}
 
-  /* Hero */
-  .hero{grid-template-columns:1fr;min-height:auto;}
-  .hero-text{padding:2.5rem 1.25rem 2rem;order:1;}
-  .hero-title{font-size:2.6rem;}
-  .hero-desc{font-size:0.82rem;max-width:100%;}
-  .hero-actions{flex-direction:column;align-items:stretch;}
-  .btn-p,.btn-g{text-align:center;padding:0.85rem 1rem;}
-  .hero-stats{gap:1.5rem;margin-top:2rem;padding-top:1.5rem;}
-  .hs-num{font-size:1.7rem;}
-  .hero-mosaic{order:0;height:65vw;}
-  .photo-a::after{display:none;}
+/* Hero */
+.hero{grid-template-columns:1fr;min-height:auto;}
+.hero-text{padding:2.5rem 1.25rem 2rem;order:1;}
+.hero-title{font-size:2.6rem;}
+.hero-desc{font-size:0.82rem;max-width:100%;}
+.hero-actions{flex-direction:column;align-items:stretch;}
+.btn-p,.btn-g{text-align:center;padding:0.85rem 1rem;}
+.hero-stats{gap:1.5rem;margin-top:2rem;padding-top:1.5rem;}
+.hs-num{font-size:1.7rem;}
+.hero-mosaic{order:0;height:65vw;}
+.photo-a::after{display:none;}
 
-  /* Sedes strip */
-  
-  
-  .sede-icon{font-size:1.1rem;}
-  .sede-name{font-size:0.72rem;}
-  .sede-desc{display:none;}
-  .sede-count{display:none;}
+/* Sedes strip */
 
-  /* Catalog */
-  .catalog{padding:1.75rem 1.1rem 3.5rem;}
-  .filter-bar{flex-direction:column;align-items:flex-start;gap:0.75rem;}
-  .filter-left{flex-wrap:wrap;gap:0.35rem;}
-  .filt{padding:0.4rem 0.8rem;font-size:0.56rem;}
-  .sede-current-label{align-self:flex-end;}
+.sede-icon{font-size:1.1rem;}
+.sede-name{font-size:0.72rem;}
+.sede-desc{display:none;}
+.sede-count{display:none;}
 
-  /* Category heads */
-  .cat-head{margin:2rem 0 1rem;}
-  .cat-head-title{font-size:1.3rem;}
+/* Catalog */
+.catalog{padding:1.75rem 1.1rem 3.5rem;}
+.filter-bar{flex-direction:column;align-items:flex-start;gap:0.75rem;}
+.filter-left{flex-wrap:wrap;gap:0.35rem;}
+.filt{padding:0.4rem 0.8rem;font-size:0.56rem;}
+.sede-current-label{align-self:flex-end;}
 
-  /* Cards */
-  .cards-grid,.cards-grid.feat{
-    grid-template-columns:1fr !important;
-    gap:1rem;
-  }
-  .card.fc{grid-row:auto;}
-  .card.fc .card-photo{height:260px;}
-  .card:not(.fc) .card-photo{height:220px;}
-  .card-thumbs{display:none;}
+/* Category heads */
+.cat-head{margin:2rem 0 1rem;}
+.cat-head-title{font-size:1.3rem;}
 
-  /* Modal */
+/* Cards */
+.cards-grid,.cards-grid.feat{
+grid-template-columns:1fr !important;
+gap:1rem;
+}
+.card.fc{grid-row:auto;}
+.card.fc .card-photo{height:260px;}
+.card:not(.fc) .card-photo{height:220px;}
+.card-thumbs{display:none;}
 
-  .modal{
-    grid-template-columns:1fr;
-    max-height:92vh;
-    border-radius:0;
-    animation:slideUp 0.35s ease both;
-  }
-  @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
-  .modal-photo{height:42vw;min-height:180px;}
-  .modal-photo-bg{height:42vw;min-height:180px;}
-  .modal-name{font-size:1.6rem;}
-  .modal-gallery{grid-template-columns:repeat(4,1fr);}
-  .modal-footer{flex-direction:column;align-items:flex-start;gap:1rem;}
-  .modal-book{width:100%;text-align:center;}
+/* Modal */
 
-  /* Footer */
-  .footer-top{grid-template-columns:1fr;gap:1.5rem;}
-  .footer-bottom{flex-direction:column;gap:0.5rem;text-align:center;}
-  footer{padding:2rem 1.25rem 2rem;}
-  
-  
+.modal{
+grid-template-columns:1fr;
+max-height:92vh;
+border-radius:0;
+animation:slideUp 0.35s ease both;
+}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.modal-photo{height:42vw;min-height:180px;}
+.modal-photo-bg{height:42vw;min-height:180px;}
+.modal-name{font-size:1.6rem;}
+.modal-gallery{grid-template-columns:repeat(4,1fr);}
+.modal-footer{flex-direction:column;align-items:flex-start;gap:1rem;}
+.modal-book{width:100%;text-align:center;}
+
+/* Footer */
+.footer-top{grid-template-columns:1fr;gap:1.5rem;}
+.footer-bottom{flex-direction:column;gap:0.5rem;text-align:center;}
+footer{padding:2rem 1.25rem 2rem;}
+
 }
 
-/* ── WHAT'S MISSING BANNER ── */
-
-
-
-
-
-
+/* ── WHAT’S MISSING BANNER ── */
 
 /* ======================================
-   PORTAFOLIO · Galería por artista
+PORTAFOLIO · Galería por artista
 ====================================== */
 .portfolio{
-  background:#0A0806;
-  padding:0;
-  overflow:hidden;
+background:#0A0806;
+padding:0;
+overflow:hidden;
 }
 
 /* Header */
 .pf-header{
-  padding:5rem 4rem 4rem;
-  display:grid;grid-template-columns:1fr auto;align-items:end;gap:2rem;
-  border-bottom:1px solid rgba(196,154,60,0.1);
+padding:5rem 4rem 4rem;
+display:grid;grid-template-columns:1fr auto;align-items:end;gap:2rem;
+border-bottom:1px solid rgba(196,154,60,0.1);
 }
-.pf-tag{font-size:0.52rem;letter-spacing:0.42em;text-transform:uppercase;color:var(--gold);
-  display:flex;align-items:center;gap:0.65rem;margin-bottom:1.1rem;}
-.pf-tag::before{content:'';width:18px;height:1px;background:var(--gold);}
-.pf-title{font-family:var(--font-d);font-size:clamp(2.2rem,4vw,3.8rem);font-weight:300;
-  color:var(--paper);line-height:1.05;letter-spacing:-0.01em;}
-.pf-title em{font-style:italic;color:var(--gold-l);}
+.pf-tag{font-size:0.52rem;letter-spacing:0.42em;text-transform:uppercase;color:var(–gold);
+display:flex;align-items:center;gap:0.65rem;margin-bottom:1.1rem;}
+.pf-tag::before{content:’’;width:18px;height:1px;background:var(–gold);}
+.pf-title{font-family:var(–font-d);font-size:clamp(2.2rem,4vw,3.8rem);font-weight:300;
+color:var(–paper);line-height:1.05;letter-spacing:-0.01em;}
+.pf-title em{font-style:italic;color:var(–gold-l);}
 .pf-desc{font-size:0.72rem;color:rgba(250,247,242,0.35);line-height:1.9;max-width:320px;text-align:right;}
 
 /* Sede tabs */
 .pf-tabs{
-  display:flex;border-bottom:1px solid rgba(196,154,60,0.1);
-  overflow-x:auto;-webkit-overflow-scrolling:touch;
+display:flex;border-bottom:1px solid rgba(196,154,60,0.1);
+overflow-x:auto;-webkit-overflow-scrolling:touch;
 }
 .pf-tab{
-  padding:1.1rem 2rem;font-size:0.6rem;letter-spacing:0.22em;text-transform:uppercase;
-  color:rgba(250,247,242,0.3);cursor:pointer;border-bottom:2px solid transparent;
-  white-space:nowrap;transition:all 0.2s;background:none;border-top:none;border-left:none;border-right:none;
-  font-family:var(--font-b);
+padding:1.1rem 2rem;font-size:0.6rem;letter-spacing:0.22em;text-transform:uppercase;
+color:rgba(250,247,242,0.3);cursor:pointer;border-bottom:2px solid transparent;
+white-space:nowrap;transition:all 0.2s;background:none;border-top:none;border-left:none;border-right:none;
+font-family:var(–font-b);
 }
 .pf-tab:hover{color:rgba(250,247,242,0.6);}
-.pf-tab.active{color:var(--gold-l);border-bottom-color:var(--gold);}
+.pf-tab.active{color:var(–gold-l);border-bottom-color:var(–gold);}
 
 /* Sede panel */
 .pf-sede{display:none;}/* handled by JS */
@@ -353,65 +340,65 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 3rem 2.5rem;}
 
 /* Artist row */
 .pf-artist{
-  border-bottom:1px solid rgba(196,154,60,0.08);
-  padding:3rem 4rem;
+border-bottom:1px solid rgba(196,154,60,0.08);
+padding:3rem 4rem;
 }
 .pf-artist:last-child{border-bottom:none;}
 
 /* Artist header */
 .pf-artist-head{
-  display:flex;align-items:center;justify-content:space-between;
-  margin-bottom:2rem;flex-wrap:wrap;gap:1rem;
+display:flex;align-items:center;justify-content:space-between;
+margin-bottom:2rem;flex-wrap:wrap;gap:1rem;
 }
 .pf-artist-left{display:flex;align-items:center;gap:1.5rem;}
 .pf-artist-avatar{
-  width:64px;height:64px;border-radius:50%;
-  border:1px solid rgba(196,154,60,0.3);
-  overflow:hidden;flex-shrink:0;position:relative;
+width:64px;height:64px;border-radius:50%;
+border:1px solid rgba(196,154,60,0.3);
+overflow:hidden;flex-shrink:0;position:relative;
 }
 .pf-artist-avatar-bg{
-  width:100%;height:100%;
-  background:center/cover no-repeat;
+width:100%;height:100%;
+background:center/cover no-repeat;
 }
 .pf-artist-info{}
 .pf-artist-type{font-size:0.46rem;letter-spacing:0.3em;text-transform:uppercase;
-  color:var(--gold);margin-bottom:4px;}
-.pf-artist-name{font-family:var(--font-d);font-size:1.6rem;font-weight:400;
-  color:var(--paper);line-height:1;}
+color:var(–gold);margin-bottom:4px;}
+.pf-artist-name{font-family:var(–font-d);font-size:1.6rem;font-weight:400;
+color:var(–paper);line-height:1;}
 .pf-artist-role{font-size:0.65rem;color:rgba(250,247,242,0.35);margin-top:3px;}
 .pf-artist-meta{display:flex;align-items:center;gap:2rem;}
 .pf-meta-item{text-align:center;}
-.pf-meta-num{font-family:var(--font-d);font-size:1.4rem;font-weight:300;color:var(--gold-l);}
+.pf-meta-num{font-family:var(–font-d);font-size:1.4rem;font-weight:300;color:var(–gold-l);}
 .pf-meta-lbl{font-size:0.46rem;letter-spacing:0.18em;text-transform:uppercase;
-  color:rgba(250,247,242,0.25);margin-top:2px;}
+color:rgba(250,247,242,0.25);margin-top:2px;}
 
 /* Tags */
 .pf-tags{display:flex;flex-wrap:wrap;gap:0.4rem;margin-bottom:2rem;}
 .pf-tag-item{padding:0.25rem 0.7rem;border:1px solid rgba(196,154,60,0.18);
-  font-size:0.52rem;letter-spacing:0.1em;color:rgba(250,247,242,0.4);}
+font-size:0.52rem;letter-spacing:0.1em;color:rgba(250,247,242,0.4);}
 
 /* Photo grid - masonry-like */
 .pf-grid{
-  display:grid;
-  grid-template-columns:repeat(4,1fr);
-  gap:4px;
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:4px;
 }
 .pf-grid.six{grid-template-columns:repeat(6,1fr);}
 
 .pf-photo{
-  position:relative;overflow:hidden;
-  background:#111;cursor:pointer;
+position:relative;overflow:hidden;
+background:#111;cursor:pointer;
 }
 .pf-photo::after{
-  content:'';position:absolute;inset:0;
-  background:rgba(0,0,0,0);
-  transition:background 0.3s;
+content:’’;position:absolute;inset:0;
+background:rgba(0,0,0,0);
+transition:background 0.3s;
 }
 .pf-photo:hover::after{background:rgba(196,154,60,0.15);}
 .pf-photo-bg{
-  width:100%;height:100%;
-  background:center/cover no-repeat;
-  transition:transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94);
+width:100%;height:100%;
+background:center/cover no-repeat;
+transition:transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94);
 }
 .pf-photo:hover .pf-photo-bg{transform:scale(1.05);}
 
@@ -437,107 +424,107 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 3rem 2.5rem;}
 
 /* Photo hover zoom icon */
 .pf-photo-zoom{
-  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) scale(0);
-  width:44px;height:44px;border-radius:50%;
-  background:rgba(196,154,60,0.9);
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.1rem;z-index:2;
-  transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) scale(0);
+width:44px;height:44px;border-radius:50%;
+background:rgba(196,154,60,0.9);
+display:flex;align-items:center;justify-content:center;
+font-size:1.1rem;z-index:2;
+transition:transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
 }
 .pf-photo:hover .pf-photo-zoom{transform:translate(-50%,-50%) scale(1);}
 
 /* Price strip below each artist */
 .pf-price-strip{
-  margin-top:1.5rem;
-  padding:1rem 1.25rem;
-  border:1px solid rgba(196,154,60,0.15);
-  background:rgba(196,154,60,0.03);
-  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem;
+margin-top:1.5rem;
+padding:1rem 1.25rem;
+border:1px solid rgba(196,154,60,0.15);
+background:rgba(196,154,60,0.03);
+display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem;
 }
 .pf-price-info{}
-.pf-price-val{font-family:var(--font-d);font-size:1.3rem;color:var(--gold-l);font-weight:300;}
+.pf-price-val{font-family:var(–font-d);font-size:1.3rem;color:var(–gold-l);font-weight:300;}
 .pf-price-lbl{font-size:0.5rem;letter-spacing:0.18em;text-transform:uppercase;
-  color:rgba(250,247,242,0.25);margin-top:2px;}
+color:rgba(250,247,242,0.25);margin-top:2px;}
 .pf-price-note{font-size:0.6rem;color:rgba(250,247,242,0.25);margin-top:3px;}
 .pf-book-btn{
-  padding:0.65rem 1.5rem;background:var(--gold);color:var(--ink);
-  border:none;font-family:var(--font-b);font-size:0.6rem;font-weight:500;
-  letter-spacing:0.15em;text-transform:uppercase;cursor:pointer;
-  text-decoration:none;display:inline-block;transition:opacity 0.2s;
+padding:0.65rem 1.5rem;background:var(–gold);color:var(–ink);
+border:none;font-family:var(–font-b);font-size:0.6rem;font-weight:500;
+letter-spacing:0.15em;text-transform:uppercase;cursor:pointer;
+text-decoration:none;display:inline-block;transition:opacity 0.2s;
 }
 .pf-book-btn:hover{opacity:0.85;}
 
 /* Lightbox */
 .lb-overlay{
-  position:fixed;inset:0;z-index:9000;
-  background:rgba(5,4,3,0.97);
-  display:none;align-items:center;justify-content:center;
-  padding:1rem;
+position:fixed;inset:0;z-index:9000;
+background:rgba(5,4,3,0.97);
+display:none;align-items:center;justify-content:center;
+padding:1rem;
 }
 .lb-overlay.open{display:flex;}
 .lb-img{
-  max-width:90vw;max-height:90vh;
-  object-fit:contain;
-  animation:lbIn 0.3s ease both;
+max-width:90vw;max-height:90vh;
+object-fit:contain;
+animation:lbIn 0.3s ease both;
 }
 @keyframes lbIn{from{opacity:0;transform:scale(0.94)}to{opacity:1;transform:none}}
 .lb-img-placeholder{
-  width:min(80vw,700px);height:min(80vh,500px);
-  display:flex;align-items:center;justify-content:center;
-  font-size:0.75rem;color:rgba(250,247,242,0.2);letter-spacing:0.2em;
-  animation:lbIn 0.3s ease both;
+width:min(80vw,700px);height:min(80vh,500px);
+display:flex;align-items:center;justify-content:center;
+font-size:0.75rem;color:rgba(250,247,242,0.2);letter-spacing:0.2em;
+animation:lbIn 0.3s ease both;
 }
 .lb-close{
-  position:fixed;top:1.25rem;right:1.5rem;
-  background:none;border:1px solid rgba(250,247,242,0.2);color:rgba(250,247,242,0.5);
-  width:40px;height:40px;cursor:pointer;font-size:1rem;
-  display:flex;align-items:center;justify-content:center;
-  transition:all 0.2s;
+position:fixed;top:1.25rem;right:1.5rem;
+background:none;border:1px solid rgba(250,247,242,0.2);color:rgba(250,247,242,0.5);
+width:40px;height:40px;cursor:pointer;font-size:1rem;
+display:flex;align-items:center;justify-content:center;
+transition:all 0.2s;
 }
-.lb-close:hover{border-color:var(--gold);color:var(--gold);}
+.lb-close:hover{border-color:var(–gold);color:var(–gold);}
 .lb-nav{
-  position:fixed;top:50%;transform:translateY(-50%);
-  background:none;border:1px solid rgba(250,247,242,0.15);
-  color:rgba(250,247,242,0.4);width:44px;height:44px;
-  cursor:pointer;font-size:1.25rem;display:flex;align-items:center;justify-content:center;
-  transition:all 0.2s;
+position:fixed;top:50%;transform:translateY(-50%);
+background:none;border:1px solid rgba(250,247,242,0.15);
+color:rgba(250,247,242,0.4);width:44px;height:44px;
+cursor:pointer;font-size:1.25rem;display:flex;align-items:center;justify-content:center;
+transition:all 0.2s;
 }
-.lb-nav:hover{border-color:var(--gold);color:var(--gold);}
+.lb-nav:hover{border-color:var(–gold);color:var(–gold);}
 .lb-prev{left:1rem;}
 .lb-next{right:1rem;}
 .lb-info{
-  position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);
-  font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;
-  color:rgba(250,247,242,0.3);text-align:center;
+position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);
+font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;
+color:rgba(250,247,242,0.3);text-align:center;
 }
 
 /* ── RESPONSIVE PORTAFOLIO ── */
 @media(max-width:1024px){
-  .pf-grid{grid-template-columns:repeat(3,1fr);}
-  .pf-grid.six{grid-template-columns:repeat(4,1fr);}
-  .pf-artist{padding:2.5rem 2rem;}
-  .pf-header{padding:3.5rem 2rem 3rem;}
+.pf-grid{grid-template-columns:repeat(3,1fr);}
+.pf-grid.six{grid-template-columns:repeat(4,1fr);}
+.pf-artist{padding:2.5rem 2rem;}
+.pf-header{padding:3.5rem 2rem 3rem;}
 }
 @media(max-width:768px){
-  .pf-header{grid-template-columns:1fr;gap:1rem;}
-  .pf-desc{text-align:left;max-width:100%;}
-  .pf-artist{padding:2rem 1.25rem;}
-  .pf-grid{grid-template-columns:repeat(2,1fr);}
-  .pf-grid.six{grid-template-columns:repeat(3,1fr);}
-  .pf-photo.wide{grid-column:span 2;}
-  .pf-artist-head{flex-direction:column;align-items:flex-start;}
-  .pf-tab{padding:0.85rem 1.25rem;font-size:0.55rem;}
-  .pf-price-strip{flex-direction:column;align-items:flex-start;}
-  .pf-book-btn{width:100%;text-align:center;}
+.pf-header{grid-template-columns:1fr;gap:1rem;}
+.pf-desc{text-align:left;max-width:100%;}
+.pf-artist{padding:2rem 1.25rem;}
+.pf-grid{grid-template-columns:repeat(2,1fr);}
+.pf-grid.six{grid-template-columns:repeat(3,1fr);}
+.pf-photo.wide{grid-column:span 2;}
+.pf-artist-head{flex-direction:column;align-items:flex-start;}
+.pf-tab{padding:0.85rem 1.25rem;font-size:0.55rem;}
+.pf-price-strip{flex-direction:column;align-items:flex-start;}
+.pf-book-btn{width:100%;text-align:center;}
 }
 @media(max-width:480px){
-  .pf-grid{grid-template-columns:repeat(2,1fr);}
-  .pf-grid.six{grid-template-columns:repeat(2,1fr);}
-  .pf-photo.wide{grid-column:span 1;}
-  .pf-photo.tall{grid-row:span 1;}
-  .pf-artist-avatar{width:52px;height:52px;}
-  .pf-artist-name{font-size:1.3rem;}
-  .pf-artist-meta{gap:1.25rem;}
+.pf-grid{grid-template-columns:repeat(2,1fr);}
+.pf-grid.six{grid-template-columns:repeat(2,1fr);}
+.pf-photo.wide{grid-column:span 1;}
+.pf-photo.tall{grid-row:span 1;}
+.pf-artist-avatar{width:52px;height:52px;}
+.pf-artist-name{font-size:1.3rem;}
+.pf-artist-meta{gap:1.25rem;}
 }
 
 </style>
@@ -545,6 +532,7 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 3rem 2.5rem;}
 <body>
 
 <!-- NAV -->
+
 <nav class="nav">
   <a class="nav-logo" href="#">
     <img src="data:image/png;base64,LOGO_PLACEHOLDER" onerror="this.style.display='none'" alt="AMBAR">
@@ -573,6 +561,7 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 3rem 2.5rem;}
 </div>
 
 <!-- HERO -->
+
 <section class="hero">
   <div class="hero-text">
     <div class="hero-tag">Fotografía Pre-XV · Colombia</div>
@@ -599,9 +588,8 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 3rem 2.5rem;}
   </div>
 </section>
 
-
-
 <!-- PORTAFOLIO -->
+
 <section class="portfolio" id="portafolio">
 
   <div class="pf-header">
@@ -613,6 +601,7 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 3rem 2.5rem;}
   </div>
 
   <!-- TABS SEDES -->
+
   <div class="pf-tabs">
     <button class="pf-tab active" onclick="pfSetSede('bogota',this)">🏙️ Bogotá D.C.</button>
     <button class="pf-tab" onclick="pfSetSede('barranquilla',this)">🌴 Barranquilla</button>
@@ -620,331 +609,341 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 3rem 2.5rem;}
   </div>
 
   <!-- == BOGOTÁ == -->
+
   <div class="pf-sede active" id="pf-bogota">
 
-    <!-- Nicolay -->
-    <div class="pf-artist">
-      <div class="pf-artist-head">
-        <div class="pf-artist-left">
-          <div class="pf-artist-avatar">
-            <div class="pf-artist-avatar-bg pg-c1" style="background-image:url('https://dtkwoxjuhmdmpnmynjtg.supabase.co/storage/v1/object/public/Portafolio/portafolio/1774447249979_9zru.jpg')"></div>
-          </div>
-          <div class="pf-artist-info">
-            <div class="pf-artist-type">📸 Fotógrafo · Bogotá</div>
-            <div class="pf-artist-name">Nicolay</div>
-            <div class="pf-artist-role">Editorial · Exterior · Golden Hour</div>
-          </div>
-        </div>
-        <div class="pf-artist-meta">
-          <div class="pf-meta-item"><div class="pf-meta-num">4.8</div><div class="pf-meta-lbl">Rating</div></div>
-          <div class="pf-meta-item"><div class="pf-meta-num">95</div><div class="pf-meta-lbl">Sesiones</div></div>
-        </div>
+```
+<!-- Nicolay -->
+<div class="pf-artist">
+  <div class="pf-artist-head">
+    <div class="pf-artist-left">
+      <div class="pf-artist-avatar">
+        <div class="pf-artist-avatar-bg pg-c1" style="background-image:url('img/nicolay.jpg')"></div>
       </div>
-      <div class="pf-tags">
-        <span class="pf-tag-item">Pre-XV</span>
-        <span class="pf-tag-item">Exterior</span>
-        <span class="pf-tag-item">Editorial</span>
-        <span class="pf-tag-item">Golden Hour</span>
-        <span class="pf-tag-item">Moda</span>
-      </div>
-      <div class="pf-grid" id="grid-nicolay-bog">
-        <!-- generado por JS -->
-      </div>
-      <div class="pf-price-strip">
-        <div class="pf-price-info">
-          <div class="pf-price-val">$900.000 COP</div>
-          <div class="pf-price-lbl">Sesión completa · Bogotá</div>
-          <div class="pf-price-note">Paquete con maquillaje $1.300.000 · Ahorro $100.000</div>
-        </div>
-        <a class="pf-book-btn" href="reserva.html">Reservar con Nicolay →</a>
+      <div class="pf-artist-info">
+        <div class="pf-artist-type">📸 Fotógrafo · Bogotá</div>
+        <div class="pf-artist-name">Nicolay</div>
+        <div class="pf-artist-role">Editorial · Exterior · Golden Hour</div>
       </div>
     </div>
+    <div class="pf-artist-meta">
+      <div class="pf-meta-item"><div class="pf-meta-num">4.8</div><div class="pf-meta-lbl">Rating</div></div>
+      <div class="pf-meta-item"><div class="pf-meta-num">95</div><div class="pf-meta-lbl">Sesiones</div></div>
+    </div>
+  </div>
+  <div class="pf-tags">
+    <span class="pf-tag-item">Pre-XV</span>
+    <span class="pf-tag-item">Exterior</span>
+    <span class="pf-tag-item">Editorial</span>
+    <span class="pf-tag-item">Golden Hour</span>
+    <span class="pf-tag-item">Moda</span>
+  </div>
+  <div class="pf-grid" id="grid-nicolay-bog">
+    <!-- generado por JS -->
+  </div>
+  <div class="pf-price-strip">
+    <div class="pf-price-info">
+      <div class="pf-price-val">$900.000 COP</div>
+      <div class="pf-price-lbl">Sesión completa · Bogotá</div>
+      <div class="pf-price-note">Paquete con maquillaje $1.300.000 · Ahorro $100.000</div>
+    </div>
+    <a class="pf-book-btn" href="reserva.html">Reservar con Nicolay →</a>
+  </div>
+</div>
 
-    <!-- Catalina -->
-    <div class="pf-artist">
-      <div class="pf-artist-head">
-        <div class="pf-artist-left">
-          <div class="pf-artist-avatar">
-            <div class="pf-artist-avatar-bg pg-c7" style="background-image:url('img/catalina.jpg')"></div>
-          </div>
-          <div class="pf-artist-info">
-            <div class="pf-artist-type">💄 Maquilladora · Bogotá</div>
-            <div class="pf-artist-name">Catalina</div>
-            <div class="pf-artist-role">Glam · Nupcial · Airbrush</div>
-          </div>
-        </div>
-        <div class="pf-artist-meta">
-          <div class="pf-meta-item"><div class="pf-meta-num">5.0</div><div class="pf-meta-lbl">Rating</div></div>
-          <div class="pf-meta-item"><div class="pf-meta-num">210</div><div class="pf-meta-lbl">Sesiones</div></div>
-        </div>
+<!-- Catalina -->
+<div class="pf-artist">
+  <div class="pf-artist-head">
+    <div class="pf-artist-left">
+      <div class="pf-artist-avatar">
+        <div class="pf-artist-avatar-bg pg-c7" style="background-image:url('img/catalina.jpg')"></div>
       </div>
-      <div class="pf-tags">
-        <span class="pf-tag-item">Glam</span>
-        <span class="pf-tag-item">Nupcial</span>
-        <span class="pf-tag-item">Airbrush</span>
-        <span class="pf-tag-item">Larga duración</span>
-      </div>
-      <div class="pf-grid" id="grid-catalina"><!-- JS --></div>
-      <div class="pf-price-strip">
-        <div class="pf-price-info">
-          <div class="pf-price-val">$500.000 COP</div>
-          <div class="pf-price-lbl">Maquillaje · A domicilio · Bogotá</div>
-        </div>
-        <a class="pf-book-btn" href="reserva.html">Reservar con Catalina →</a>
+      <div class="pf-artist-info">
+        <div class="pf-artist-type">💄 Maquilladora · Bogotá</div>
+        <div class="pf-artist-name">Catalina</div>
+        <div class="pf-artist-role">Glam · Nupcial · Airbrush</div>
       </div>
     </div>
+    <div class="pf-artist-meta">
+      <div class="pf-meta-item"><div class="pf-meta-num">5.0</div><div class="pf-meta-lbl">Rating</div></div>
+      <div class="pf-meta-item"><div class="pf-meta-num">210</div><div class="pf-meta-lbl">Sesiones</div></div>
+    </div>
+  </div>
+  <div class="pf-tags">
+    <span class="pf-tag-item">Glam</span>
+    <span class="pf-tag-item">Nupcial</span>
+    <span class="pf-tag-item">Airbrush</span>
+    <span class="pf-tag-item">Larga duración</span>
+  </div>
+  <div class="pf-grid" id="grid-catalina"><!-- JS --></div>
+  <div class="pf-price-strip">
+    <div class="pf-price-info">
+      <div class="pf-price-val">$500.000 COP</div>
+      <div class="pf-price-lbl">Maquillaje · A domicilio · Bogotá</div>
+    </div>
+    <a class="pf-book-btn" href="reserva.html">Reservar con Catalina →</a>
+  </div>
+</div>
 
-    <!-- Samy -->
-    <div class="pf-artist">
-      <div class="pf-artist-head">
-        <div class="pf-artist-left">
-          <div class="pf-artist-avatar">
-            <div class="pf-artist-avatar-bg pg-c2" style="background-image:url('img/samy.jpg')"></div>
-          </div>
-          <div class="pf-artist-info">
-            <div class="pf-artist-type">💄 Maquilladora · Bogotá</div>
-            <div class="pf-artist-name">Samy</div>
-            <div class="pf-artist-role">Natural · Editorial · Soft Glam</div>
-          </div>
-        </div>
-        <div class="pf-artist-meta">
-          <div class="pf-meta-item"><div class="pf-meta-num">4.9</div><div class="pf-meta-lbl">Rating</div></div>
-          <div class="pf-meta-item"><div class="pf-meta-num">178</div><div class="pf-meta-lbl">Sesiones</div></div>
-        </div>
+<!-- Samy -->
+<div class="pf-artist">
+  <div class="pf-artist-head">
+    <div class="pf-artist-left">
+      <div class="pf-artist-avatar">
+        <div class="pf-artist-avatar-bg pg-c2" style="background-image:url('img/samy.jpg')"></div>
       </div>
-      <div class="pf-tags">
-        <span class="pf-tag-item">Natural</span>
-        <span class="pf-tag-item">Editorial</span>
-        <span class="pf-tag-item">Soft Glam</span>
-      </div>
-      <div class="pf-grid" id="grid-samy"><!-- JS --></div>
-      <div class="pf-price-strip">
-        <div class="pf-price-info">
-          <div class="pf-price-val">$500.000 COP</div>
-          <div class="pf-price-lbl">Maquillaje · A domicilio · Bogotá</div>
-        </div>
-        <a class="pf-book-btn" href="reserva.html">Reservar con Samy →</a>
+      <div class="pf-artist-info">
+        <div class="pf-artist-type">💄 Maquilladora · Bogotá</div>
+        <div class="pf-artist-name">Samy</div>
+        <div class="pf-artist-role">Natural · Editorial · Soft Glam</div>
       </div>
     </div>
+    <div class="pf-artist-meta">
+      <div class="pf-meta-item"><div class="pf-meta-num">4.9</div><div class="pf-meta-lbl">Rating</div></div>
+      <div class="pf-meta-item"><div class="pf-meta-num">178</div><div class="pf-meta-lbl">Sesiones</div></div>
+    </div>
+  </div>
+  <div class="pf-tags">
+    <span class="pf-tag-item">Natural</span>
+    <span class="pf-tag-item">Editorial</span>
+    <span class="pf-tag-item">Soft Glam</span>
+  </div>
+  <div class="pf-grid" id="grid-samy"><!-- JS --></div>
+  <div class="pf-price-strip">
+    <div class="pf-price-info">
+      <div class="pf-price-val">$500.000 COP</div>
+      <div class="pf-price-lbl">Maquillaje · A domicilio · Bogotá</div>
+    </div>
+    <a class="pf-book-btn" href="reserva.html">Reservar con Samy →</a>
+  </div>
+</div>
+```
 
   </div><!-- /pf-bogota -->
 
   <!-- == BARRANQUILLA == -->
+
   <div class="pf-sede" id="pf-barranquilla">
 
-    <!-- Carlos -->
-    <div class="pf-artist">
-      <div class="pf-artist-head">
-        <div class="pf-artist-left">
-          <div class="pf-artist-avatar">
-            <div class="pf-artist-avatar-bg pg-c3" style="background-image:url('img/carlos.jpg')"></div>
-          </div>
-          <div class="pf-artist-info">
-            <div class="pf-artist-type">📸 Fotógrafo · Barranquilla</div>
-            <div class="pf-artist-name">Carlos Ibáñez</div>
-            <div class="pf-artist-role">Cinemático · Playa · Golden Hour</div>
-          </div>
-        </div>
-        <div class="pf-artist-meta">
-          <div class="pf-meta-item"><div class="pf-meta-num">4.9</div><div class="pf-meta-lbl">Rating</div></div>
-          <div class="pf-meta-item"><div class="pf-meta-num">110</div><div class="pf-meta-lbl">Sesiones</div></div>
-        </div>
+```
+<!-- Carlos -->
+<div class="pf-artist">
+  <div class="pf-artist-head">
+    <div class="pf-artist-left">
+      <div class="pf-artist-avatar">
+        <div class="pf-artist-avatar-bg pg-c3" style="background-image:url('img/carlos.jpg')"></div>
       </div>
-      <div class="pf-tags">
-        <span class="pf-tag-item">Pre-XV</span>
-        <span class="pf-tag-item">Playa</span>
-        <span class="pf-tag-item">Cinemático</span>
-        <span class="pf-tag-item">Golden Hour</span>
-        <span class="pf-tag-item">Atardecer</span>
-      </div>
-      <div class="pf-grid" id="grid-carlos"><!-- JS --></div>
-      <div class="pf-price-strip">
-        <div class="pf-price-info">
-          <div class="pf-price-val">$3.500.000 COP</div>
-          <div class="pf-price-lbl">Sesión completa · Barranquilla</div>
-        </div>
-        <a class="pf-book-btn" href="reserva.html">Reservar con Carlos →</a>
+      <div class="pf-artist-info">
+        <div class="pf-artist-type">📸 Fotógrafo · Barranquilla</div>
+        <div class="pf-artist-name">Carlos Ibáñez</div>
+        <div class="pf-artist-role">Cinemático · Playa · Golden Hour</div>
       </div>
     </div>
+    <div class="pf-artist-meta">
+      <div class="pf-meta-item"><div class="pf-meta-num">4.9</div><div class="pf-meta-lbl">Rating</div></div>
+      <div class="pf-meta-item"><div class="pf-meta-num">110</div><div class="pf-meta-lbl">Sesiones</div></div>
+    </div>
+  </div>
+  <div class="pf-tags">
+    <span class="pf-tag-item">Pre-XV</span>
+    <span class="pf-tag-item">Playa</span>
+    <span class="pf-tag-item">Cinemático</span>
+    <span class="pf-tag-item">Golden Hour</span>
+    <span class="pf-tag-item">Atardecer</span>
+  </div>
+  <div class="pf-grid" id="grid-carlos"><!-- JS --></div>
+  <div class="pf-price-strip">
+    <div class="pf-price-info">
+      <div class="pf-price-val">$3.500.000 COP</div>
+      <div class="pf-price-lbl">Sesión completa · Barranquilla</div>
+    </div>
+    <a class="pf-book-btn" href="reserva.html">Reservar con Carlos →</a>
+  </div>
+</div>
 
-    <!-- Paola -->
-    <div class="pf-artist">
-      <div class="pf-artist-head">
-        <div class="pf-artist-left">
-          <div class="pf-artist-avatar">
-            <div class="pf-artist-avatar-bg pg-c4" style="background-image:url('img/paola.jpg')"></div>
-          </div>
-          <div class="pf-artist-info">
-            <div class="pf-artist-type">💄 Maquilladora · Barranquilla</div>
-            <div class="pf-artist-name">Paola Herrera</div>
-            <div class="pf-artist-role">Tropical · Glam · Colorido</div>
-          </div>
-        </div>
-        <div class="pf-artist-meta">
-          <div class="pf-meta-item"><div class="pf-meta-num">4.8</div><div class="pf-meta-lbl">Rating</div></div>
-          <div class="pf-meta-item"><div class="pf-meta-num">134</div><div class="pf-meta-lbl">Sesiones</div></div>
-        </div>
+<!-- Paola -->
+<div class="pf-artist">
+  <div class="pf-artist-head">
+    <div class="pf-artist-left">
+      <div class="pf-artist-avatar">
+        <div class="pf-artist-avatar-bg pg-c4" style="background-image:url('img/paola.jpg')"></div>
       </div>
-      <div class="pf-tags">
-        <span class="pf-tag-item">Glam</span>
-        <span class="pf-tag-item">Tropical</span>
-        <span class="pf-tag-item">Colorido</span>
-        <span class="pf-tag-item">Caribeño</span>
-      </div>
-      <div class="pf-grid" id="grid-paola"><!-- JS --></div>
-      <div class="pf-price-strip">
-        <div class="pf-price-info">
-          <div class="pf-price-val">$1.150.000 COP</div>
-          <div class="pf-price-lbl">Maquillaje · A domicilio · Barranquilla</div>
-        </div>
-        <a class="pf-book-btn" href="reserva.html">Reservar con Paola →</a>
+      <div class="pf-artist-info">
+        <div class="pf-artist-type">💄 Maquilladora · Barranquilla</div>
+        <div class="pf-artist-name">Paola Herrera</div>
+        <div class="pf-artist-role">Tropical · Glam · Colorido</div>
       </div>
     </div>
+    <div class="pf-artist-meta">
+      <div class="pf-meta-item"><div class="pf-meta-num">4.8</div><div class="pf-meta-lbl">Rating</div></div>
+      <div class="pf-meta-item"><div class="pf-meta-num">134</div><div class="pf-meta-lbl">Sesiones</div></div>
+    </div>
+  </div>
+  <div class="pf-tags">
+    <span class="pf-tag-item">Glam</span>
+    <span class="pf-tag-item">Tropical</span>
+    <span class="pf-tag-item">Colorido</span>
+    <span class="pf-tag-item">Caribeño</span>
+  </div>
+  <div class="pf-grid" id="grid-paola"><!-- JS --></div>
+  <div class="pf-price-strip">
+    <div class="pf-price-info">
+      <div class="pf-price-val">$1.150.000 COP</div>
+      <div class="pf-price-lbl">Maquillaje · A domicilio · Barranquilla</div>
+    </div>
+    <a class="pf-book-btn" href="reserva.html">Reservar con Paola →</a>
+  </div>
+</div>
+```
 
   </div><!-- /pf-barranquilla -->
 
   <!-- == VILLAVICENCIO == -->
+
   <div class="pf-sede" id="pf-villavicencio">
 
-    <!-- Anyelo -->
-    <div class="pf-artist">
-      <div class="pf-artist-head">
-        <div class="pf-artist-left">
-          <div class="pf-artist-avatar">
-            <div class="pf-artist-avatar-bg pg-c8" style="background-image:url('img/anyelo.jpg')"></div>
-          </div>
-          <div class="pf-artist-info">
-            <div class="pf-artist-type">📸 Fotógrafo · Villavicencio</div>
-            <div class="pf-artist-name">Anyelo</div>
-            <div class="pf-artist-role">Llanos · Golden Hour · Exterior</div>
-          </div>
-        </div>
-        <div class="pf-artist-meta">
-          <div class="pf-meta-item"><div class="pf-meta-num">4.9</div><div class="pf-meta-lbl">Rating</div></div>
-          <div class="pf-meta-item"><div class="pf-meta-num">80</div><div class="pf-meta-lbl">Sesiones</div></div>
-        </div>
+```
+<!-- Anyelo -->
+<div class="pf-artist">
+  <div class="pf-artist-head">
+    <div class="pf-artist-left">
+      <div class="pf-artist-avatar">
+        <div class="pf-artist-avatar-bg pg-c8" style="background-image:url('img/anyelo.jpg')"></div>
       </div>
-      <div class="pf-tags">
-        <span class="pf-tag-item">Pre-XV</span>
-        <span class="pf-tag-item">Llanos</span>
-        <span class="pf-tag-item">Exterior</span>
-        <span class="pf-tag-item">Golden Hour</span>
-      </div>
-      <div class="pf-grid" id="grid-anyelo"><!-- JS --></div>
-      <div class="pf-price-strip">
-        <div class="pf-price-info">
-          <div class="pf-price-val">$2.800.000 COP</div>
-          <div class="pf-price-lbl">Sesión completa · Villavicencio</div>
-        </div>
-        <a class="pf-book-btn" href="reserva.html">Reservar con Anyelo →</a>
+      <div class="pf-artist-info">
+        <div class="pf-artist-type">📸 Fotógrafo · Villavicencio</div>
+        <div class="pf-artist-name">Anyelo</div>
+        <div class="pf-artist-role">Llanos · Golden Hour · Exterior</div>
       </div>
     </div>
+    <div class="pf-artist-meta">
+      <div class="pf-meta-item"><div class="pf-meta-num">4.9</div><div class="pf-meta-lbl">Rating</div></div>
+      <div class="pf-meta-item"><div class="pf-meta-num">80</div><div class="pf-meta-lbl">Sesiones</div></div>
+    </div>
+  </div>
+  <div class="pf-tags">
+    <span class="pf-tag-item">Pre-XV</span>
+    <span class="pf-tag-item">Llanos</span>
+    <span class="pf-tag-item">Exterior</span>
+    <span class="pf-tag-item">Golden Hour</span>
+  </div>
+  <div class="pf-grid" id="grid-anyelo"><!-- JS --></div>
+  <div class="pf-price-strip">
+    <div class="pf-price-info">
+      <div class="pf-price-val">$2.800.000 COP</div>
+      <div class="pf-price-lbl">Sesión completa · Villavicencio</div>
+    </div>
+    <a class="pf-book-btn" href="reserva.html">Reservar con Anyelo →</a>
+  </div>
+</div>
 
-    <!-- Nicolay Vll -->
-    <div class="pf-artist">
-      <div class="pf-artist-head">
-        <div class="pf-artist-left">
-          <div class="pf-artist-avatar">
-            <div class="pf-artist-avatar-bg pg-c6" style="background-image:url('img/nicolay.jpg')"></div>
-          </div>
-          <div class="pf-artist-info">
-            <div class="pf-artist-type">📸 Fotógrafo · Villavicencio</div>
-            <div class="pf-artist-name">Nicolay</div>
-            <div class="pf-artist-role">Hacienda · Naturaleza · Caballos</div>
-          </div>
-        </div>
-        <div class="pf-artist-meta">
-          <div class="pf-meta-item"><div class="pf-meta-num">4.8</div><div class="pf-meta-lbl">Rating</div></div>
-          <div class="pf-meta-item"><div class="pf-meta-num">60</div><div class="pf-meta-lbl">Sesiones</div></div>
-        </div>
+<!-- Nicolay Vll -->
+<div class="pf-artist">
+  <div class="pf-artist-head">
+    <div class="pf-artist-left">
+      <div class="pf-artist-avatar">
+        <div class="pf-artist-avatar-bg pg-c6" style="background-image:url('img/nicolay.jpg')"></div>
       </div>
-      <div class="pf-tags">
-        <span class="pf-tag-item">Pre-XV</span>
-        <span class="pf-tag-item">Hacienda</span>
-        <span class="pf-tag-item">Naturaleza</span>
-        <span class="pf-tag-item">Caballos</span>
-      </div>
-      <div class="pf-grid" id="grid-nicolay-vll"><!-- JS --></div>
-      <div class="pf-price-strip">
-        <div class="pf-price-info">
-          <div class="pf-price-val">$2.900.000 COP</div>
-          <div class="pf-price-lbl">Sesión completa · Villavicencio</div>
-        </div>
-        <a class="pf-book-btn" href="reserva.html">Reservar con Nicolay →</a>
+      <div class="pf-artist-info">
+        <div class="pf-artist-type">📸 Fotógrafo · Villavicencio</div>
+        <div class="pf-artist-name">Nicolay</div>
+        <div class="pf-artist-role">Hacienda · Naturaleza · Caballos</div>
       </div>
     </div>
+    <div class="pf-artist-meta">
+      <div class="pf-meta-item"><div class="pf-meta-num">4.8</div><div class="pf-meta-lbl">Rating</div></div>
+      <div class="pf-meta-item"><div class="pf-meta-num">60</div><div class="pf-meta-lbl">Sesiones</div></div>
+    </div>
+  </div>
+  <div class="pf-tags">
+    <span class="pf-tag-item">Pre-XV</span>
+    <span class="pf-tag-item">Hacienda</span>
+    <span class="pf-tag-item">Naturaleza</span>
+    <span class="pf-tag-item">Caballos</span>
+  </div>
+  <div class="pf-grid" id="grid-nicolay-vll"><!-- JS --></div>
+  <div class="pf-price-strip">
+    <div class="pf-price-info">
+      <div class="pf-price-val">$2.900.000 COP</div>
+      <div class="pf-price-lbl">Sesión completa · Villavicencio</div>
+    </div>
+    <a class="pf-book-btn" href="reserva.html">Reservar con Nicolay →</a>
+  </div>
+</div>
 
-    <!-- Laura -->
-    <div class="pf-artist">
-      <div class="pf-artist-head">
-        <div class="pf-artist-left">
-          <div class="pf-artist-avatar">
-            <div class="pf-artist-avatar-bg pg-c4" style="background-image:url('img/laura.jpg')"></div>
-          </div>
-          <div class="pf-artist-info">
-            <div class="pf-artist-type">💄 Maquilladora · Villavicencio</div>
-            <div class="pf-artist-name">Laura</div>
-            <div class="pf-artist-role">Clásico · Elegante · Natural</div>
-          </div>
-        </div>
-        <div class="pf-artist-meta">
-          <div class="pf-meta-item"><div class="pf-meta-num">4.9</div><div class="pf-meta-lbl">Rating</div></div>
-          <div class="pf-meta-item"><div class="pf-meta-num">130</div><div class="pf-meta-lbl">Sesiones</div></div>
-        </div>
+<!-- Laura -->
+<div class="pf-artist">
+  <div class="pf-artist-head">
+    <div class="pf-artist-left">
+      <div class="pf-artist-avatar">
+        <div class="pf-artist-avatar-bg pg-c4" style="background-image:url('img/laura.jpg')"></div>
       </div>
-      <div class="pf-tags">
-        <span class="pf-tag-item">Clásico</span>
-        <span class="pf-tag-item">Elegante</span>
-        <span class="pf-tag-item">Natural</span>
-      </div>
-      <div class="pf-grid" id="grid-laura"><!-- JS --></div>
-      <div class="pf-price-strip">
-        <div class="pf-price-info">
-          <div class="pf-price-val">$1.100.000 COP</div>
-          <div class="pf-price-lbl">Maquillaje · A domicilio · Villavicencio</div>
-        </div>
-        <a class="pf-book-btn" href="reserva.html">Reservar con Laura →</a>
+      <div class="pf-artist-info">
+        <div class="pf-artist-type">💄 Maquilladora · Villavicencio</div>
+        <div class="pf-artist-name">Laura</div>
+        <div class="pf-artist-role">Clásico · Elegante · Natural</div>
       </div>
     </div>
+    <div class="pf-artist-meta">
+      <div class="pf-meta-item"><div class="pf-meta-num">4.9</div><div class="pf-meta-lbl">Rating</div></div>
+      <div class="pf-meta-item"><div class="pf-meta-num">130</div><div class="pf-meta-lbl">Sesiones</div></div>
+    </div>
+  </div>
+  <div class="pf-tags">
+    <span class="pf-tag-item">Clásico</span>
+    <span class="pf-tag-item">Elegante</span>
+    <span class="pf-tag-item">Natural</span>
+  </div>
+  <div class="pf-grid" id="grid-laura"><!-- JS --></div>
+  <div class="pf-price-strip">
+    <div class="pf-price-info">
+      <div class="pf-price-val">$1.100.000 COP</div>
+      <div class="pf-price-lbl">Maquillaje · A domicilio · Villavicencio</div>
+    </div>
+    <a class="pf-book-btn" href="reserva.html">Reservar con Laura →</a>
+  </div>
+</div>
 
-    <!-- Luisa -->
-    <div class="pf-artist">
-      <div class="pf-artist-head">
-        <div class="pf-artist-left">
-          <div class="pf-artist-avatar">
-            <div class="pf-artist-avatar-bg pg-c5" style="background-image:url('img/luisa.jpg')"></div>
-          </div>
-          <div class="pf-artist-info">
-            <div class="pf-artist-type">💄 Maquilladora · Villavicencio</div>
-            <div class="pf-artist-name">Luisa</div>
-            <div class="pf-artist-role">Natural · Campo · Soft Glam</div>
-          </div>
-        </div>
-        <div class="pf-artist-meta">
-          <div class="pf-meta-item"><div class="pf-meta-num">4.8</div><div class="pf-meta-lbl">Rating</div></div>
-          <div class="pf-meta-item"><div class="pf-meta-num">98</div><div class="pf-meta-lbl">Sesiones</div></div>
-        </div>
+<!-- Luisa -->
+<div class="pf-artist">
+  <div class="pf-artist-head">
+    <div class="pf-artist-left">
+      <div class="pf-artist-avatar">
+        <div class="pf-artist-avatar-bg pg-c5" style="background-image:url('img/luisa.jpg')"></div>
       </div>
-      <div class="pf-tags">
-        <span class="pf-tag-item">Natural</span>
-        <span class="pf-tag-item">Campo</span>
-        <span class="pf-tag-item">Soft Glam</span>
-      </div>
-      <div class="pf-grid" id="grid-luisa"><!-- JS --></div>
-      <div class="pf-price-strip">
-        <div class="pf-price-info">
-          <div class="pf-price-val">$950.000 COP</div>
-          <div class="pf-price-lbl">Maquillaje · A domicilio · Villavicencio</div>
-        </div>
-        <a class="pf-book-btn" href="reserva.html">Reservar con Luisa →</a>
+      <div class="pf-artist-info">
+        <div class="pf-artist-type">💄 Maquilladora · Villavicencio</div>
+        <div class="pf-artist-name">Luisa</div>
+        <div class="pf-artist-role">Natural · Campo · Soft Glam</div>
       </div>
     </div>
+    <div class="pf-artist-meta">
+      <div class="pf-meta-item"><div class="pf-meta-num">4.8</div><div class="pf-meta-lbl">Rating</div></div>
+      <div class="pf-meta-item"><div class="pf-meta-num">98</div><div class="pf-meta-lbl">Sesiones</div></div>
+    </div>
+  </div>
+  <div class="pf-tags">
+    <span class="pf-tag-item">Natural</span>
+    <span class="pf-tag-item">Campo</span>
+    <span class="pf-tag-item">Soft Glam</span>
+  </div>
+  <div class="pf-grid" id="grid-luisa"><!-- JS --></div>
+  <div class="pf-price-strip">
+    <div class="pf-price-info">
+      <div class="pf-price-val">$950.000 COP</div>
+      <div class="pf-price-lbl">Maquillaje · A domicilio · Villavicencio</div>
+    </div>
+    <a class="pf-book-btn" href="reserva.html">Reservar con Luisa →</a>
+  </div>
+</div>
+```
 
   </div><!-- /pf-villavicencio -->
 
 </section>
 
 <!-- LIGHTBOX -->
+
 <div class="lb-overlay" id="lbOverlay" onclick="if(event.target===this)closeLb()">
   <button class="lb-close" onclick="closeLb()">✕</button>
   <button class="lb-nav lb-prev" onclick="lbNav(-1)">‹</button>
@@ -991,6 +990,8 @@ footer{background:var(--ink);color:var(--paper);padding:3rem 3rem 2.5rem;}
     <span>Precios en Pesos Colombianos (COP) · IVA incluido</span>
   </div>
 </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 
 <script>
 // ======= DATA =======
@@ -1059,20 +1060,73 @@ const LAYOUTS = [
 ];
 const COLORS = ['pg-c1','pg-c2','pg-c3','pg-c4','pg-c5','pg-c6','pg-c7','pg-c8'];
 
+// Supabase config
+const SUPABASE_URL = 'https://dtkwoxjuhmdmpnmynjtg.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR0a3dveGp1aG1kbXBubXluanRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0MDU3ODQsImV4cCI6MjA4ODk4MTc4NH0.1laG-S3hDIzM-eDU-u2ibwJuFR1ioPc-kvVrlH6zx7o';
+let sb = null;
+
+// Map proveedor nombre → artistKey used in the grid
+const NOMBRE_TO_KEY = {
+  'Hector Nicolay Davila': { bogota: 'nicolay-bog', villavicencio: 'nicolay-vll' },
+  'Joel Enrique Sanchez':  { barranquilla: 'carlos' },
+  'Anyelo Cardona Valencia':{ villavicencio: 'anyelo' },
+  'Catalina Jimenez':      { bogota: 'catalina' },
+  'Laura Samanta Arroyo':  { bogota: 'samy' },
+  'Camila Gutierrez':      { barranquilla: 'paola' },
+  'Laura Merad Ortega':    { villavicencio: 'laura' },
+  'Laura Camila Loaiza':   { villavicencio: 'luisa' },
+};
+
+// Cache: artistKey → array of photo URLs from Supabase
+let sbPhotos = {};
+
+async function loadSupabasePhotos(){
+  try {
+    if(typeof supabase === 'undefined') return;
+    sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+    const { data, error } = await sb
+      .from('proveedores')
+      .select('nombre, sede, portafolio(url, orden)')
+      .order('nombre');
+    if(error || !data) return;
+
+    data.forEach(p => {
+      const keyMap = NOMBRE_TO_KEY[p.nombre];
+      if(!keyMap) return;
+      const key = keyMap[p.sede] || Object.values(keyMap)[0];
+      if(!key) return;
+      const fotos = (p.portafolio||[])
+        .sort((a,b)=>(a.orden||0)-(b.orden||0))
+        .map(f=>f.url)
+        .filter(Boolean);
+      if(fotos.length) sbPhotos[key] = fotos;
+    });
+
+    // Rebuild all grids with real photos
+    Object.keys(PF_ARTISTS).forEach((key,i) => {
+      const gridId = 'grid-' + key;
+      buildGrid(gridId, key, i%2);
+    });
+  } catch(e){ console.warn('Supabase photos:', e.message); }
+}
+
 function buildGrid(gridId, artistKey, layoutIdx=0){
   const el = document.getElementById(gridId);
   if(!el) return;
   const artist = PF_ARTISTS[artistKey];
   if(!artist) return;
   const layout = LAYOUTS[layoutIdx % LAYOUTS.length];
-  const total = artist.photos;
+  const realPhotos = sbPhotos[artistKey] || [];
+  const total = realPhotos.length > 0 ? Math.min(realPhotos.length, 12) : artist.photos;
   let html = '';
   for(let i=0;i<total;i++){
     const l = layout[i % layout.length];
-    const color = COLORS[i % COLORS.length];
     const ang = 140 + (i*20)%80;
     const bg = artist.gradient.replace('160deg', ang+'deg');
-    const style = `background:${bg} center/cover no-repeat;background-image:url('img/${artistKey}/muestra-${i+1}.jpg')`;
+    const photoUrl = realPhotos[i] || null;
+    const style = photoUrl
+      ? `background:url('${photoUrl}') center/cover no-repeat`
+      : `background:${bg} center/cover no-repeat`;
     html += `<div class="pf-photo${l.cls?' '+l.cls:''}" onclick="openLb('${artistKey}',${i})" style="${l.row?'grid-row:span 2':''}${l.col?';grid-column:span 2':''}">
       <div class="ph-inner" style="padding-top:${l.row?'0':'100%'};${l.row?'height:100%':''}">
         <div class="pg-ph" style="${style}"></div>
@@ -1110,6 +1164,9 @@ document.addEventListener('DOMContentLoaded', function(){
   buildGrid('grid-nicolay-vll','nicolay-vll',1);
   buildGrid('grid-laura','laura',0);
   buildGrid('grid-luisa','luisa',1);
+  // Load photos from Supabase (async - grids rebuild when done)
+  loadSupabasePhotos();
+
   // Show bogota, hide others
   ['pf-barranquilla','pf-villavicencio'].forEach(function(id){
     var el = document.getElementById(id);
@@ -1156,5 +1213,6 @@ function toggleMenu(){
   m.classList.toggle('open'); b.classList.toggle('open');
 }
 </script>
+
 </body>
 </html>
