@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="es-CO">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AMBAR Couture — Sesiones Pre-XV · Bogotá · Barranquilla · Villavicencio</title>
+<link rel="icon" type="image/png" href="https://dtkwoxjuhmdmpnmynjtg.supabase.co/storage/v1/object/public/Portafolio/portafolio/Logo%20v1.PNG">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://dtkwoxjuhmdmpnmynjtg.supabase.co">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js" defer></script>
+<style>
+:root {
+  --gold: #C49A3C; --gold-l: #DCBA6A; --gold-pale: rgba(196,154,60,.08);
+  --ink: #0E0C0A; --paper: #FAFAF7; --white: #fff;
+  --muted: #6B6460; --border: rgba(14,12,10,.1);
+  --dark: #0A0806;
+  --fd: 'Cormorant Garamond', Georgia, serif;
+  --fb: 'Outfit', sans-serif;
+  --ease: cubic-bezier(.25,.46,.45,.94);
+}
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--fb); background: var(--paper); color: var(--ink); overflow-x: hidden; }
+
+/* ═══ NAV ═══ */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 3rem; height: 60px;
+  background: rgba(10,8,6,0); transition: background .4s, backdrop-filter .4s;
+}
+.nav.scrolled { background: rgba(10,8,6,.92); backdrop-filter: blur(12px); }
+.nav-logo { display: flex; align-items: center; gap: .5rem; text-decoration: none; }
+.nav-logo img { height: 34px; width: auto; }
+.nav-logo-name { font-family: var(--fd); font-size: 1.15rem; letter-spacing: .22em; color: #FAF7F2; }
+.nav-logo-sub { font-size: .38rem; letter-spacing: .38em; text-transform: uppercase; color: var(--gold); }
+.nav-links { display: flex; align-items: center; gap: 2rem; }
+.nav-link { font-size: .58rem; letter-spacing: .18em; text-transform: uppercase; color: rgba(250,247,242,.6); text-decoration: none; transition: color .2s; }
+.nav-link:hover { color: var(--gold); }
+.nav-cta {
+  padding: .6rem 1.4rem; background: var(--gold); color: var(--ink);
+  font-size: .56rem; letter-spacing: .18em; text-transform: uppercase;
+  font-weight: 600; text-decoration: none; transition: all .2s;
+}
+.nav-cta:hover { background: var(--gold-l); transform: translateY(-1px); }
+@media(max-width:768px) {
+  .nav { padding: 0 1.25rem; }
+  .nav-links { gap: 1rem; }
+  .nav-link { display: none; }
+  .nav-link.nav-cta { display: flex; padding: .5rem 1rem; font-size: .5rem; }
+}
+
+/* ═══ HERO ═══ */
+.hero {
+  height: 100dvh; min-height: 600px;
+  display: grid; grid-template-columns: 1fr 1fr;
+  position: relative; overflow: hidden; background: var(--dark);
+}
+.hero-left {
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 8rem 4rem 4rem;
+  position: relative; z-index: 2;
+}
+.hero-left::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(105deg, rgba(10,8,6,.95) 40%, rgba(10,8,6,.4) 100%);
+  z-index: -1;
+}
+.hero-eyebrow {
+  font-size: .5rem; letter-spacing: .32em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 1.25rem;
+  display: flex; align-items: center; gap: .6rem;
+  opacity: 0; animation: fadeUp .8s var(--ease) .2s both;
+}
+.hero-eyebrow::before { content: ''; width: 20px; height: 1px; background: var(--gold); }
+.hero-title {
+  font-family: var(--fd); font-size: clamp(2.8rem, 5.5vw, 5rem);
+  font-weight: 300; color: #FAF7F2; line-height: 1.0;
+  margin-bottom: 1.25rem;
+  opacity: 0; animation: fadeUp .9s var(--ease) .4s both;
+}
+.hero-title em { font-style: italic; color: var(--gold-l); display: block; }
+.hero-sub {
+  font-size: .78rem; color: rgba(250,247,242,.5); line-height: 1.75;
+  margin-bottom: 2.5rem; max-width: 380px;
+  opacity: 0; animation: fadeUp .9s var(--ease) .55s both;
+}
+.hero-ctas {
+  display: flex; flex-direction: column; gap: .75rem; max-width: 300px;
+  opacity: 0; animation: fadeUp .9s var(--ease) .7s both;
+}
+.btn-hero-p {
+  padding: 1rem 2rem; background: var(--gold); color: var(--ink);
+  text-decoration: none; font-size: .6rem; letter-spacing: .2em;
+  text-transform: uppercase; font-weight: 600; text-align: center;
+  transition: all .22s; display: block;
+}
+.btn-hero-p:hover { background: var(--gold-l); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(196,154,60,.3); }
+.btn-hero-s {
+  padding: .85rem 2rem; border: 1px solid rgba(250,247,242,.2); color: rgba(250,247,242,.65);
+  text-decoration: none; font-size: .58rem; letter-spacing: .16em;
+  text-transform: uppercase; text-align: center; transition: all .22s; display: block;
+}
+.btn-hero-s:hover { border-color: var(--gold); color: var(--gold); }
+.hero-proof {
+  display: flex; gap: 2rem; margin-top: 2.5rem;
+  opacity: 0; animation: fadeUp .9s var(--ease) .85s both;
+}
+.hp-item { text-align: center; }
+.hp-num { font-family: var(--fd); font-size: 1.8rem; font-weight: 300; color: var(--gold-l); display: block; }
+.hp-lbl { font-size: .5rem; letter-spacing: .15em; text-transform: uppercase; color: rgba(250,247,242,.4); }
+
+/* Hero mosaic */
+.hero-right {
+  position: relative; overflow: hidden;
+}
+.hero-mosaic {
+  display: grid; grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr; height: 100%; gap: 3px;
+}
+.hm-photo {
+  background: center/cover no-repeat var(--dark);
+  position: relative; overflow: hidden;
+  transition: transform .6s var(--ease);
+}
+.hm-photo:hover { transform: scale(1.03); }
+.hm-photo:first-child { grid-row: 1 / 3; }
+.hm-photo::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to bottom, transparent 60%, rgba(10,8,6,.5));
+}
+.hm-photo img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s var(--ease); }
+@media(max-width:768px) {
+  .hero { grid-template-columns: 1fr; }
+  .hero-left { padding: 6rem 1.5rem 2rem; }
+  .hero-left::before { background: linear-gradient(to bottom, rgba(10,8,6,.8) 0%, rgba(10,8,6,.5) 100%); }
+  .hero-right { position: absolute; inset: 0; z-index: 0; }
+  .hero-mosaic { grid-template-columns: 1fr; grid-template-rows: 1fr; }
+  .hm-photo:not(:first-child) { display: none; }
+  .hm-photo:first-child { grid-row: 1; }
+  .hero-ctas { max-width: 100%; }
+  .hero-proof { gap: 1.5rem; }
+}
+
+/* ═══ SEDES STRIP ═══ */
+.sedes-strip {
+  background: var(--dark); padding: 2.5rem 4rem;
+  display: flex; align-items: center; justify-content: center; gap: 4rem;
+  border-top: 1px solid rgba(196,154,60,.12);
+}
+.sede-item { text-align: center; opacity: .6; transition: opacity .2s; cursor: default; }
+.sede-item:hover { opacity: 1; }
+.sede-item-ico { font-size: 1.6rem; display: block; margin-bottom: .3rem; }
+.sede-item-nm { font-size: .55rem; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); display: block; }
+.sede-divider { width: 1px; height: 40px; background: rgba(196,154,60,.2); }
+@media(max-width:600px) { .sedes-strip { padding: 2rem 1.5rem; gap: 2rem; } .sede-divider { display: none; } }
+
+/* ═══ SECCIÓN GENÉRICA ═══ */
+.section { padding: 6rem 4rem; }
+.section-dark { background: var(--dark); }
+.section-paper { background: var(--paper); }
+.sec-ey { font-size: .5rem; letter-spacing: .32em; text-transform: uppercase; color: var(--gold); margin-bottom: .75rem; display: flex; align-items: center; gap: .5rem; }
+.sec-ey::before { content: ''; width: 16px; height: 1px; background: var(--gold); }
+.sec-h { font-family: var(--fd); font-size: clamp(2rem, 4vw, 3rem); font-weight: 300; line-height: 1.1; margin-bottom: .65rem; }
+.sec-h em { font-style: italic; color: var(--gold-l); }
+.sec-h.light { color: #FAF7F2; }
+.sec-sub { font-size: .8rem; color: var(--muted); line-height: 1.75; max-width: 520px; }
+.sec-sub.light { color: rgba(250,247,242,.45); }
+.sec-header { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 3rem; flex-wrap: wrap; gap: 1.5rem; }
+@media(max-width:768px) { .section { padding: 4rem 1.5rem; } }
+
+/* ═══ PAQUETES ═══ */
+.paq-tabs { display: flex; justify-content: center; gap: .5rem; margin-bottom: 3rem; flex-wrap: wrap; }
+.paq-tab {
+  padding: .65rem 1.5rem; border: 1.5px solid rgba(196,154,60,.25);
+  background: transparent; color: rgba(250,247,242,.45);
+  font-family: var(--fb); font-size: .58rem; letter-spacing: .16em;
+  text-transform: uppercase; cursor: pointer; transition: all .22s;
+}
+.paq-tab:hover { border-color: var(--gold); color: var(--gold); }
+.paq-tab.on { background: var(--gold); border-color: var(--gold); color: var(--ink); font-weight: 600; }
+.paq-panel { display: none; animation: pqIn .3s var(--ease); }
+.paq-panel.on { display: block; }
+@keyframes pqIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:none; } }
+.paq-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; max-width: 800px; margin: 0 auto; }
+.paq-card {
+  border: 1px solid rgba(250,247,242,.08); padding: 2rem 1.75rem;
+  display: flex; flex-direction: column; gap: .6rem;
+  transition: border-color .22s; position: relative;
+}
+.paq-card:hover { border-color: rgba(196,154,60,.3); }
+.paq-card.star { border-color: rgba(196,154,60,.35); background: rgba(196,154,60,.04); }
+.paq-star-badge {
+  position: absolute; top: -1px; left: 50%; transform: translateX(-50%);
+  background: var(--gold); color: var(--ink);
+  font-size: .45rem; letter-spacing: .16em; text-transform: uppercase;
+  padding: .22rem .8rem; font-weight: 600; white-space: nowrap;
+}
+.paq-tag { font-size: .48rem; letter-spacing: .22em; text-transform: uppercase; color: rgba(250,247,242,.35); }
+.paq-desc { font-size: .75rem; color: rgba(250,247,242,.5); line-height: 1.65; }
+.paq-list { list-style: none; display: flex; flex-direction: column; gap: .4rem; flex: 1; margin: .25rem 0; }
+.paq-list li { font-size: .72rem; color: rgba(250,247,242,.6); display: flex; align-items: flex-start; gap: .5rem; line-height: 1.5; }
+.paq-highlight { font-size: .62rem; color: #5BAA5B; padding: .4rem .7rem; background: rgba(91,170,91,.08); border-left: 2px solid #5BAA5B; }
+.paq-cta {
+  margin-top: auto; padding: .75rem; text-align: center;
+  text-decoration: none; font-family: var(--fb); font-size: .56rem;
+  letter-spacing: .16em; text-transform: uppercase; transition: all .2s;
+  border: 1px solid rgba(250,247,242,.12); color: rgba(250,247,242,.65);
+  display: block;
+}
+.paq-cta:hover { background: rgba(250,247,242,.08); color: var(--paper); }
+.paq-cta.gold { background: var(--gold); color: var(--ink); border-color: var(--gold); }
+.paq-cta.gold:hover { background: var(--gold-l); }
+.paq-extra { max-width: 800px; margin: 1.5rem auto 0; padding: 1.25rem 1.5rem; border: 1px dashed rgba(196,154,60,.22); display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.paq-extra-txt h4 { font-size: .78rem; color: var(--paper); margin-bottom: .3rem; }
+.paq-extra-txt p { font-size: .68rem; color: rgba(250,247,242,.4); line-height: 1.6; }
+.paq-footer { text-align: center; margin-top: 2.5rem; }
+.paq-footer p { font-size: .72rem; color: rgba(250,247,242,.35); margin-bottom: 1.1rem; line-height: 1.7; }
+@media(max-width:600px) { .paq-grid { grid-template-columns: 1fr; max-width: 420px; } .paq-card.star { margin-top: 1rem; } }
+
+/* ═══ PORTAFOLIO ═══ */
+.pf-tabs { display: flex; gap: .4rem; margin-bottom: 2rem; border-bottom: 1px solid var(--border); padding-bottom: .75rem; }
+.pf-tab {
+  padding: .45rem 1rem; font-size: .55rem; letter-spacing: .14em;
+  text-transform: uppercase; cursor: pointer; border: none; background: transparent;
+  color: var(--muted); transition: color .2s; font-family: var(--fb);
+}
+.pf-tab:hover { color: var(--ink); }
+.pf-tab.on { color: var(--ink); font-weight: 500; border-bottom: 2px solid var(--gold); margin-bottom: -1px; }
+.pf-panel { display: none; }
+.pf-panel.on { display: block; }
+.pf-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 4px; }
+.pf-item {
+  position: relative; overflow: hidden;
+  background: #111; cursor: pointer;
+}
+.pf-item::before { content: ''; display: block; padding-top: 125%; }
+.pf-item.wide { grid-column: span 2; }
+.pf-item.wide::before { padding-top: 60%; }
+.pf-item img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; transition: transform .6s var(--ease);
+}
+.pf-item:hover img { transform: scale(1.06); }
+.pf-item .pf-grad {
+  position: absolute; inset: 0;
+  background: linear-gradient(160deg, #1A1208, #4A3020);
+  transition: transform .6s var(--ease);
+}
+.pf-item:hover .pf-grad { transform: scale(1.06); }
+.pf-placeholder { background: linear-gradient(90deg, #1a1610 25%, #221e14 50%, #1a1610 75%); background-size: 200% 100%; animation: shimmer 1.6s infinite; }
+@keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+.pf-cta { text-align: center; margin-top: 2rem; }
+.pf-cta a { font-size: .6rem; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); text-decoration: none; border-bottom: 1px solid var(--border); padding-bottom: 2px; transition: color .2s, border-color .2s; }
+.pf-cta a:hover { color: var(--gold); border-color: var(--gold); }
+@media(max-width:640px) { .pf-item.wide { grid-column: span 1; } .pf-item.wide::before { padding-top: 125%; } }
+
+/* ═══ PROCESO ═══ */
+.proceso-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: var(--border); }
+.proceso-item { background: var(--paper); padding: 2.5rem 2rem; }
+.pr-num { font-family: var(--fd); font-size: 3.5rem; font-weight: 300; color: rgba(196,154,60,.15); line-height: 1; margin-bottom: .75rem; }
+.pr-title { font-family: var(--fd); font-size: 1.2rem; margin-bottom: .5rem; }
+.pr-desc { font-size: .72rem; color: var(--muted); line-height: 1.7; }
+@media(max-width:768px) { .proceso-grid { grid-template-columns: 1fr 1fr; } }
+@media(max-width:480px) { .proceso-grid { grid-template-columns: 1fr; } }
+
+/* ═══ CTA SECTION ═══ */
+.cta-section {
+  padding: 7rem 4rem;
+  background: var(--dark);
+  text-align: center;
+  position: relative; overflow: hidden;
+}
+.cta-section::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(196,154,60,.08), transparent);
+}
+.cta-section h2 { font-family: var(--fd); font-size: clamp(2.2rem,4.5vw,3.8rem); font-weight:300; color:#FAF7F2; margin-bottom:.75rem; position:relative; }
+.cta-section h2 em { color:var(--gold-l); font-style:italic; }
+.cta-section p { font-size:.8rem; color:rgba(250,247,242,.45); margin-bottom:2.5rem; position:relative; }
+.cta-section .btn-cta { display:inline-flex; align-items:center; gap:.5rem; padding:1rem 2.5rem; background:var(--gold); color:var(--ink); text-decoration:none; font-size:.62rem; letter-spacing:.22em; text-transform:uppercase; font-weight:600; transition:all .22s; position:relative; }
+.cta-section .btn-cta:hover { background:var(--gold-l); transform:translateY(-2px); box-shadow:0 12px 32px rgba(196,154,60,.3); }
+@media(max-width:768px) { .cta-section { padding:5rem 1.5rem; } }
+
+/* ═══ FOOTER ═══ */
+.footer { background: #060504; padding: 3rem 4rem 2rem; }
+.footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 3rem; margin-bottom: 2.5rem; }
+.f-brand-name { font-family: var(--fd); font-size: 1.5rem; letter-spacing: .22em; color: #FAF7F2; }
+.f-brand-sub { font-size: .4rem; letter-spacing: .38em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+.f-brand-desc { font-size: .7rem; color: rgba(250,247,242,.35); line-height: 1.75; max-width: 260px; }
+.f-col h4 { font-size: .5rem; letter-spacing: .22em; text-transform: uppercase; color: rgba(250,247,242,.35); margin-bottom: .85rem; }
+.f-col a, .f-col p { display: block; font-size: .72rem; color: rgba(250,247,242,.5); text-decoration: none; line-height: 1.7; transition: color .2s; }
+.f-col a:hover { color: var(--gold); }
+.footer-bottom { border-top: 1px solid rgba(250,247,242,.06); padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: .75rem; }
+.footer-bottom p { font-size: .58rem; color: rgba(250,247,242,.25); }
+@media(max-width:768px) { .footer { padding: 2.5rem 1.5rem 1.5rem; } .footer-grid { grid-template-columns: 1fr; gap: 2rem; } }
+
+/* ═══ LIGHTBOX ═══ */
+.lb-overlay { position:fixed; inset:0; z-index:9000; background:rgba(10,8,6,.95); display:none; align-items:center; justify-content:center; backdrop-filter:blur(6px); }
+.lb-overlay.on { display:flex; }
+.lb-img { max-width:90vw; max-height:90vh; object-fit:contain; }
+.lb-close { position:absolute; top:1.5rem; right:1.75rem; font-size:1.4rem; color:rgba(250,247,242,.5); cursor:pointer; background:none; border:none; transition:color .2s; }
+.lb-close:hover { color:#FAF7F2; }
+.lb-info { position:absolute; bottom:1.5rem; left:50%; transform:translateX(-50%); font-size:.6rem; letter-spacing:.18em; color:rgba(250,247,242,.35); }
+.lb-nav { position:absolute; top:50%; transform:translateY(-50%); font-size:2rem; color:rgba(250,247,242,.4); cursor:pointer; background:none; border:none; padding:.5rem; transition:color .2s; }
+.lb-nav:hover { color:#FAF7F2; }
+.lb-prev { left:1rem; }
+.lb-next { right:1rem; }
+
+/* ═══ WA FLOAT ═══ */
+.wa-float { position:fixed; bottom:1.5rem; right:1.5rem; z-index:500; display:flex; align-items:center; gap:.45rem; background:#25D366; color:#fff; text-decoration:none; padding:.65rem 1.15rem; border-radius:50px; font-family:var(--fb); font-size:.56rem; font-weight:600; letter-spacing:.1em; text-transform:uppercase; box-shadow:0 4px 18px rgba(37,211,102,.3); transition:all .22s; }
+.wa-float:hover { transform:translateY(-2px); box-shadow:0 7px 26px rgba(37,211,102,.42); }
+@media(max-width:640px) { .wa-float { padding:.6rem .9rem; font-size:.5rem; } }
+
+/* ═══ ANIMACIONES ═══ */
+@keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:none; } }
+.reveal { opacity:0; transform:translateY(24px); transition:opacity .7s var(--ease), transform .7s var(--ease); }
+.reveal.visible { opacity:1; transform:none; }
+.reveal-delay-1 { transition-delay:.1s; }
+.reveal-delay-2 { transition-delay:.2s; }
+.reveal-delay-3 { transition-delay:.3s; }
+.reveal-delay-4 { transition-delay:.4s; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="mainNav">
+  <a class="nav-logo" href="#inicio">
+    <img src="https://dtkwoxjuhmdmpnmynjtg.supabase.co/storage/v1/object/public/Portafolio/portafolio/Logo%20v1.PNG" alt="AMBAR">
+    <div>
+      <div class="nav-logo-name">AMBAR</div>
+      <div class="nav-logo-sub">Couture</div>
+    </div>
+  </a>
+  <div class="nav-links">
+    <a class="nav-link" href="#paquetes">Paquetes</a>
+    <a class="nav-link" href="#portafolio">Portafolio</a>
+    <a class="nav-link" href="#proceso">¿Cómo funciona?</a>
+    <a class="nav-link nav-cta" href="reserva.html">Quiero mi sesión Pre-XV</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-left">
+    <div class="hero-eyebrow">Fotografía Pre-XV · Colombia</div>
+    <h1 class="hero-title">
+      Tu sesión<br>
+      <em>más especial</em><br>
+      te espera
+    </h1>
+    <p class="hero-sub">Bogotá · Barranquilla · Villavicencio<br>Fotógrafo profesional · Maquillaje · Locaciones exclusivas</p>
+    <div class="hero-ctas">
+      <a class="btn-hero-p" href="reserva.html">Quiero mi sesión Pre-XV</a>
+      <a class="btn-hero-s" href="#portafolio">Ver portafolio →</a>
+    </div>
+    <div class="hero-proof">
+      <div class="hp-item"><span class="hp-num">+100</span><span class="hp-lbl">Sesiones</span></div>
+      <div class="hp-item"><span class="hp-num">3</span><span class="hp-lbl">Ciudades</span></div>
+      <div class="hp-item"><span class="hp-num">8</span><span class="hp-lbl">Días entrega</span></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-mosaic">
+      <div class="hm-photo" id="hm1">
+        <img src="https://dtkwoxjuhmdmpnmynjtg.supabase.co/storage/v1/object/public/Portafolio/portafolio/1774447254052_5fl0.jpg" alt="Pre-XV AMBAR" loading="eager">
+      </div>
+      <div class="hm-photo" id="hm2">
+        <img src="https://dtkwoxjuhmdmpnmynjtg.supabase.co/storage/v1/object/public/Portafolio/portafolio/1774447249979_9zru.jpg" alt="Pre-XV AMBAR" loading="eager">
+      </div>
+      <div class="hm-photo" id="hm3">
+        <img src="https://dtkwoxjuhmdmpnmynjtg.supabase.co/storage/v1/object/public/Portafolio/portafolio/IMG_4349.jpg" alt="Pre-XV AMBAR" loading="eager">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEDES STRIP -->
+<div class="sedes-strip">
+  <div class="sede-item"><span class="sede-item-ico">🏙️</span><span class="sede-item-nm">Bogotá</span></div>
+  <div class="sede-divider"></div>
+  <div class="sede-item"><span class="sede-item-ico">🌴</span><span class="sede-item-nm">Barranquilla</span></div>
+  <div class="sede-divider"></div>
+  <div class="sede-item"><span class="sede-item-ico">🌿</span><span class="sede-item-nm">Villavicencio</span></div>
+  <div class="sede-divider"></div>
+  <div class="sede-item"><span class="sede-item-ico">🐴</span><span class="sede-item-nm">Caballos</span></div>
+  <div class="sede-divider"></div>
+  <div class="sede-item"><span class="sede-item-ico">💄</span><span class="sede-item-nm">Maquillaje</span></div>
+</div>
+
+<!-- PAQUETES -->
+<section class="section section-dark" id="paquetes">
+  <div class="sec-header reveal">
+    <div>
+      <div class="sec-ey">Paquetes disponibles</div>
+      <h2 class="sec-h light">Elige tu <em>sede</em> y descubre<br>lo que incluye tu sesión</h2>
+    </div>
+    <p class="sec-sub light">Cuéntanos sobre tu sesión y te enviamos los precios exactos en menos de 24 horas.</p>
+  </div>
+
+  <div class="paq-tabs">
+    <button class="paq-tab on" onclick="showPaq('barranquilla',this)">🌴 Barranquilla</button>
+    <button class="paq-tab" onclick="showPaq('bogota',this)">🏙️ Bogotá</button>
+    <button class="paq-tab" onclick="showPaq('villavicencio',this)">🌿 Villavicencio</button>
+  </div>
+
+  <!-- Barranquilla -->
+  <div class="paq-panel on" id="pp-barranquilla">
+    <div class="paq-grid">
+      <div class="paq-card">
+        <div class="paq-tag">Solo fotografía</div>
+        <div class="paq-desc">Sesión fotográfica profesional completa en Barranquilla</div>
+        <ul class="paq-list">
+          <li>📸 Fotógrafo profesional</li>
+          <li>🗺️ Locación de tu elección</li>
+          <li>🖼️ Fotos editadas en 8 días</li>
+          <li>📱 Galería digital privada</li>
+        </ul>
+        <a class="paq-cta" href="reserva.html">Quiero mi sesión Pre-XV →</a>
+      </div>
+      <div class="paq-card star">
+        <div class="paq-star-badge">✦ Más elegido</div>
+        <div class="paq-tag">Fotos + Maquillaje</div>
+        <div class="paq-desc">Sesión completa con maquilladora profesional</div>
+        <ul class="paq-list">
+          <li>📸 Fotógrafo profesional</li>
+          <li>💄 Maquillaje y peinado</li>
+          <li>🗺️ Locación de tu elección</li>
+          <li>🖼️ Fotos editadas en 8 días</li>
+          <li>📱 Galería digital privada</li>
+        </ul>
+        <div class="paq-highlight">✦ Precio especial al contratar juntos</div>
+        <a class="paq-cta gold" href="reserva.html">Quiero mi sesión Pre-XV →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bogotá -->
+  <div class="paq-panel" id="pp-bogota">
+    <div class="paq-grid">
+      <div class="paq-card">
+        <div class="paq-tag">Solo fotografía</div>
+        <div class="paq-desc">Sesión fotográfica profesional completa en Bogotá</div>
+        <ul class="paq-list">
+          <li>📸 Fotógrafo profesional</li>
+          <li>🗺️ Parques, haciendas y locaciones exclusivas</li>
+          <li>🖼️ Fotos editadas en 8 días</li>
+          <li>📱 Galería digital privada</li>
+        </ul>
+        <a class="paq-cta" href="reserva.html">Quiero mi sesión Pre-XV →</a>
+      </div>
+      <div class="paq-card star">
+        <div class="paq-star-badge">✦ Más elegido</div>
+        <div class="paq-tag">Fotos + Maquillaje</div>
+        <div class="paq-desc">Sesión completa con maquilladora profesional</div>
+        <ul class="paq-list">
+          <li>📸 Fotógrafo profesional</li>
+          <li>💄 Maquillaje y peinado</li>
+          <li>🗺️ Parques, haciendas y locaciones exclusivas</li>
+          <li>🖼️ Fotos editadas en 8 días</li>
+          <li>📱 Galería digital privada</li>
+        </ul>
+        <div class="paq-highlight">✦ Precio especial al contratar juntos</div>
+        <a class="paq-cta gold" href="reserva.html">Quiero mi sesión Pre-XV →</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Villavicencio -->
+  <div class="paq-panel" id="pp-villavicencio">
+    <div class="paq-grid">
+      <div class="paq-card">
+        <div class="paq-tag">Solo fotografía</div>
+        <div class="paq-desc">Sesión fotográfica en los Llanos Orientales</div>
+        <ul class="paq-list">
+          <li>📸 Fotógrafo profesional</li>
+          <li>🌾 Fincas y locaciones llaneras</li>
+          <li>🖼️ Fotos editadas en 8 días</li>
+          <li>📱 Galería digital privada</li>
+        </ul>
+        <a class="paq-cta" href="reserva.html">Quiero mi sesión Pre-XV →</a>
+      </div>
+      <div class="paq-card star">
+        <div class="paq-star-badge">✦ Más elegido</div>
+        <div class="paq-tag">Fotos + Maquillaje</div>
+        <div class="paq-desc">Sesión completa con maquilladora profesional</div>
+        <ul class="paq-list">
+          <li>📸 Fotógrafo profesional</li>
+          <li>💄 Maquillaje y peinado</li>
+          <li>🌾 Fincas y locaciones llaneras</li>
+          <li>🖼️ Fotos editadas en 8 días</li>
+          <li>📱 Galería digital privada</li>
+        </ul>
+        <div class="paq-highlight">✦ Precio especial al contratar juntos</div>
+        <a class="paq-cta gold" href="reserva.html">Quiero mi sesión Pre-XV →</a>
+      </div>
+    </div>
+    <div class="paq-extra reveal">
+      <div class="paq-extra-txt">
+        <h4>🐴 ¿Quieres sesión con caballo?</h4>
+        <p>Villavicencio cuenta con caballos disponibles para hacer tu sesión única. Pregunta por disponibilidad.</p>
+      </div>
+      <a class="paq-cta" href="reserva.html" style="white-space:nowrap;margin-top:0">Ver caballos →</a>
+    </div>
+  </div>
+
+  <div class="paq-footer reveal">
+    <p>¿Lista para tu sesión? Cuéntanos los detalles — te respondemos<br>con el precio exacto en menos de 24 horas.</p>
+    <a class="paq-cta gold" href="reserva.html" style="display:inline-flex;padding:.85rem 2.25rem;font-size:.6rem;letter-spacing:.2em">Quiero mi sesión Pre-XV →</a>
+  </div>
+</section>
+
+<!-- PORTAFOLIO -->
+<section class="section section-paper" id="portafolio">
+  <div class="sec-header reveal">
+    <div>
+      <div class="sec-ey">Portafolio</div>
+      <h2 class="sec-h">Así se ve una sesión<br>con <em>AMBAR</em></h2>
+    </div>
+    <p class="sec-sub">Fotos reales de nuestras sesiones Pre-XV. Esto es lo que AMBAR puede hacer por ti.</p>
+  </div>
+
+  <div class="pf-tabs">
+    <button class="pf-tab on" onclick="showPf('bogota',this)">🏙️ Bogotá</button>
+    <button class="pf-tab" onclick="showPf('barranquilla',this)">🌴 Barranquilla</button>
+    <button class="pf-tab" onclick="showPf('villavicencio',this)">🌿 Villavicencio</button>
+  </div>
+
+  <div class="pf-panel on" id="pfp-bogota">
+    <div class="pf-grid" id="pfg-bogota">
+      <!-- placeholders -->
+      <div class="pf-item pf-placeholder wide"></div>
+      <div class="pf-item pf-placeholder"></div>
+      <div class="pf-item pf-placeholder"></div>
+      <div class="pf-item pf-placeholder"></div>
+      <div class="pf-item pf-placeholder"></div>
+    </div>
+    <div class="pf-cta reveal"><a href="reserva.html">Reservar sesión en Bogotá →</a></div>
+  </div>
+  <div class="pf-panel" id="pfp-barranquilla">
+    <div class="pf-grid" id="pfg-barranquilla">
+      <div class="pf-item pf-placeholder wide"></div>
+      <div class="pf-item pf-placeholder"></div>
+      <div class="pf-item pf-placeholder"></div>
+      <div class="pf-item pf-placeholder"></div>
+      <div class="pf-item pf-placeholder"></div>
+    </div>
+    <div class="pf-cta reveal"><a href="reserva.html">Reservar sesión en Barranquilla →</a></div>
+  </div>
+  <div class="pf-panel" id="pfp-villavicencio">
+    <div class="pf-grid" id="pfg-villavicencio">
+      <div class="pf-item pf-placeholder wide"></div>
+      <div class="pf-item pf-placeholder"></div>
+      <div class="pf-item pf-placeholder"></div>
+      <div class="pf-item pf-placeholder"></div>
+      <div class="pf-item pf-placeholder"></div>
+    </div>
+    <div class="pf-cta reveal"><a href="reserva.html">Reservar sesión en Villavicencio →</a></div>
+  </div>
+</section>
+
+<!-- PROCESO -->
+<section class="section section-paper" id="proceso" style="padding-top:0">
+  <div class="sec-header reveal">
+    <div>
+      <div class="sec-ey">¿Cómo funciona?</div>
+      <h2 class="sec-h">Del primer mensaje<br>a las fotos <em>en tus manos</em></h2>
+    </div>
+  </div>
+  <div class="proceso-grid">
+    <div class="proceso-item reveal reveal-delay-1">
+      <div class="pr-num">01</div>
+      <div class="pr-title">Cotiza gratis</div>
+      <p class="pr-desc">Llena el formulario en 2 minutos. Te respondemos con el precio exacto en menos de 24 horas por WhatsApp.</p>
+    </div>
+    <div class="proceso-item reveal reveal-delay-2">
+      <div class="pr-num">02</div>
+      <div class="pr-title">Reserva tu fecha</div>
+      <p class="pr-desc">Confirma la fecha con un anticipo del 30%. Coordina locación, hora y maquillaje con nuestro equipo.</p>
+    </div>
+    <div class="proceso-item reveal reveal-delay-3">
+      <div class="pr-num">03</div>
+      <div class="pr-title">Día de sesión</div>
+      <p class="pr-desc">Vive tu sesión soñada. Nuestro equipo se encarga de todo para que solo tengas que disfrutarlo.</p>
+    </div>
+    <div class="proceso-item reveal reveal-delay-4">
+      <div class="pr-num">04</div>
+      <div class="pr-title">Recibe tus fotos</div>
+      <p class="pr-desc">En 8 días hábiles recibes tu galería digital privada con todas las fotos editadas profesionalmente.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-section">
+  <h2 class="reveal">¿Lista para tu sesión<br><em>más especial</em>?</h2>
+  <p class="reveal">Sin compromiso · Sin precios ocultos · Te respondemos en menos de 24 horas</p>
+  <a class="btn-cta reveal" href="reserva.html">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
+    Quiero mi sesión Pre-XV
+  </a>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <div class="f-brand-name">AMBAR</div>
+      <div class="f-brand-sub">Couture · Pre-XV</div>
+      <p class="f-brand-desc">Fotografía profesional para quinceañeras en Bogotá, Barranquilla y Villavicencio. Creamos recuerdos que duran toda la vida.</p>
+    </div>
+    <div class="f-col">
+      <h4>Sedes</h4>
+      <p>🏙️ Bogotá · Usaquén</p>
+      <p>🌴 Barranquilla · Riomar</p>
+      <p>🌿 Villavicencio · El Buque</p>
+    </div>
+    <div class="f-col">
+      <h4>Contacto</h4>
+      <a href="https://wa.me/573042658798">📲 +57 304 265 8798</a>
+      <a href="mailto:ambarcouturedresses@gmail.com">✉️ ambarcouturedresses@gmail.com</a>
+      <a href="reserva.html">Cotizar sesión →</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 AMBAR Couture · Todos los derechos reservados</p>
+    <p>Bogotá · Barranquilla · Villavicencio · Colombia</p>
+  </div>
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lb-overlay" id="lb" onclick="closeLb()">
+  <button class="lb-close" onclick="closeLb()">✕</button>
+  <button class="lb-nav lb-prev" onclick="lbNav(-1,event)">‹</button>
+  <img class="lb-img" id="lbImg" src="" alt="">
+  <button class="lb-nav lb-next" onclick="lbNav(1,event)">›</button>
+  <div class="lb-info" id="lbInfo"></div>
+</div>
+
+<!-- WA FLOAT -->
+<a class="wa-float" href="https://wa.me/573042658798?text=Hola%20AMBAR%20Couture%2C%20quiero%20cotizar%20mi%20sesi%C3%B3n%20Pre-XV%20%F0%9F%93%B8" target="_blank">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  WhatsApp
+</a>
+
+<script>
+// ── SUPABASE ──
+const SB_URL = 'https://dtkwoxjuhmdmpnmynjtg.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR0a3dveGp1aG1kbXBubXluanRnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzM0MDU3ODQsImV4cCI6MjA4ODk4MTc4NH0.1laG-S3hDIzM-eDU-u2ibwJuFR1ioPc-kvVrlH6zx7o';
+let sb = null;
+const GRADS = {
+  bogota:        ['linear-gradient(155deg,#0A1A08,#1A4818)','linear-gradient(155deg,#080A1A,#162040)','linear-gradient(155deg,#1A0A06,#421806)','linear-gradient(155deg,#0A1A06,#204A0E)','linear-gradient(155deg,#161210,#382818)'],
+  barranquilla:  ['linear-gradient(155deg,#06101A,#0E3050)','linear-gradient(155deg,#1A100A,#403018)','linear-gradient(155deg,#080818,#18183A)','linear-gradient(155deg,#0A0A0A,#1A1A0A)','linear-gradient(155deg,#161210,#382818)'],
+  villavicencio: ['linear-gradient(155deg,#0A1808,#204010)','linear-gradient(155deg,#180E06,#4A2808)','linear-gradient(155deg,#100808,#3A1010)','linear-gradient(155deg,#080810,#18183A)','linear-gradient(155deg,#0A0A0A,#2A2010)'],
+};
+const pfCache = {};
+let lbUrls = [], lbIdx = 0;
+
+// ── NAV SCROLL ──
+window.addEventListener('scroll', () => {
+  document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 60);
+}, { passive: true });
+
+// ── PAQUETES TABS ──
+function showPaq(sede, btn) {
+  document.querySelectorAll('.paq-tab').forEach(t => t.classList.remove('on'));
+  document.querySelectorAll('.paq-panel').forEach(p => p.classList.remove('on'));
+  btn.classList.add('on');
+  document.getElementById('pp-' + sede).classList.add('on');
+}
+
+// ── PORTAFOLIO TABS ──
+function showPf(sede, btn) {
+  document.querySelectorAll('.pf-tab').forEach(t => t.classList.remove('on'));
+  document.querySelectorAll('.pf-panel').forEach(p => p.classList.remove('on'));
+  btn.classList.add('on');
+  document.getElementById('pfp-' + sede).classList.add('on');
+  if (!pfCache[sede]) loadPf(sede);
+}
+
+async function loadPf(sede) {
+  const grid = document.getElementById('pfg-' + sede);
+  if (!grid) return;
+  const grads = GRADS[sede] || GRADS.bogota;
+
+  // Show gradient placeholders
+  grid.innerHTML = grads.map((g, i) => {
+    const wide = i === 0;
+    return `<div class="pf-item ${wide ? 'wide' : ''}" style="cursor:default">
+      <div class="pf-grad" style="background:${g}"></div>
+    </div>`;
+  }).join('');
+
+  if (!sb) {
+    try { sb = supabase.createClient(SB_URL, SB_KEY); } catch(e) { return; }
+  }
+  try {
+    const { data } = await sb.from('portafolio_sede').select('url,orden').eq('sede', sede).order('orden');
+    if (!data || !data.length) return;
+    const urls = data.map(r => r.url).filter(Boolean);
+    pfCache[sede] = urls;
+    grid.innerHTML = urls.map((url, i) => {
+      const wide = i === 0 || i === Math.floor(urls.length / 2);
+      return `<div class="pf-item ${wide ? 'wide' : ''}" onclick="openLb('${sede}',${i})">
+        <img src="${url}" loading="${i < 3 ? 'eager' : 'lazy'}" alt="AMBAR Couture Pre-XV"
+          onload="this.parentElement.classList.remove('pf-placeholder')"
+          style="opacity:0;transition:opacity .4s" onload="this.style.opacity=1">
+      </div>`;
+    }).join('');
+  } catch(e) { console.warn('portafolio', e.message); }
+}
+
+// ── LIGHTBOX ──
+function openLb(sede, idx) {
+  const urls = pfCache[sede];
+  if (!urls || !urls.length) return;
+  lbUrls = urls; lbIdx = idx;
+  const lb = document.getElementById('lb');
+  const img = document.getElementById('lbImg');
+  img.src = urls[idx];
+  document.getElementById('lbInfo').textContent = (idx + 1) + ' de ' + urls.length;
+  lb.classList.add('on');
+  document.body.style.overflow = 'hidden';
+}
+function closeLb() {
+  document.getElementById('lb').classList.remove('on');
+  document.body.style.overflow = '';
+}
+function lbNav(dir, e) {
+  e.stopPropagation();
+  lbIdx = (lbIdx + dir + lbUrls.length) % lbUrls.length;
+  document.getElementById('lbImg').src = lbUrls[lbIdx];
+  document.getElementById('lbInfo').textContent = (lbIdx + 1) + ' de ' + lbUrls.length;
+}
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('lb').classList.contains('on')) return;
+  if (e.key === 'Escape') closeLb();
+  if (e.key === 'ArrowRight') lbNav(1, e);
+  if (e.key === 'ArrowLeft') lbNav(-1, e);
+});
+
+// ── REVEAL ON SCROLL ──
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ── INIT ──
+loadPf('bogota');
+// Lazy-load other sedes on scroll
+const pfObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      ['barranquilla','villavicencio'].forEach(s => loadPortafolioSede(s));
+      pfObs.disconnect();
+    }
+  });
+}, { rootMargin: '300px' });
+const pfSection = document.getElementById('portafolio');
+if (pfSection) pfObs.observe(pfSection);
+
+// ── PORTAFOLIO TABS ──
+function pfSede(sede, btn) {
+  document.querySelectorAll('.pf-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.pf-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  const panel = document.getElementById('pfp-' + sede);
+  if (panel) panel.classList.add('active');
+  loadPortafolioSede(sede);
+}
+
+// ── PAQUETES TABS ──
+function paqSede(sede, btn) {
+  document.querySelectorAll('.paq-sede-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.paq-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  const panel = document.getElementById('paqp-' + sede);
+  if (panel) panel.classList.add('active');
+}
+
+// ── LIGHTBOX ──
+let lbSede = '', lbIdx = 0;
+function lbOpen(sede, idx) {
+  const urls = pfCache[sede] || [];
+  if (!urls.length) return;
+  lbSede = sede; lbIdx = idx;
+  const lb = document.getElementById('lb');
+  document.getElementById('lbImg').innerHTML = '<img src="' + urls[idx] + '" style="max-width:90vw;max-height:85vh;object-fit:contain;">';
+  document.getElementById('lbCounter').textContent = (idx + 1) + ' / ' + urls.length;
+  lb.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function lbClose() {
+  document.getElementById('lb').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function lbNav(dir, e) {
+  e.stopPropagation();
+  const urls = pfCache[lbSede] || [];
+  if (!urls.length) return;
+  lbIdx = (lbIdx + dir + urls.length) % urls.length;
+  document.getElementById('lbImg').innerHTML = '<img src="' + urls[lbIdx] + '" style="max-width:90vw;max-height:85vh;object-fit:contain;">';
+  document.getElementById('lbCounter').textContent = (lbIdx + 1) + ' / ' + urls.length;
+}
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('lb').classList.contains('open')) return;
+  if (e.key === 'Escape') lbClose();
+  if (e.key === 'ArrowRight') lbNav(1, {stopPropagation:()=>{}});
+  if (e.key === 'ArrowLeft') lbNav(-1, {stopPropagation:()=>{}});
+});
+</script>
+</body>
+</html>
